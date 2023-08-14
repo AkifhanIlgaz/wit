@@ -1,0 +1,7 @@
+{
+  "name": "wit",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
