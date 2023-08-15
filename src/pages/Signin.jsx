@@ -1,10 +1,19 @@
 import { IonButton, IonCardContent, IonCol, IonIcon, IonInput, IonRow } from '@ionic/react'
-import { personCircleOutline } from 'ionicons/icons'
+import { logoGoogle, logoTwitter, personCircleOutline } from 'ionicons/icons'
 import NotAuthorized from '../layouts/NotAuthorized'
 
 export const SignIn = () => {
 	return (
 		<NotAuthorized>
+			<div className="ion-text-center">
+				<IonButton>
+					<IonIcon icon={logoGoogle}></IonIcon>
+				</IonButton>
+				<IonButton>
+					<IonIcon icon={logoTwitter}></IonIcon>
+				</IonButton>
+			</div>
+
 			<IonCardContent className="card-content">
 				<IonRow className="ion-align-items-center">
 					<IonCol className="ion-no-padding">
@@ -20,9 +29,10 @@ export const SignIn = () => {
 					<span>{'Sign Up'}</span>
 					<IonIcon icon={personCircleOutline} slot="end"></IonIcon>
 				</IonButton>
-				<IonRow className="ion-text-center">
+				<IonRow className="ion-align-items-space">
 					<IonCol>
-						<a style={{ textDecoration: 'none', color: 'white', fontSize: '12px' }}>{'Already have an account?'}</a>
+						<a style={{ textDecoration: 'none', color: 'black', fontSize: '12px' }}>Already have an account ?</a>
+						<a style={{ textDecoration: 'none', color: 'black', fontSize: '12px' }}>Forgot password ?</a>
 					</IonCol>
 				</IonRow>
 			</IonCardContent>

@@ -21,8 +21,8 @@ import '@ionic/react/css/text-transformation.css'
 import React from 'react'
 import { Redirect, Route } from 'react-router'
 import SignIn from './pages/Signin'
+import './theme/style.scss'
 import './theme/variables.css'
-
 setupIonicReact()
 
 const App = () => (
