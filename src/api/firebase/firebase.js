@@ -23,6 +23,38 @@ class Firebase {
 		this.githubProvider = new firebase.auth.GithubAuthProvider()
 	}
 
+	async sendVerificationCode(phoneNumber) {
+		try {
+			const phoneAuthProvider = new firebase.auth.PhoneAuthProvider()
+			const appVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container')
+			const verificationId = await phoneAuthProvider.verifyPhoneNumber(phoneNumber, appVerifier)
+			return verificationId
+		} catch (error) {
+			throw error
+		}
+	}
+
+	async signUpWithPhone(verificationId, verificationCode, userData) {
+		try {
+			const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode)
+			const user = (await this.auth.signInWithCredential(credential)).user
+			userData = await this.insertUser({ ...userData, ...user }, user.providerId)
+			return userData
+		} catch (error) {
+			throw error
+		}
+	}
+
+	async signInWithPhone(verificationId, verificationCode) {
+		try {
+			const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode)
+			const user = (await this.auth.signInWithCredential(credential)).user
+			return await this.insertUser(user, user.providerId)
+		} catch (error) {
+			throw error
+		}
+	}
+
 	async signInWithThirdPartyProvider(provider) {
 		try {
 			const res = await this.auth.signInWithPopup(provider)
@@ -60,9 +92,7 @@ class Firebase {
 
 	async signUpWithEmail(email, password, userData) {
 		try {
-			console.log('sign up with email')
 			const userExists = await this.checkUserExistsByEMail(email)
-			console.log('user exists', userExists)
 			if (userExists) {
 				return false
 			} else {
