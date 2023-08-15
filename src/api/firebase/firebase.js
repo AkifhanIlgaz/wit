@@ -20,6 +20,7 @@ class Firebase {
 		this.googleProvider = new firebase.auth.GoogleAuthProvider()
 		this.twitterProvider = new firebase.auth.TwitterAuthProvider()
 		this.facebookProvider = new firebase.auth.FacebookAuthProvider()
+		this.githubProvider = new firebase.auth.GithubAuthProvider()
 	}
 
 	async signInWithThirdPartyProvider(provider) {
@@ -31,7 +32,7 @@ class Firebase {
 		}
 	}
 
-	async insertUser(userData, providerId) {
+	async insertUser(userData, providerId = 'firebase') {
 		try {
 			userData = userData.multiFactor.user
 			const userDoc = await this.firestore.collection(UsersCollection).doc(userData.uid).get()
