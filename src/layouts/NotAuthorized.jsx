@@ -10,12 +10,14 @@ export const NotAuthorized = ({ onSubmit, children }) => {
 					<IonGrid className="ion-align-items-center ion-justify-content-center ion-height">
 						<IonRow className="ion-align-items-center ion-justify-content-center ion-height">
 							<IonCol size="12" size-md="8" size-lg="4">
-								<IonCard className="ion-transparent">
+								<IonCard className="ion-transparent ion-no-padding">
 									<img
 										src={logo}
 										alt="logo"
 										style={{
-											width: '95%'
+											width: '75%',
+											marginLeft: '10%',
+											marginBottom: '0'
 										}}
 									/>
 									{children}

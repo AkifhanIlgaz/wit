@@ -1,15 +1,18 @@
 import { IonButton, IonCardContent, IonCol, IonIcon, IonInput, IonRow } from '@ionic/react'
 import { logoGoogle, logoTwitter, personCircleOutline } from 'ionicons/icons'
+import { useHistory } from 'react-router'
 import NotAuthorized from '../layouts/NotAuthorized'
 
 export const SignIn = () => {
+	const history = useHistory()
+
 	return (
 		<NotAuthorized>
 			<div className="ion-text-center">
-				<IonButton>
+				<IonButton color={'dark'}>
 					<IonIcon icon={logoGoogle}></IonIcon>
 				</IonButton>
-				<IonButton>
+				<IonButton color={'dark'}>
 					<IonIcon icon={logoTwitter}></IonIcon>
 				</IonButton>
 			</div>
@@ -25,14 +28,20 @@ export const SignIn = () => {
 						<IonInput label={'Password'} type="password" labelPlacement="floating" className="ion-padding-start ion-padding-end ion-margin-top ion-input" />
 					</IonCol>
 				</IonRow>
-				<IonButton className="ion-margin-top " type="submit" expand="block" color="secondary">
+				<IonButton className="ion-margin-top ion-margin-bottom" type="submit" expand="block" color="dark">
 					<span>{'Sign Up'}</span>
 					<IonIcon icon={personCircleOutline} slot="end"></IonIcon>
 				</IonButton>
-				<IonRow className="ion-align-items-space">
+				<IonRow>
 					<IonCol>
-						<a style={{ textDecoration: 'none', color: 'black', fontSize: '12px' }}>Already have an account ?</a>
-						<a style={{ textDecoration: 'none', color: 'black', fontSize: '12px' }}>Forgot password ?</a>
+						<a onClick={() => history.push('/signup')} className="ion-float-left" style={{ textDecoration: 'none', color: 'grey', fontSize: '12px' }}>
+							Don't have an account ?
+						</a>
+					</IonCol>
+					<IonCol>
+						<a onClick={() => history.push('/forgot-password')} className="ion-float-right" style={{ textDecoration: 'none', color: 'grey', fontSize: '12px' }}>
+							Forgot password ?
+						</a>
 					</IonCol>
 				</IonRow>
 			</IonCardContent>

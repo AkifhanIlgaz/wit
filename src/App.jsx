@@ -20,7 +20,8 @@ import '@ionic/react/css/text-transformation.css'
 /* Theme variables */
 import React from 'react'
 import { Redirect, Route } from 'react-router'
-import SignIn from './pages/Signin'
+import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
 import './theme/style.scss'
 import './theme/variables.css'
 setupIonicReact()
@@ -34,6 +35,9 @@ const App = () => (
 				</Route>
 				<Route path={'/signin'}>
 					<SignIn />
+				</Route>
+				<Route path={'/signup'}>
+					<SignUp />
 				</Route>
 			</IonRouterOutlet>
 		</IonReactRouter>
