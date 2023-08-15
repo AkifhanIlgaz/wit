@@ -1,10 +1,15 @@
 import { IonButton, IonCardContent, IonCol, IonIcon, IonInput, IonRow } from '@ionic/react'
 import { logoGoogle, logoTwitter, personCircleOutline } from 'ionicons/icons'
+import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router'
+import { useRecoilState } from 'recoil'
+import userState from '../atoms/user'
 import NotAuthorized from '../layouts/NotAuthorized'
 
 export const SignIn = () => {
 	const history = useHistory()
+	const [user, setUser] = useRecoilState(userState)
+	const { register, handleSubmit } = useForm()
 
 	return (
 		<NotAuthorized>

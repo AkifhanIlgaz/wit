@@ -4,24 +4,22 @@ import 'firebase/compat/firestore'
 import 'firebase/compat/storage'
 import firebaseConfig from './firebaseConfig'
 
-firebase.initializeApp(firebaseConfig)
-
 export const UsersCollection = 'users'
 
 export function addIdToken(url, token) {
 	return `${url}?token=${encodeURIComponent(token)}`
 }
 
+firebase.initializeApp(firebaseConfig)
+
 class Firebase {
 	constructor() {
 		this.auth = firebase.auth()
-		this.googleProvider = new firebase.auth.GoogleAuthProvider().setCustomParameters({
-			prompt: 'select_account'
-		})
-		this.twitterProvider = new firebase.auth.TwitterAuthProvider()
-		this.facebookProvider = new firebase.auth.FacebookAuthProvider()
 		this.firestore = firebase.firestore()
 		this.storage = firebase.storage()
+		this.googleProvider = new firebase.auth.GoogleAuthProvider()
+		this.twitterProvider = new firebase.auth.TwitterAuthProvider()
+		this.facebookProvider = new firebase.auth.FacebookAuthProvider()
 	}
 
 	async signInWithThirdPartyProvider(provider) {
@@ -61,7 +59,9 @@ class Firebase {
 
 	async signUpWithEmail(email, password, userData) {
 		try {
+			console.log('sign up with email')
 			const userExists = await this.checkUserExistsByEMail(email)
+			console.log('user exists', userExists)
 			if (userExists) {
 				return false
 			} else {
@@ -70,6 +70,7 @@ class Firebase {
 				return userData
 			}
 		} catch (error) {
+			console.log(error)
 			throw error
 		}
 	}
