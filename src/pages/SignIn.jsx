@@ -1,6 +1,5 @@
 import { IonButton, IonCardContent, IonCol, IonIcon, IonInput, IonLabel, IonRow } from '@ionic/react'
 import { logoGithub, logoGoogle, logoTwitter, personCircleOutline } from 'ionicons/icons'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
@@ -9,11 +8,8 @@ import userState from '../atoms/user'
 import NotAuthorized from '../layouts/NotAuthorized'
 
 export const SignIn = () => {
-	const [phone, setPhone] = useState()
 	const firebase = new Firebase()
 	const history = useHistory()
-	const [verificationId, setVerificationId] = useState()
-	const [code, setCode] = useState()
 	const [user, setUser] = useRecoilState(userState)
 	const {
 		register,
@@ -83,51 +79,6 @@ export const SignIn = () => {
 						)}
 					</IonCol>
 				</IonRow>
-
-				<IonRow className="ion-align-items-center">
-					<IonCol className="ion-no-padding">
-						<IonInput
-							onIonInput={e => {
-								setPhone(e.detail.value)
-							}}
-							label={'Phone'}
-							type="tel"
-							labelPlacement="floating"
-							className="ion-padding-start ion-padding-end ion-margin-top ion-input"
-						/>
-					</IonCol>
-				</IonRow>
-				<div id="recaptcha-container"></div>
-				<IonButton
-					onClick={async () => {
-						const verId = await firebase.sendVerificationCode(phone)
-						setVerificationId(verId)
-					}}
-				>
-					Send code
-				</IonButton>
-
-				<IonRow className="ion-align-items-center">
-					<IonCol className="ion-no-padding">
-						<IonInput
-							onIonInput={e => {
-								setCode(e.detail.value)
-							}}
-							label={'Code'}
-							type="number"
-							labelPlacement="floating"
-							className="ion-padding-start ion-padding-end ion-margin-top ion-input"
-						/>
-					</IonCol>
-				</IonRow>
-				<IonButton
-					onClick={async () => {
-						const res = await firebase.signUpWithPhone(verificationId, code)
-						console.log(res)
-					}}
-				>
-					Verify Code
-				</IonButton>
 
 				<IonButton className="ion-margin-top ion-margin-bottom" type="submit" expand="block" color="dark">
 					<span>{'Sign Up'}</span>

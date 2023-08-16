@@ -20,6 +20,8 @@ import '@ionic/react/css/text-transformation.css'
 /* Theme variables */
 import React from 'react'
 import { Redirect, Route } from 'react-router'
+import Home from './pages/Home'
+import Photo from './pages/Photo'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import './theme/style.scss'
@@ -38,6 +40,12 @@ const App = () => (
 				</Route>
 				<Route path={'/signup'}>
 					<SignUp />
+				</Route>
+				<Route path={'/home'}>
+					<Home />
+				</Route>
+				<Route path={'/photo'}>
+					<Photo />
 				</Route>
 			</IonRouterOutlet>
 		</IonReactRouter>
