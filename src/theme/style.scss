@@ -55,3 +55,12 @@
 .place-holder {
 	color: #a9a9a9;
 }
+
+.popup {
+	display: none;
+	position: absolute;
+	border: 1px solid #333;
+	background-color: #fff;
+	padding: 10px;
+	z-index: 1000;
+}

@@ -44,7 +44,7 @@ const App = () => (
 				<Route path={'/home'}>
 					<Home />
 				</Route>
-				<Route path={'/photo'}>
+				<Route exact path={'/photo'}>
 					<Photo />
 				</Route>
 			</IonRouterOutlet>
