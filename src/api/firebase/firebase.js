@@ -5,6 +5,7 @@ import 'firebase/compat/storage'
 import firebaseConfig from './firebaseConfig'
 
 export const UsersCollection = 'users'
+export const OutfitsCollection = 'outfits'
 
 export function addIdToken(url, token) {
 	return `${url}?token=${encodeURIComponent(token)}`
