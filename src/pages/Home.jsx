@@ -10,6 +10,7 @@ const Home = () => {
 	const [downloadURL, setDownloadURL] = useState('')
 	const upload = useRef()
 	const { register, handleSubmit } = useForm()
+	const links = []
 
 	const firebase = new Firebase()
 
@@ -23,8 +24,6 @@ const Home = () => {
 		}
 	}
 
-	ImageBitmap
-
 	const click = () => {
 		upload.current.click()
 	}
@@ -36,26 +35,14 @@ const Home = () => {
 		})
 	}
 
-	const areas = document.querySelectorAll('area')
-	areas.forEach(area => {
-		area.addEventListener('mouseover', e => {
-			e.preventDefault()
-			// Create the popup element
-			let popup = document.createElement('div')
-			popup.classList.add('popup')
-			popup.innerText = area.dataset.popupContent
-			console.log(area.dataset.popupContent)
-			// Position the popup based on mouse coordinates
-			popup.style.left = e.pageX + 'px'
-			popup.style.top = e.pageY + 'px'
-
-			// Add to body and remove on mouseout
-			document.body.appendChild(popup)
-			area.addEventListener('mouseout', () => {
-				popup.remove()
-			})
-		})
-	})
+	const addOutfit = async () => {
+		const data = {
+			uid: user.uid,
+			photoURL: downloadURL,
+			links: links
+		}
+		const res = await firebase.addDocument('outfits', data)
+	}
 
 	return downloadURL === '' ? (
 		<IonPage>
@@ -71,15 +58,24 @@ const Home = () => {
 			<img
 				src={downloadURL}
 				style={{
-					width: '100%',
-					height: '100%'
+					width: '100vw',
+					height: '100vh'
 				}}
 				useMap="#photo"
+				onClick={e => {
+					const rect = e.currentTarget.getBoundingClientRect()
+					const x = (e.pageX / rect.width) * 100
+					const y = (e.pageY / rect.height) * 100
+					links.push({
+						left: `${x}%`,
+						top: `${y}%`,
+						link: links.length + 'Zoz',
+						info: 'sdflksdfşl'
+					})
+				}}
 			/>
 
-			<map name="photo">
-				<area shape="circle" coords="195,422,10" target="_blank" title="Region 1" data-popup-content="Content for Region 1" />
-			</map>
+			<IonButton onClick={addOutfit}>Add Outfit</IonButton>
 		</IonPage>
 	)
 }
