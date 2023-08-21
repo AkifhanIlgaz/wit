@@ -1,8 +1,11 @@
 import { IonButton, IonPage } from '@ionic/react'
+import axios from 'axios'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 import Firebase from '../api/firebase/firebase'
+import Link from '../api/models/link'
+import Outfit from '../api/models/outfit'
 import userState from '../atoms/user'
 
 const Home = () => {
@@ -11,7 +14,7 @@ const Home = () => {
 	const upload = useRef()
 	const { register, handleSubmit } = useForm()
 	const links = []
-
+	const url = 'http://7763-212-154-67-214.ngrok-free.app/add'
 	const firebase = new Firebase()
 
 	const handleFileUpload = async e => {
@@ -35,13 +38,12 @@ const Home = () => {
 		})
 	}
 
+	logIdToken()
+
 	const addOutfit = async () => {
-		const data = {
-			uid: user.uid,
-			photoURL: downloadURL,
-			links: links
-		}
-		const res = await firebase.addDocument('outfits', data)
+		const outfit = new Outfit('', downloadURL, links)
+		console.log(outfit)
+		const res = await axios.post(url, outfit)
 	}
 
 	return downloadURL === '' ? (
@@ -66,12 +68,7 @@ const Home = () => {
 					const rect = e.currentTarget.getBoundingClientRect()
 					const x = (e.pageX / rect.width) * 100
 					const y = (e.pageY / rect.height) * 100
-					links.push({
-						left: `${x}%`,
-						top: `${y}%`,
-						link: links.length + 'Zoz',
-						info: 'sdflksdfşl'
-					})
+					links.push(new Link('sdşfkşsdlf', links.length + 'Zoz', `${x}%`, `${y}%`))
 				}}
 			/>
 

@@ -1,9 +1,15 @@
 export class Link {
-	constructor(title, url, x, y) {
+	constructor(title, href, left, top) {
 		this.title = title
-		this.url = url
-		this.x = x
-		this.y = y
+		this.href = href
+		this.position = new Position(left, top)
+	}
+}
+
+class Position {
+	constructor(left, top) {
+		this.left = left
+		this.top = top
 	}
 }
 
