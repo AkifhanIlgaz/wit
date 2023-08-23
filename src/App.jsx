@@ -20,36 +20,44 @@ import '@ionic/react/css/text-transformation.css'
 /* Theme variables */
 import React from 'react'
 import { Redirect, Route } from 'react-router'
-import Home from './pages/Home'
-import Photo from './pages/Photo'
+import { useRecoilValue } from 'recoil'
+import userState from './atoms/user'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import './theme/style.scss'
 import './theme/variables.css'
 setupIonicReact()
 
-const App = () => (
-	<IonApp>
-		<IonReactRouter>
-			<IonRouterOutlet>
-				<Route path={'/'}>
-					<Redirect to={'/signin'}></Redirect>
-				</Route>
-				<Route path={'/signin'}>
-					<SignIn />
-				</Route>
-				<Route path={'/signup'}>
-					<SignUp />
-				</Route>
-				<Route path={'/home'}>
-					<Home />
-				</Route>
-				<Route exact path={'/photo'}>
-					<Photo />
-				</Route>
-			</IonRouterOutlet>
-		</IonReactRouter>
-	</IonApp>
-)
+const App = () => {
+	const user = useRecoilValue(userState)
+
+	return (
+		<IonApp>
+			<IonReactRouter>
+				<IonRouterOutlet>
+					{user ? (
+						<>
+							<Route path={['/', '/signin', '/signup', '/password-reset', "/forgot-password"]} exact={true}>
+								<Redirect to="/home"></Redirect>
+							</Route>
+						</>
+					) : (
+						<>
+							<Route path={'/'}>
+								<Redirect to={'/signin'}></Redirect>
+							</Route>
+							<Route path={'/signin'}>
+								<SignIn />
+							</Route>
+							<Route path={'/signup'}>
+								<SignUp />
+							</Route>
+						</>
+					)}
+				</IonRouterOutlet>
+			</IonReactRouter>
+		</IonApp>
+	)
+}
 
 export default App
