@@ -1,4 +1,4 @@
-const ProfileHeaderBox = ({ boxInfo }) => {
+const AnalyticsBox = ({ boxInfo }) => {
 	return (
 		<span className="box ion-padding">
 			<span className="count">{boxInfo.count}</span>
@@ -7,4 +7,4 @@ const ProfileHeaderBox = ({ boxInfo }) => {
 	)
 }
 
-export default ProfileHeaderBox
+export default AnalyticsBox
