@@ -22,6 +22,7 @@ import React from 'react'
 import { Redirect, Route } from 'react-router'
 import { useRecoilValue } from 'recoil'
 import userState from './atoms/user'
+import Profile from './pages/Profile'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import './theme/style.scss'
@@ -37,9 +38,10 @@ const App = () => {
 				<IonRouterOutlet>
 					{user ? (
 						<>
-							<Route path={['/', '/signin', '/signup', '/password-reset', "/forgot-password"]} exact={true}>
+							<Route path={['/', '/signin', '/signup', '/password-reset', '/forgot-password']} exact={true}>
 								<Redirect to="/home"></Redirect>
 							</Route>
+							<Route exact path={'/profile/:id'} render={() => <Profile />} />
 						</>
 					) : (
 						<>
