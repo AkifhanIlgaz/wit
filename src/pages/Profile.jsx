@@ -29,7 +29,12 @@ const Profile = () => {
 
 	return (
 		<Authorized>
-			<IonGrid>
+			<IonGrid
+				style={{
+					paddingLeft: '0',
+					paddingRight: '0'
+				}}
+			>
 				<ProfileHeader header={userInfo.header} />
 				<ProfileAnalytics analytics={userInfo.analytics} />
 			</IonGrid>

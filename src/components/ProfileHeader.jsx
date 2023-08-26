@@ -3,7 +3,7 @@ import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 
 const ProfileHeader = ({ header }) => {
 	return (
-		<IonRow className="ion-align-items-center ion-justify-content-center">
+		<IonRow className="ion-align-items-center ion-justify-content-center ion-margin-top">
 			<IonCol
 				push=".4"
 				size="4"
