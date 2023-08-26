@@ -1,11 +1,11 @@
-import { IonCol, IonGrid, IonRow } from '@ionic/react'
+import { IonButton, IonCol, IonGrid, IonRow } from '@ionic/react'
 import ProfileHeaderBox from '../components/UserInfoBox'
 import profilePhoto from '../images/profilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
 const Profile = () => {
 	const userInfo = {
-		userName: 'Zozak Mumu',
+		userName: 'gayesuakyol',
 		followers: {
 			title: 'Followers',
 			count: 77
@@ -23,23 +23,40 @@ const Profile = () => {
 	return (
 		<Authorized>
 			<IonGrid>
-				{/* <IonRow
-					style={{
-						height: '10vh'
-					}}
-					className="ion-align-items-center ion-justify-content-center"
-				>
+				<IonRow className="ion-align-items-center ion-justify-content-center">
 					<IonCol
+						push=".4"
+						size="4"
 						style={{
-							textAlign: 'center'
+							paddingBottom: '0px',
+							paddingTop: '0px'
 						}}
 					>
 						<img src={profilePhoto} alt="User Profile Photo" className="profile-photo" />
-						<div>
-							<span>{userInfo.userName}</span>
+					</IonCol>
+					<IonCol pull=".4" size="7">
+						<span className="username ion-no-margin">{userInfo.userName} </span>
+						<div
+							style={{
+								paddingTop: '5px'
+							}}
+						>
+							<IonButton
+								size="small"
+								color={'button-background'}
+								className="button-text "
+								style={{
+									marginRight: '5px'
+								}}
+							>
+								<span>Takip Et</span>
+							</IonButton>
+							<IonButton size="small" color={'button-background'} className="button-text">
+								Mesaj Gönder
+							</IonButton>
 						</div>
 					</IonCol>
-				</IonRow> */}
+				</IonRow>
 				<IonRow className="ion-align-items-center ion-justify-content-space-around ">
 					<IonCol
 						size="12"
