@@ -1,4 +1,5 @@
-import { IonGrid } from '@ionic/react'
+import { IonButton, IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react'
+import { appsSharp, bookmarkSharp } from 'ionicons/icons'
 import Posts from '../components/Posts'
 import ProfileAnalytics from '../components/ProfileAnalytics'
 import ProfileHeader from '../components/ProfileHeader'
@@ -33,13 +34,44 @@ const Profile = () => {
 			<IonGrid
 				style={{
 					paddingLeft: '0',
-					paddingRight: '0'
+					paddingRight: '0',
+					paddingBottom: '0'
 				}}
 			>
 				<ProfileHeader header={userInfo.header} />
 				<ProfileAnalytics analytics={userInfo.analytics} />
 			</IonGrid>
 			{/* TODO: Use infinite scroll */}
+
+			<IonGrid className="ion-no-padding">
+				<IonRow className="ion-align-items-center ion-justify-content-center">
+					<IonCol
+						className="ion-no-padding"
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center'
+						}}
+					>
+						<IonButton color={'transparent'}>
+							<IonIcon icon={appsSharp} color="medium"></IonIcon>
+						</IonButton>
+					</IonCol>
+					<IonCol
+						className="ion-no-padding"
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center'
+						}}
+					>
+						<IonButton color={'transparent'}>
+							<IonIcon icon={bookmarkSharp} color="primary"></IonIcon>
+						</IonButton>
+					</IonCol>
+				</IonRow>
+			</IonGrid>
+
 			<Posts />
 		</Authorized>
 	)
