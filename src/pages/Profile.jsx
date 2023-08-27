@@ -1,4 +1,5 @@
 import { IonGrid } from '@ionic/react'
+import Posts from '../components/Posts'
 import ProfileAnalytics from '../components/ProfileAnalytics'
 import ProfileHeader from '../components/ProfileHeader'
 import Authorized from '../layouts/Authorized'
@@ -38,6 +39,8 @@ const Profile = () => {
 				<ProfileHeader header={userInfo.header} />
 				<ProfileAnalytics analytics={userInfo.analytics} />
 			</IonGrid>
+			{/* TODO: Use infinite scroll */}
+			<Posts />
 		</Authorized>
 	)
 }
