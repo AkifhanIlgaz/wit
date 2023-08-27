@@ -1,16 +1,12 @@
-import { IonButton, IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react'
-import { appsOutline, bookmark, bookmarks, bookmarksOutline } from 'ionicons/icons'
+import { IonGrid } from '@ionic/react'
 import { useState } from 'react'
+import PostTabs from '../components/PostTabs'
 import Posts from '../components/Posts'
 import ProfileAnalytics from '../components/ProfileAnalytics'
 import ProfileHeader from '../components/ProfileHeader'
 import defaultPostPhoto from '../images/defaultPostPhoto.jpg'
 import defaultSavedPhoto from '../images/defaultSavedPhoto.jpg'
 import Authorized from '../layouts/Authorized'
-
-const iconColor = selectedTab => {
-	return selectedTab === 'saved' ? 'primary' : 'medium'
-}
 
 const Profile = () => {
 	const [selectedTab, setSelectedTab] = useState('posts')
@@ -45,38 +41,7 @@ const Profile = () => {
 				<ProfileHeader header={userInfo.header} />
 				<ProfileAnalytics analytics={userInfo.analytics} />
 			</IonGrid>
-			{/* TODO: Use infinite scroll */}
-			<IonGrid className="ion-no-padding">
-				<IonRow className="ion-align-items-center ion-justify-content-center">
-					<IonCol
-						className="ion-no-padding"
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center'
-						}}
-						onClick={() => setSelectedTab('posts')}
-					>
-						<IonButton color={'transparent'}>
-							<IonIcon icon={appsOutline} color={selectedTab === 'posts' ? 'tertiary' : 'medium'}></IonIcon>
-						</IonButton>
-					</IonCol>
-					<IonCol
-						className="ion-no-padding"
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center'
-						}}
-						onClick={() => setSelectedTab('saved')}
-					>
-						<IonButton color={'transparent'}>
-							<IonIcon icon={bookmarksOutline} color={selectedTab === 'saved' ? 'tertiary' : 'medium'}></IonIcon>
-						</IonButton>
-					</IonCol>
-				</IonRow>
-			</IonGrid>
-			{/* TODO: Make photos responsive */}
+			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 			<Posts photoUrl={selectedTab === 'saved' ? userInfo.savedPhoto : userInfo.postPhoto} />
 		</Authorized>
 	)
