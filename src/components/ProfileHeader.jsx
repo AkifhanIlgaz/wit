@@ -24,13 +24,13 @@ const ProfileHeader = ({ header }) => {
 					{header.isFollowed ? (
 						<IonButton
 							size="small"
-							color={'primary'}
+							color={'tertiary'}
 							className="button-text "
 							style={{
 								marginRight: '5px'
 							}}
 						>
-							<span>Followed</span>
+							<span>Following</span>
 						</IonButton>
 					) : (
 						<IonButton
