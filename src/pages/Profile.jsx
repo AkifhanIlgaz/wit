@@ -1,11 +1,19 @@
 import { IonButton, IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react'
-import { appsSharp, bookmarkSharp } from 'ionicons/icons'
+import { appsOutline, bookmark, bookmarks, bookmarksOutline } from 'ionicons/icons'
+import { useState } from 'react'
 import Posts from '../components/Posts'
 import ProfileAnalytics from '../components/ProfileAnalytics'
 import ProfileHeader from '../components/ProfileHeader'
+import defaultPostPhoto from '../images/defaultPostPhoto.jpg'
+import defaultSavedPhoto from '../images/defaultSavedPhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
+const iconColor = selectedTab => {
+	return selectedTab === 'saved' ? 'primary' : 'medium'
+}
+
 const Profile = () => {
+	const [selectedTab, setSelectedTab] = useState('posts')
 	const userInfo = {
 		header: {
 			userName: 'gayesuakyol',
@@ -26,23 +34,18 @@ const Profile = () => {
 				title: 'Posts',
 				count: 7
 			}
-		}
+		},
+		postPhoto: defaultPostPhoto,
+		savedPhoto: defaultSavedPhoto
 	}
 
 	return (
 		<Authorized>
-			<IonGrid
-				style={{
-					paddingLeft: '0',
-					paddingRight: '0',
-					paddingBottom: '0'
-				}}
-			>
+			<IonGrid className="ion-no-padding">
 				<ProfileHeader header={userInfo.header} />
 				<ProfileAnalytics analytics={userInfo.analytics} />
 			</IonGrid>
 			{/* TODO: Use infinite scroll */}
-
 			<IonGrid className="ion-no-padding">
 				<IonRow className="ion-align-items-center ion-justify-content-center">
 					<IonCol
@@ -52,9 +55,10 @@ const Profile = () => {
 							alignItems: 'center',
 							justifyContent: 'center'
 						}}
+						onClick={() => setSelectedTab('posts')}
 					>
 						<IonButton color={'transparent'}>
-							<IonIcon icon={appsSharp} color="medium"></IonIcon>
+							<IonIcon icon={appsOutline} color={selectedTab === 'posts' ? 'tertiary' : 'medium'}></IonIcon>
 						</IonButton>
 					</IonCol>
 					<IonCol
@@ -64,15 +68,16 @@ const Profile = () => {
 							alignItems: 'center',
 							justifyContent: 'center'
 						}}
+						onClick={() => setSelectedTab('saved')}
 					>
 						<IonButton color={'transparent'}>
-							<IonIcon icon={bookmarkSharp} color="primary"></IonIcon>
+							<IonIcon icon={bookmarksOutline} color={selectedTab === 'saved' ? 'tertiary' : 'medium'}></IonIcon>
 						</IonButton>
 					</IonCol>
 				</IonRow>
 			</IonGrid>
-
-			<Posts />
+			{/* TODO: Make photos responsive */}
+			<Posts photoUrl={selectedTab === 'saved' ? userInfo.savedPhoto : userInfo.postPhoto} />
 		</Authorized>
 	)
 }
