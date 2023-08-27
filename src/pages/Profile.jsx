@@ -4,8 +4,6 @@ import PostTabs from '../components/PostTabs'
 import Posts from '../components/Posts'
 import ProfileAnalytics from '../components/ProfileAnalytics'
 import ProfileHeader from '../components/ProfileHeader'
-import defaultPostPhoto from '../images/defaultPostPhoto.jpg'
-import defaultSavedPhoto from '../images/defaultSavedPhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
 const Profile = () => {
@@ -31,8 +29,8 @@ const Profile = () => {
 				count: 7
 			}
 		},
-		postPhoto: defaultPostPhoto,
-		savedPhoto: defaultSavedPhoto
+		posts: [{ photoUrl: 'http://dummyimage.com/300x449.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/400x123.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/384x309.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/244x157.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/327x305.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/302x361.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/229x258.png/5fa2dd/ffffff' }, { photoUrl: 'http://dummyimage.com/225x158.png/dddddd/000000' }, { photoUrl: 'http://dummyimage.com/416x406.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/182x113.png/ff4444/ffffff' }],
+		saved: [{ photoUrl: 'http://dummyimage.com/327x305.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/302x361.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/229x258.png/5fa2dd/ffffff' }, { photoUrl: 'http://dummyimage.com/225x158.png/dddddd/000000' }, { photoUrl: 'http://dummyimage.com/416x406.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/182x113.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/364x349.png/5fa2dd/ffffff' }, { photoUrl: 'http://dummyimage.com/500x215.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/300x449.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/400x123.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/384x309.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/244x157.png/cc0000/ffffff' }]
 	}
 
 	return (
@@ -42,7 +40,7 @@ const Profile = () => {
 				<ProfileAnalytics analytics={userInfo.analytics} />
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-			<Posts photoUrl={selectedTab === 'saved' ? userInfo.savedPhoto : userInfo.postPhoto} />
+			<Posts posts={selectedTab === 'saved' ? userInfo.saved : userInfo.posts} />
 		</Authorized>
 	)
 }
