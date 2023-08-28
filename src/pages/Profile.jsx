@@ -8,6 +8,7 @@ import Authorized from '../layouts/Authorized'
 
 const Profile = () => {
 	const [selectedTab, setSelectedTab] = useState('posts')
+
 	const userInfo = {
 		header: {
 			userName: 'gayesuakyol',
@@ -30,20 +31,20 @@ const Profile = () => {
 			}
 		},
 		posts: [
-			{ id: '64ec40bdfc13ae459dad21df', photoUrl: 'http://dummyimage.com/419x100.png/5fa2dd/ffffff' },
-			{ id: '64ec40bdfc13ae459dad21e0', photoUrl: 'http://dummyimage.com/325x100.png/5fa2dd/ffffff' },
-			{ id: '64ec40bdfc13ae459dad21e1', photoUrl: 'http://dummyimage.com/239x100.png/dddddd/000000' },
-			{ id: '64ec40bdfc13ae459dad21e2', photoUrl: 'http://dummyimage.com/309x100.png/5fa2dd/ffffff' },
-			{ id: '64ec40bdfc13ae459dad21e3', photoUrl: 'http://dummyimage.com/406x100.png/cc0000/ffffff' },
-			{ id: '64ec40bdfc13ae459dad21e4', photoUrl: 'http://dummyimage.com/363x100.png/ff4444/ffffff' }
+			{ id: '64ec502cfc13ae46c7ad21df', photoUrl: 'http://dummyimage.com/457x100.png/ff4444/ffffff', likeCount: 310 },
+			{ id: '64ec502cfc13ae46c7ad21e0', photoUrl: 'http://dummyimage.com/258x100.png/5fa2dd/ffffff', likeCount: 26 },
+			{ id: '64ec502cfc13ae46c7ad21e1', photoUrl: 'http://dummyimage.com/376x100.png/5fa2dd/ffffff', likeCount: 410 },
+			{ id: '64ec502cfc13ae46c7ad21e2', photoUrl: 'http://dummyimage.com/431x100.png/dddddd/000000', likeCount: 41 },
+			{ id: '64ec502cfc13ae46c7ad21e3', photoUrl: 'http://dummyimage.com/441x100.png/5fa2dd/ffffff', likeCount: 2546 },
+			{ id: '64ec502cfc13ae46c7ad21e4', photoUrl: 'http://dummyimage.com/291x100.png/5fa2dd/ffffff', likeCount: 1365 }
 		],
 		saved: [
-			{ id: '64ec40d8fc13ae7345ad21df', photoUrl: 'http://dummyimage.com/380x100.png/cc0000/ffffff' },
-			{ id: '64ec40d8fc13ae7345ad21e0', photoUrl: 'http://dummyimage.com/205x100.png/dddddd/000000' },
-			{ id: '64ec40d8fc13ae7345ad21e1', photoUrl: 'http://dummyimage.com/168x100.png/cc0000/ffffff' },
-			{ id: '64ec40d8fc13ae7345ad21e2', photoUrl: 'http://dummyimage.com/112x100.png/cc0000/ffffff' },
-			{ id: '64ec40d8fc13ae7345ad21e3', photoUrl: 'http://dummyimage.com/351x100.png/5fa2dd/ffffff' },
-			{ id: '64ec40d8fc13ae7345ad21e4', photoUrl: 'http://dummyimage.com/363x100.png/5fa2dd/ffffff' }
+			{ id: '64ec5057fc13ae44c7ad2211', photoUrl: 'http://dummyimage.com/269x100.png/dddddd/000000', likeCount: 4700 },
+			{ id: '64ec5057fc13ae44c7ad2212', photoUrl: 'http://dummyimage.com/471x100.png/5fa2dd/ffffff', likeCount: 3228 },
+			{ id: '64ec5057fc13ae44c7ad2213', photoUrl: 'http://dummyimage.com/441x100.png/ff4444/ffffff', likeCount: 12 },
+			{ id: '64ec5057fc13ae44c7ad2214', photoUrl: 'http://dummyimage.com/348x100.png/ff4444/ffffff', likeCount: 59 },
+			{ id: '64ec5057fc13ae44c7ad2215', photoUrl: 'http://dummyimage.com/318x100.png/5fa2dd/ffffff', likeCount: 223 },
+			{ id: '64ec5057fc13ae44c7ad2216', photoUrl: 'http://dummyimage.com/285x100.png/5fa2dd/ffffff', likeCount: 375 }
 		]
 	}
 
