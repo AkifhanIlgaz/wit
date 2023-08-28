@@ -29,8 +29,22 @@ const Profile = () => {
 				count: 7
 			}
 		},
-		posts: [{ photoUrl: 'http://dummyimage.com/300x449.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/400x123.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/384x309.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/244x157.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/327x305.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/302x361.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/229x258.png/5fa2dd/ffffff' }, { photoUrl: 'http://dummyimage.com/225x158.png/dddddd/000000' }, { photoUrl: 'http://dummyimage.com/416x406.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/182x113.png/ff4444/ffffff' }],
-		saved: [{ photoUrl: 'http://dummyimage.com/327x305.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/302x361.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/229x258.png/5fa2dd/ffffff' }, { photoUrl: 'http://dummyimage.com/225x158.png/dddddd/000000' }, { photoUrl: 'http://dummyimage.com/416x406.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/182x113.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/364x349.png/5fa2dd/ffffff' }, { photoUrl: 'http://dummyimage.com/500x215.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/300x449.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/400x123.png/cc0000/ffffff' }, { photoUrl: 'http://dummyimage.com/384x309.png/ff4444/ffffff' }, { photoUrl: 'http://dummyimage.com/244x157.png/cc0000/ffffff' }]
+		posts: [
+			{ id: '64ec40bdfc13ae459dad21df', photoUrl: 'http://dummyimage.com/419x100.png/5fa2dd/ffffff' },
+			{ id: '64ec40bdfc13ae459dad21e0', photoUrl: 'http://dummyimage.com/325x100.png/5fa2dd/ffffff' },
+			{ id: '64ec40bdfc13ae459dad21e1', photoUrl: 'http://dummyimage.com/239x100.png/dddddd/000000' },
+			{ id: '64ec40bdfc13ae459dad21e2', photoUrl: 'http://dummyimage.com/309x100.png/5fa2dd/ffffff' },
+			{ id: '64ec40bdfc13ae459dad21e3', photoUrl: 'http://dummyimage.com/406x100.png/cc0000/ffffff' },
+			{ id: '64ec40bdfc13ae459dad21e4', photoUrl: 'http://dummyimage.com/363x100.png/ff4444/ffffff' }
+		],
+		saved: [
+			{ id: '64ec40d8fc13ae7345ad21df', photoUrl: 'http://dummyimage.com/380x100.png/cc0000/ffffff' },
+			{ id: '64ec40d8fc13ae7345ad21e0', photoUrl: 'http://dummyimage.com/205x100.png/dddddd/000000' },
+			{ id: '64ec40d8fc13ae7345ad21e1', photoUrl: 'http://dummyimage.com/168x100.png/cc0000/ffffff' },
+			{ id: '64ec40d8fc13ae7345ad21e2', photoUrl: 'http://dummyimage.com/112x100.png/cc0000/ffffff' },
+			{ id: '64ec40d8fc13ae7345ad21e3', photoUrl: 'http://dummyimage.com/351x100.png/5fa2dd/ffffff' },
+			{ id: '64ec40d8fc13ae7345ad21e4', photoUrl: 'http://dummyimage.com/363x100.png/5fa2dd/ffffff' }
+		]
 	}
 
 	return (
