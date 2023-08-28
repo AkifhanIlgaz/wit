@@ -1,7 +1,7 @@
 import { IonGrid } from '@ionic/react'
-import Posts from '../components/Posts'
-import ProfileAnalytics from '../components/ProfileAnalytics'
-import ProfileHeader from '../components/ProfileHeader'
+import Posts from '../components/post/Posts'
+import ProfileAnalytics from '../components/profile/ProfileAnalytics'
+import ProfileHeader from '../components/profile/ProfileHeader'
 import Authorized from '../layouts/Authorized'
 
 const UserProfile = ({ userInfo }) => {

@@ -1,7 +1,7 @@
 import { IonAvatar, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonModal, IonTitle, IonToolbar } from '@ionic/react'
 import { chevronBackOutline } from 'ionicons/icons'
 import { Fragment, useState } from 'react'
-import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
+import defaultProfilePhoto from '../../images/defaultProfilePhoto.jpg'
 
 const AnalyticsBox = ({ boxInfo }) => {
 	const [isOpen, setIsOpen] = useState(false)
