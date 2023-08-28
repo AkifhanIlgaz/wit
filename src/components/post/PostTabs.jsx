@@ -10,7 +10,8 @@ const PostTabs = ({ selectedTab, setSelectedTab }) => {
 					style={{
 						display: 'flex',
 						alignItems: 'center',
-						justifyContent: 'center'
+						justifyContent: 'center',
+						borderTop: selectedTab === 'posts' && '2px solid grey'
 					}}
 					onClick={() => setSelectedTab('posts')}
 				>
@@ -23,7 +24,8 @@ const PostTabs = ({ selectedTab, setSelectedTab }) => {
 					style={{
 						display: 'flex',
 						alignItems: 'center',
-						justifyContent: 'center'
+						justifyContent: 'center',
+						borderTop: selectedTab === 'saved' && '2px solid grey'
 					}}
 					onClick={() => setSelectedTab('saved')}
 				>
