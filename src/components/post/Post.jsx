@@ -1,6 +1,7 @@
-import { IonButton, IonButtons, IonCol, IonGrid, IonHeader, IonIcon, IonRow, IonTitle, IonToolbar } from '@ionic/react'
-import { bookmark, bookmarkOutline, chatbubbleOutline, chevronBackOutline, heart, heartOutline, shareSocialOutline } from 'ionicons/icons'
+import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
+import { bookmark, bookmarkOutline, chatbubbleOutline, heart, heartOutline, shareSocialOutline } from 'ionicons/icons'
 import { Fragment, useState } from 'react'
+import ModalHeader from '../helper/ModalHeader'
 
 const Post = ({ setIsOpen, post }) => {
 	const [isSaved, setIsSaved] = useState(false)
@@ -11,16 +12,7 @@ const Post = ({ setIsOpen, post }) => {
 
 	return (
 		<Fragment>
-			<IonHeader>
-				<IonToolbar>
-					<IonButtons slot="start">
-						<IonButton onClick={() => setIsOpen(false)}>
-							<IonIcon icon={chevronBackOutline}></IonIcon>
-						</IonButton>
-					</IonButtons>
-					<IonTitle>Wear It Tomorrow</IonTitle>
-				</IonToolbar>
-			</IonHeader>
+			<ModalHeader setIsOpen={setIsOpen} />
 			<IonGrid className="ion-height ion-no-padding ion-no-margin">
 				<IonRow className="ion-height">
 					<IonCol>

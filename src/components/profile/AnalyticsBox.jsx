@@ -1,10 +1,19 @@
-import { IonAvatar, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonModal, IonTitle, IonToolbar } from '@ionic/react'
-import { chevronBackOutline } from 'ionicons/icons'
+import { IonButton, IonContent, IonList, IonModal } from '@ionic/react'
 import { Fragment, useState } from 'react'
+import profilePhoto1 from '../../images/defaultPostPhoto.jpg'
 import defaultProfilePhoto from '../../images/defaultProfilePhoto.jpg'
+import profilePhoto2 from '../../images/defaultSavedPhoto.jpg'
+import ModalHeader from '../helper/ModalHeader'
+import UserListItem from '../user/UserListItem'
 
 const AnalyticsBox = ({ boxInfo }) => {
 	const [isOpen, setIsOpen] = useState(false)
+
+	const mock = [
+		{ userName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ userName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ userName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
+	]
 
 	return (
 		<Fragment>
@@ -15,43 +24,12 @@ const AnalyticsBox = ({ boxInfo }) => {
 				</span>
 			</IonButton>
 			<IonModal isOpen={isOpen}>
-				<IonHeader
-					style={{
-						marginBottom: '.3em'
-					}}
-				>
-					<IonToolbar>
-						<IonButtons slot="start">
-							<IonButton onClick={() => setIsOpen(false)}>
-								<IonIcon icon={chevronBackOutline}></IonIcon>
-							</IonButton>
-						</IonButtons>
-						<IonTitle>Wear It Tomorrow</IonTitle>
-					</IonToolbar>
-				</IonHeader>
+				<ModalHeader setIsOpen={setIsOpen} />
 				<IonContent>
 					<IonList className="ion-align-items" lines="full">
-						<IonItem>
-							<IonAvatar slot="start">
-								<img src={defaultProfilePhoto} alt="" />
-							</IonAvatar>
-							<IonLabel>Gaye Su Akyol</IonLabel>
-							<IonButton slot="end">Follow</IonButton>
-						</IonItem>
-						<IonItem>
-							<IonAvatar slot="start">
-								<img src={defaultProfilePhoto} alt="" />
-							</IonAvatar>
-							<IonLabel>Gaye Su Akyol</IonLabel>
-							<IonButton slot="end">Follow</IonButton>
-						</IonItem>
-						<IonItem>
-							<IonAvatar slot="start">
-								<img src={defaultProfilePhoto} alt="" />
-							</IonAvatar>
-							<IonLabel>Gaye Su Akyol</IonLabel>
-							<IonButton slot="end">Follow</IonButton>
-						</IonItem>
+						{mock.map((userInfo, i) => {
+							return <UserListItem user={userInfo} key={i} />
+						})}
 					</IonList>
 				</IonContent>
 			</IonModal>
