@@ -1,6 +1,5 @@
 import { IonAvatar, IonItem, IonLabel } from '@ionic/react'
 import FollowButton from '../buttons/FollowButton'
-import FollowingButton from '../buttons/FollowingButton'
 
 const UserListItem = ({ user }) => {
 	return (
@@ -9,7 +8,7 @@ const UserListItem = ({ user }) => {
 				<img src={user.photoUrl} alt="" />
 			</IonAvatar>
 			<IonLabel>{user.userName}</IonLabel>
-			{user.isFollowed ? <FollowingButton /> : <FollowButton />}
+			<FollowButton isFollowed={user.isFollowed} />
 		</IonItem>
 	)
 }

@@ -22,7 +22,7 @@ const Posts = ({ posts }) => {
 				{postChunks.map((chunk, i) => {
 					return (
 						<IonRow key={i} className="ion-justify-content-center">
-							<IonCol pull="0.075">
+							<IonCol>
 								{chunk[0] && (
 									<img
 										src={chunk[0].photoUrl}
@@ -50,7 +50,7 @@ const Posts = ({ posts }) => {
 									/>
 								)}
 							</IonCol>
-							<IonCol push="0.075">
+							<IonCol>
 								{chunk[2] && (
 									<img
 										src={chunk[2].photoUrl}

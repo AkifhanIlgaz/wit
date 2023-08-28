@@ -1,7 +1,7 @@
 import { IonButton } from '@ionic/react'
 
-const FollowButton = () => {
-	return (
+const FollowButton = ({ isFollowed }) => {
+	return isFollowed ? (
 		<IonButton
 			size="small"
 			color={'button-background'}
@@ -11,6 +11,17 @@ const FollowButton = () => {
 			}}
 		>
 			<span>Follow</span>
+		</IonButton>
+	) : (
+		<IonButton
+			size="small"
+			color={'tertiary'}
+			className="button-text "
+			style={{
+				marginRight: '5px'
+			}}
+		>
+			<span>Following</span>
 		</IonButton>
 	)
 }

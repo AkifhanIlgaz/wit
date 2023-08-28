@@ -1,7 +1,6 @@
 import { IonCol, IonRow } from '@ionic/react'
 import DefaultButton from '../buttons/DefaultButton'
 import FollowButton from '../buttons/FollowButton'
-import FollowingButton from '../buttons/FollowingButton'
 import ProfilePhoto from './ProfilePhoto'
 
 const ProfileHeader = ({ header }) => {
@@ -15,7 +14,7 @@ const ProfileHeader = ({ header }) => {
 						paddingTop: '5px'
 					}}
 				>
-					{header.isFollowed ? <FollowingButton /> : <FollowButton />}
+					<FollowButton isFollowed={header.isFollowed} />
 					{!header.isSendMessageDisabled && <DefaultButton text={'Send Message'} />}
 				</div>
 			</IonCol>
