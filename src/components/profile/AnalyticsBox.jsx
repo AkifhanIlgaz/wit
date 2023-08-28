@@ -17,7 +17,7 @@ const AnalyticsBox = ({ boxInfo }) => {
 
 	return (
 		<Fragment>
-			<IonButton color={'transparent'} onClick={() => setIsOpen(true)}>
+			<IonButton color={'transparent'} onClick={() => setIsOpen(true)} className="ion-no-padding ion-no-margin">
 				<span className="box ion-padding">
 					<span className="count">{boxInfo.count}</span>
 					<span className="title">{boxInfo.title}</span>
