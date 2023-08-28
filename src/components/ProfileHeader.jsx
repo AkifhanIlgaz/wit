@@ -1,5 +1,8 @@
-import { IonButton, IonCol, IonRow } from '@ionic/react'
+import { IonCol, IonRow } from '@ionic/react'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
+import DefaultButton from './buttons/DefaultButton'
+import FollowButton from './buttons/FollowButton'
+import FollowingButton from './buttons/FollowingButton'
 
 const ProfileHeader = ({ header }) => {
 	return (
@@ -15,41 +18,15 @@ const ProfileHeader = ({ header }) => {
 				<img src={header.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
 			</IonCol>
 			<IonCol pull=".4" size="7">
-				<span className="username ion-no-margin">{header.userName} </span>
+				<span className="username ion-no-margin">{header.userName}</span>
 				<div
 					style={{
 						paddingTop: '5px'
 					}}
 				>
-					{header.isFollowed ? (
-						<IonButton
-							size="small"
-							color={'tertiary'}
-							className="button-text "
-							style={{
-								marginRight: '5px'
-							}}
-						>
-							<span>Following</span>
-						</IonButton>
-					) : (
-						<IonButton
-							size="small"
-							color={'button-background'}
-							className="button-text "
-							style={{
-								marginRight: '5px'
-							}}
-						>
-							<span>Follow</span>
-						</IonButton>
-					)}
+					{header.isFollowed ? <FollowingButton /> : <FollowButton />}
 
-					{!header.isSendMessageDisabled && (
-						<IonButton size="small" color={'button-background'} className="button-text">
-							Send Message
-						</IonButton>
-					)}
+					{!header.isSendMessageDisabled && <DefaultButton text={'Send Message'} />}
 				</div>
 			</IonCol>
 		</IonRow>

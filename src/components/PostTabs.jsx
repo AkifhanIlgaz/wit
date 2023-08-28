@@ -1,7 +1,7 @@
 import { IonButton, IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react'
 import { appsOutline, bookmarksOutline } from 'ionicons/icons'
 
-const PostTabs = ({selectedTab, setSelectedTab}) => {
+const PostTabs = ({ selectedTab, setSelectedTab }) => {
 	return (
 		<IonGrid className="ion-no-padding">
 			<IonRow className="ion-align-items-center ion-justify-content-center">

@@ -1,9 +1,10 @@
-import { IonButton, IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react'
+import { IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react'
 import { settingsOutline } from 'ionicons/icons'
 import { useState } from 'react'
 import PostTabs from '../components/PostTabs'
 import Posts from '../components/Posts'
 import ProfileAnalytics from '../components/ProfileAnalytics'
+import DefaultButton from '../components/buttons/DefaultButton'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
@@ -31,19 +32,10 @@ const MyProfile = ({ userInfo }) => {
 								paddingTop: '5px'
 							}}
 						>
-							<IonButton
-								style={{
-									marginRight: '5px'
-								}}
-								className="button-text"
-								color={'button-background'}
-								size="small"
-							>
-								Edit Profile
-							</IonButton>
-							<IonButton color={'button-background'} size="small">
+							<DefaultButton text={'Edit Profile'} />
+							<DefaultButton>
 								<IonIcon icon={settingsOutline}></IonIcon>
-							</IonButton>
+							</DefaultButton>
 						</div>
 					</IonCol>
 				</IonRow>
