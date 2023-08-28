@@ -41,7 +41,7 @@ const App = () => {
 							<Route path={['/', '/signin', '/signup', '/password-reset', '/forgot-password']} exact={true}>
 								<Redirect to="/home"></Redirect>
 							</Route>
-							<Route exact path={'/profile/:id'} render={() => <Profile />} />
+							<Route exact path={'/profile/:uid'} render={() => <Profile />} />
 						</>
 					) : (
 						<>

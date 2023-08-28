@@ -1,13 +1,12 @@
-import { IonGrid } from '@ionic/react'
-import { useState } from 'react'
-import PostTabs from '../components/PostTabs'
-import Posts from '../components/Posts'
-import ProfileAnalytics from '../components/ProfileAnalytics'
-import ProfileHeader from '../components/ProfileHeader'
-import Authorized from '../layouts/Authorized'
+import { useParams } from 'react-router'
+import { useRecoilValue } from 'recoil'
+import userState from '../atoms/user'
+import MyProfile from './MyProfile'
+import UserProfile from './UserProfile'
 
 const Profile = () => {
-	const [selectedTab, setSelectedTab] = useState('posts')
+	const { uid } = useParams()
+	const user = useRecoilValue(userState)
 
 	const userInfo = {
 		header: {
@@ -48,16 +47,7 @@ const Profile = () => {
 		]
 	}
 
-	return (
-		<Authorized>
-			<IonGrid className="ion-no-padding">
-				<ProfileHeader header={userInfo.header} />
-				<ProfileAnalytics analytics={userInfo.analytics} />
-			</IonGrid>
-			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-			<Posts posts={selectedTab === 'saved' ? userInfo.saved : userInfo.posts} />
-		</Authorized>
-	)
+	return user.uid === uid ? <MyProfile userInfo={userInfo} /> : <UserProfile userInfo={userInfo} />
 }
 
 export default Profile
