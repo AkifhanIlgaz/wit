@@ -26,6 +26,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 
 import ProfileRouter from './components/profile/ProfileRouter'
+import Post from './pages/Post'
 import './theme/style.scss'
 import './theme/variables.css'
 setupIonicReact()
@@ -42,7 +43,8 @@ const App = () => {
 							<Route path={['/', '/signin', '/signup', '/password-reset', '/forgot-password']} exact={true}>
 								<Redirect to="/home"></Redirect>
 							</Route>
-							<Route exact path={'/profile/:username'} render={() => <ProfileRouter />} />
+							<Route exact path={'/user/:username'} render={() => <ProfileRouter />} />
+							<Route exact path={'/posts/:postId'} render={() => <Post />} />
 						</>
 					) : (
 						<>

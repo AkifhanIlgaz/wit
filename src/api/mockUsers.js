@@ -295,3 +295,16 @@ const mockUsers = [
 export const getUserByUsername = username => {
 	return mockUsers.find(user => user.username === username)
 }
+
+export const getPostById = postId => {
+	for (const user of mockUsers) {
+		for (const post of user.posts) {
+			if (post.postId === postId) {
+				return {
+					...post,
+					username: user.username
+				}
+			}
+		}
+	}
+}
