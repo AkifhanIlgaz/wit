@@ -1,3 +1,55 @@
+class UserInfo {
+	/**
+	 *
+	 * @param {string} displayName
+	 * @param {string} username
+	 * @param {string} profilePhoto
+	 * @param {boolean} isFollowed
+	 * @param {boolean} isSendMessageDisabled
+	 * @param {number} followerCount
+	 * @param {number} followingCount
+	 * @param {Post[]} posts
+	 * @param {Post[]} saved
+	 */
+	constructor(displayName, username, profilePhoto, isFollowed, isSendMessageDisabled, followerCount, followingCount, posts, saved) {
+		this.displayName = displayName
+		this.username = username
+		this.profilePhoto = profilePhoto
+		this.isFollowed = isFollowed
+		this.isSendMessageDisabled = isSendMessageDisabled
+		this.followerCount = followerCount
+		this.followingCount = followingCount
+		this.posts = posts
+		this.saved = saved
+	}
+}
+
+class Post {
+	/**
+	 *
+	 * @param {string} postId
+	 * @param {string} username
+	 * @param {string} photoUrl
+	 * @param {number} likeCount
+	 * @param {boolean} isLiked
+	 * @param {boolean} isSaved
+	 * @param {[]Reply} replies
+	 * @param {Date} createdAt
+	 */
+	constructor(postId, username, photoUrl, likeCount, isLiked, isSaved, replies, createdAt) {
+		this.postId = postId
+		this.username = username
+		this.photoUrl = photoUrl
+		this.likeCount = likeCount
+		this.isLiked = isLiked
+		this.isSaved = isSaved
+		this.replies = replies
+		this.createdAt = createdAt
+	}
+}
+
+// TODO: Reply class
+
 const userInfo = {
 	userName: 'gayesuakyol',
 	profilePhoto: 'https://media.istockphoto.com/id/1419410282/tr/foto%C4%9Fraf/silent-forest-in-spring-with-beautiful-bright-sun-rays.jpg?s=612x612&w=0&k=20&c=5LYU9_3FnIq_J5-X2a64OgqObDsx-50mdeTv3Y1bM1g=',
