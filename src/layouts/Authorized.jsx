@@ -3,7 +3,7 @@ import { IonContent, IonPage } from '@ionic/react'
 export const Authorized = ({ children }) => {
 	return (
 		<IonPage>
-			<IonContent>{children}</IonContent>
+			<IonContent scrollY={false}>{children}</IonContent>
 		</IonPage>
 	)
 }

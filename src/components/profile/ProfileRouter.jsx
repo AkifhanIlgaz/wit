@@ -9,7 +9,6 @@ const ProfileRouter = () => {
 	// TODO: Get user info by username from mock data
 
 	const searchedUser = getUserByUsername(username)
-	console.log(searchedUser)
 	// TODO: Change condition to user.username == username
 	return username == 'gayesuakyol' ? <MyProfile userInfo={searchedUser} /> : <UserProfile userInfo={searchedUser} />
 }

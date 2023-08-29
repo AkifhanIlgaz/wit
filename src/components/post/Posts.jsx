@@ -1,5 +1,6 @@
 import { IonCol, IonGrid, IonModal, IonRow } from '@ionic/react'
 import { useState } from 'react'
+import { useHistory } from 'react-router'
 import Post from './Post'
 
 const splitIntoChunks = (arr, chunkSize) => {
@@ -12,6 +13,7 @@ const splitIntoChunks = (arr, chunkSize) => {
 
 const Posts = ({ posts }) => {
 	const postChunks = splitIntoChunks(posts, 3)
+	const history = useHistory()
 	const [isOpen, setIsOpen] = useState(false)
 	const [clickedPost, setClickedPost] = useState()
 	const pageWidth = document.body.clientWidth
@@ -30,8 +32,7 @@ const Posts = ({ posts }) => {
 										height={pageWidth / 3}
 										width={pageWidth / 3}
 										onClick={() => {
-											setClickedPost(chunk[0])
-											setIsOpen(true)
+											history.push(`/posts/${chunk[0].postId}`)
 										}}
 									/>
 								)}
