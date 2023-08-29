@@ -28,7 +28,6 @@ class Post {
 	/**
 	 *
 	 * @param {string} postId
-	 * @param {string} username
 	 * @param {string} photoUrl
 	 * @param {number} likeCount
 	 * @param {boolean} isLiked
@@ -36,9 +35,8 @@ class Post {
 	 * @param {[]Reply} replies
 	 * @param {Date} createdAt
 	 */
-	constructor(postId, username, photoUrl, likeCount, isLiked, isSaved, replies, createdAt) {
+	constructor(postId, photoUrl, likeCount, isLiked, isSaved, replies, createdAt) {
 		this.postId = postId
-		this.username = username
 		this.photoUrl = photoUrl
 		this.likeCount = likeCount
 		this.isLiked = isLiked
