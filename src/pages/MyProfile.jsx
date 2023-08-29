@@ -32,7 +32,7 @@ const MyProfile = ({ userInfo }) => {
 				<IonRow className="ion-align-items-center ion-justify-content-center ion-margin-top">
 					<ProfilePhoto photoUrl={userInfo.profilePhoto} />
 					<IonCol pull=".4" size="7">
-						<span className="username ion-no-margin">{userInfo.userName}</span>
+						<span className="username ion-no-margin">{userInfo.username}</span>
 						<div
 							style={{
 								paddingTop: '5px'

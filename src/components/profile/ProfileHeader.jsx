@@ -8,7 +8,7 @@ const ProfileHeader = ({ header }) => {
 		<IonRow className="ion-align-items-center ion-justify-content-center ion-margin-top">
 			<ProfilePhoto photoUrl={header.photoUrl} />
 			<IonCol pull=".4" size="7">
-				<span className="username ion-no-margin">{header.userName}</span>
+				<span className="username ion-no-margin">{header.username}</span>
 				<div
 					style={{
 						paddingTop: '5px'

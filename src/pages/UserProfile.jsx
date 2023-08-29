@@ -7,7 +7,7 @@ import Authorized from '../layouts/Authorized'
 const UserProfile = ({ userInfo }) => {
 	const header = {
 		photoUrl: userInfo.profilePhoto,
-		userName: userInfo.username,
+		username: userInfo.username,
 		isFollowed: userInfo.isFollowed,
 		isSendMessageDisabled: userInfo.isSendMessageDisabled
 	}
