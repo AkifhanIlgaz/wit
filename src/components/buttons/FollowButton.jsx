@@ -1,5 +1,5 @@
 import { IonButton, IonIcon } from '@ionic/react'
-import { add, checkmark } from 'ionicons/icons'
+import { checkmark } from 'ionicons/icons'
 import { useState } from 'react'
 
 const FollowButton = ({ isFollowed }) => {
@@ -15,7 +15,6 @@ const FollowButton = ({ isFollowed }) => {
 			}}
 			onClick={() => setStateIsFollowed(!stateIsFollowed)}
 		>
-			<IonIcon icon={add} slot="end"></IonIcon>
 			Follow
 		</IonButton>
 	) : (
