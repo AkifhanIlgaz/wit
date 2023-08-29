@@ -10,6 +10,22 @@ import Authorized from '../layouts/Authorized'
 
 const MyProfile = ({ userInfo }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
+
+	const analytics = {
+		followers: {
+			title: 'Followers',
+			count: userInfo.followerCount
+		},
+		followings: {
+			title: 'Following',
+			count: userInfo.followingCount
+		},
+		posts: {
+			title: 'Posts',
+			count: userInfo.posts.length
+		}
+	}
+
 	return (
 		<Authorized>
 			<IonGrid className="ion-no-padding">
@@ -29,7 +45,7 @@ const MyProfile = ({ userInfo }) => {
 						</div>
 					</IonCol>
 				</IonRow>
-				<ProfileAnalytics analytics={userInfo} />
+				<ProfileAnalytics analytics={analytics} />
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 			<Posts posts={selectedTab === 'saved' ? userInfo.saved : userInfo.posts} />

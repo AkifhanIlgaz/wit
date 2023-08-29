@@ -12,7 +12,6 @@ const splitIntoChunks = (arr, chunkSize) => {
 
 const Posts = ({ posts }) => {
 	const postChunks = splitIntoChunks(posts, 3)
-	console.log(postChunks[0])
 	const [isOpen, setIsOpen] = useState(false)
 	const [clickedPost, setClickedPost] = useState()
 	const pageWidth = document.body.clientWidth
