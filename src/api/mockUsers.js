@@ -1,5 +1,48 @@
 const mockUsers = [
 	{
+		displayName: 'Gaye Su Akyol',
+		username: 'gayesuakyol',
+		profilePhoto: 'http://dummyimage.com/277x226.png/ff4444/ffffff',
+		isFollowed: false,
+		isSendMessageDisabled: false,
+		followerCount: 735,
+		followingCount: 817,
+		posts: [
+			{
+				postId: '64edcf7dfc13ae35b0ad21eb',
+				likeCount: 225,
+				isLiked: true,
+				isSaved: true,
+				createdAt: '7/18/2023',
+				photoUrl: 'http://dummyimage.com/208x100.png/dddddd/000000'
+			},
+			{
+				postId: '64edcf7dfc13ae35b0ad21ec',
+				likeCount: 732,
+				isLiked: false,
+				isSaved: false,
+				createdAt: '10/7/2022',
+				photoUrl: 'http://dummyimage.com/217x100.png/cc0000/ffffff'
+			},
+			{
+				postId: '64edcf7dfc13ae35b0ad21ed',
+				likeCount: 406,
+				isLiked: true,
+				isSaved: false,
+				createdAt: '6/12/2023',
+				photoUrl: 'http://dummyimage.com/184x100.png/dddddd/000000'
+			},
+			{
+				postId: '64edcf7dfc13ae35b0ad21ee',
+				likeCount: 958,
+				isLiked: true,
+				isSaved: false,
+				createdAt: '5/27/2023',
+				photoUrl: 'http://dummyimage.com/123x100.png/cc0000/ffffff'
+			}
+		]
+	},
+	{
 		displayName: 'Ula Maty',
 		username: 'umaty0',
 		profilePhoto: 'http://dummyimage.com/191x389.png/cc0000/ffffff',
