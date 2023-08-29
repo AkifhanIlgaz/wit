@@ -1,23 +1,16 @@
 const userInfo = {
-	header: {
-		userName: 'gayesuakyol',
-		photoUrl: 'https://media.istockphoto.com/id/1419410282/tr/foto%C4%9Fraf/silent-forest-in-spring-with-beautiful-bright-sun-rays.jpg?s=612x612&w=0&k=20&c=5LYU9_3FnIq_J5-X2a64OgqObDsx-50mdeTv3Y1bM1g=',
-		isFollowed: true,
-		isSendMessageDisabled: false
+	userName: 'gayesuakyol',
+	profilePhoto: 'https://media.istockphoto.com/id/1419410282/tr/foto%C4%9Fraf/silent-forest-in-spring-with-beautiful-bright-sun-rays.jpg?s=612x612&w=0&k=20&c=5LYU9_3FnIq_J5-X2a64OgqObDsx-50mdeTv3Y1bM1g=',
+	isFollowed: true,
+	isSendMessageDisabled: false,
+	followerCount: {
+		count: 77
 	},
-	analytics: {
-		followers: {
-			title: 'Followers',
-			count: 77
-		},
-		following: {
-			title: 'Following',
-			count: 982
-		},
-		posts: {
-			title: 'Posts',
-			count: 7
-		}
+	followingCount: {
+		count: 982
+	},
+	postCount: {
+		count: 7
 	},
 	posts: [
 		{ id: '64ec502cfc13ae46c7ad21df', photoUrl: 'http://dummyimage.com/457x100.png/ff4444/ffffff', likeCount: 310 },
