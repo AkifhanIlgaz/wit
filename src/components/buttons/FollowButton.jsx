@@ -1,7 +1,11 @@
-import { IonButton } from '@ionic/react'
+import { IonButton, IonIcon } from '@ionic/react'
+import { add, checkmark } from 'ionicons/icons'
+import { useState } from 'react'
 
 const FollowButton = ({ isFollowed }) => {
-	return isFollowed ? (
+	const [stateIsFollowed, setStateIsFollowed] = useState(isFollowed)
+
+	return stateIsFollowed ? (
 		<IonButton
 			size="small"
 			color={'button-background'}
@@ -9,8 +13,10 @@ const FollowButton = ({ isFollowed }) => {
 			style={{
 				marginRight: '5px'
 			}}
+			onClick={() => setStateIsFollowed(!stateIsFollowed)}
 		>
-			<span>Follow</span>
+			<IonIcon icon={add} slot="end"></IonIcon>
+			Follow
 		</IonButton>
 	) : (
 		<IonButton
@@ -20,8 +26,10 @@ const FollowButton = ({ isFollowed }) => {
 			style={{
 				marginRight: '5px'
 			}}
+			onClick={() => setStateIsFollowed(!stateIsFollowed)}
 		>
-			<span>Following</span>
+			<IonIcon icon={checkmark} slot="end"></IonIcon>
+			Following
 		</IonButton>
 	)
 }
