@@ -1,5 +1,5 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
-import { bookmark, bookmarkOutline, chatbubbleOutline, heart, heartOutline, shareSocialOutline } from 'ionicons/icons'
+import { bookmark, bookmarkOutline, heart, heartOutline, shareSocialOutline } from 'ionicons/icons'
 import { Fragment, useState } from 'react'
 import ModalHeader from '../helper/ModalHeader'
 
@@ -27,9 +27,6 @@ const Post = ({ setIsOpen, post }) => {
 									color={'danger'}
 								>
 									<IonIcon icon={isLiked ? heart : heartOutline}></IonIcon>
-								</IonButton>
-								<IonButton>
-									<IonIcon icon={chatbubbleOutline}></IonIcon>
 								</IonButton>
 								<IonButton>
 									<IonIcon icon={shareSocialOutline}></IonIcon>
