@@ -12,9 +12,9 @@ const ProfileAnalytics = ({ analytics }) => {
 					justifyContent: 'space-around'
 				}}
 			>
-				<AnalyticsBox boxInfo={analytics.postCount} />
-				<AnalyticsBox boxInfo={analytics.followerCount} />
-				<AnalyticsBox boxInfo={analytics.followingCount} />
+				<AnalyticsBox boxInfo={analytics.posts} />
+				<AnalyticsBox boxInfo={analytics.followers} />
+				<AnalyticsBox boxInfo={analytics.followings} />
 			</IonCol>
 		</IonRow>
 	)

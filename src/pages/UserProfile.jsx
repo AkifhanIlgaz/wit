@@ -6,16 +6,25 @@ import Authorized from '../layouts/Authorized'
 
 const UserProfile = ({ userInfo }) => {
 	const header = {
-		profilePhoto: userInfo.profilePhoto,
-		userName: userInfo.userName,
+		photoUrl: userInfo.profilePhoto,
+		userName: userInfo.username,
 		isFollowed: userInfo.isFollowed,
 		isSendMessageDisabled: userInfo.isSendMessageDisabled
 	}
 
 	const analytics = {
-		followerCount: userInfo.followerCount,
-		followingCount: userInfo.followingCount,
-		postCount: userInfo.postCount
+		followers: {
+			title: 'Followers',
+			count: userInfo.followerCount
+		},
+		followings: {
+			title: 'Following',
+			count: userInfo.followingCount
+		},
+		posts: {
+			title: 'Posts',
+			count: userInfo.posts.length
+		}
 	}
 
 	return (

@@ -10,7 +10,6 @@ import Authorized from '../layouts/Authorized'
 
 const MyProfile = ({ userInfo }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
-	console.log(userInfo)
 	return (
 		<Authorized>
 			<IonGrid className="ion-no-padding">
