@@ -47,6 +47,7 @@ class Post {
 }
 
 // TODO: Reply class
+class Reply {}
 
 const userInfo = {
 	userName: 'gayesuakyol',
