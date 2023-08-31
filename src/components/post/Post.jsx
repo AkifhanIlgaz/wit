@@ -7,8 +7,6 @@ const Post = ({ setIsOpen, post }) => {
 	const [isLiked, setIsLiked] = useState(post.isLiked)
 	const [isSaved, setIsSaved] = useState(post.isSaved)
 
-	// TODO: Update like count on firestore if it's different from initial count
-
 	useEffect(() => {
 		return () => {
 			// TODO: Update liked & saved status on database
