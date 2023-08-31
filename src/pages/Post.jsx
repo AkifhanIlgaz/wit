@@ -1,28 +1,15 @@
 import { Share } from '@capacitor/share'
 import { IonButton, IonButtons, IonCol, IonGrid, IonHeader, IonIcon, IonRow, IonTitle, IonToolbar } from '@ionic/react'
 import { bookmark, bookmarkOutline, chevronBackOutline, heart, heartOutline, shareSocialOutline } from 'ionicons/icons'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { getPostById } from '../api/mockUsers'
 import Authorized from '../layouts/Authorized'
 
 const Post = () => {
-	const history = useHistory()
 	const { postId } = useParams()
-	const post = getPostById(postId)
-	const [isLiked, setIsLiked] = useState(post.isLiked)
-	const [isSaved, setIsSaved] = useState(post.isSaved)
-	const [isCopiedToastOpen, setIsCopiedToastOpen] = useState(false)
-
-	const changeLikeStatus = () => {
-		setIsLiked(!isLiked)
-		post.isLiked = !post.isLiked
-	}
-
-	const changeSaveStatus = () => {
-		setIsSaved(!isSaved)
-		post.isLiked = !post.isLiked
-	}
+	const [post, setPost] = useState()
+	const history = useHistory()
 
 	const sharePostUrl = async () => {
 		await Share.share({
@@ -30,50 +17,67 @@ const Post = () => {
 		})
 	}
 
-	useEffect(() => {
-		const getPost = async postId => {}
-		// TODO: Get post
-		getPost()
+	const changeLikeStatus = () => {
+		setPost({
+			...post,
+			isLiked: !post.isLiked
+		})
+	}
 
-		return () => {
-			// TODO: Update post
+	const changeSaveStatus = () => {
+		setPost({
+			...post,
+			isSaved: !post.isSaved
+		})
+	}
+
+	useEffect(() => {
+		const getPost = async () => {
+			const currentPost = getPostById(postId)
+			setPost(currentPost)
 		}
+
+		getPost()
 	}, [])
 
 	return (
 		<Authorized>
-			<IonHeader>
-				<IonToolbar>
-					<IonButtons slot="start">
-						<IonButton onClick={() => history.goBack()}>
-							<IonIcon icon={chevronBackOutline}></IonIcon>
-						</IonButton>
-					</IonButtons>
-					<IonTitle>Wear It Tomorrow</IonTitle>
-				</IonToolbar>
-			</IonHeader>
-			<IonGrid className="ion-height ion-no-padding ion-no-margin">
-				<IonRow className="ion-height">
-					<IonCol>
-						<img src={post.photoUrl} alt="" height={'70%'} />
-						<IonToolbar color={'transparent'}>
+			{post && (
+				<Fragment>
+					<IonHeader>
+						<IonToolbar>
 							<IonButtons slot="start">
-								<IonButton color={'danger'} onClick={changeLikeStatus}>
-									<IonIcon icon={isLiked ? heart : heartOutline}></IonIcon>
-								</IonButton>
-								<IonButton onClick={sharePostUrl}>
-									<IonIcon icon={shareSocialOutline}></IonIcon>
+								<IonButton onClick={() => history.goBack()}>
+									<IonIcon icon={chevronBackOutline}></IonIcon>
 								</IonButton>
 							</IonButtons>
-							<IonButtons slot="end">
-								<IonButton onClick={changeSaveStatus}>
-									<IonIcon icon={isSaved ? bookmark : bookmarkOutline}></IonIcon>
-								</IonButton>
-							</IonButtons>
+							<IonTitle>Wear It Tomorrow</IonTitle>
 						</IonToolbar>
-					</IonCol>
-				</IonRow>
-			</IonGrid>
+					</IonHeader>
+					<IonGrid className="ion-height ion-no-padding ion-no-margin">
+						<IonRow className="ion-height">
+							<IonCol>
+								<img src={post.photoUrl} alt="" height={'70%'} />
+								<IonToolbar color={'transparent'}>
+									<IonButtons slot="start">
+										<IonButton color={'danger'} onClick={changeLikeStatus}>
+											<IonIcon icon={post.isLiked ? heart : heartOutline}></IonIcon>
+										</IonButton>
+										<IonButton onClick={sharePostUrl}>
+											<IonIcon icon={shareSocialOutline}></IonIcon>
+										</IonButton>
+									</IonButtons>
+									<IonButtons slot="end">
+										<IonButton onClick={changeSaveStatus}>
+											<IonIcon icon={post.isSaved ? bookmark : bookmarkOutline}></IonIcon>
+										</IonButton>
+									</IonButtons>
+								</IonToolbar>
+							</IonCol>
+						</IonRow>
+					</IonGrid>
+				</Fragment>
+			)}
 		</Authorized>
 	)
 }
