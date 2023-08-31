@@ -1,3 +1,4 @@
+import { Share } from '@capacitor/share'
 import { IonButton, IonButtons, IonCol, IonGrid, IonHeader, IonIcon, IonRow, IonTitle, IonToolbar } from '@ionic/react'
 import { bookmark, bookmarkOutline, chevronBackOutline, heart, heartOutline, shareSocialOutline } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
@@ -11,6 +12,7 @@ const Post = () => {
 	const post = getPostById(postId)
 	const [isLiked, setIsLiked] = useState(post.isLiked)
 	const [isSaved, setIsSaved] = useState(post.isSaved)
+	const [isCopiedToastOpen, setIsCopiedToastOpen] = useState(false)
 
 	const changeLikeStatus = () => {
 		setIsLiked(!isLiked)
@@ -20,6 +22,12 @@ const Post = () => {
 	const changeSaveStatus = () => {
 		setIsSaved(!isSaved)
 		post.isLiked = !post.isLiked
+	}
+
+	const sharePostUrl = async () => {
+		await Share.share({
+			url: `https://wearittomorrow.com/posts/${post.postId}`
+		})
 	}
 
 	useEffect(() => {
@@ -53,7 +61,7 @@ const Post = () => {
 								<IonButton color={'danger'} onClick={changeLikeStatus}>
 									<IonIcon icon={isLiked ? heart : heartOutline}></IonIcon>
 								</IonButton>
-								<IonButton>
+								<IonButton onClick={sharePostUrl}>
 									<IonIcon icon={shareSocialOutline}></IonIcon>
 								</IonButton>
 							</IonButtons>

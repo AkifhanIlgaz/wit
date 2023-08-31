@@ -1180,6 +1180,11 @@
   "resolved" "https://registry.npmjs.org/@capacitor/keyboard/-/keyboard-5.0.6.tgz"
   "version" "5.0.6"
 
+"@capacitor/share@^5.0.6":
+  "integrity" "sha512-/dVOW7kcuuD7hWB9Z1drArIpEk+5JCoMnMrAs2c7CLp3q5PeaXNJjTkGr6RJ1OtMhsHyXc6DAFwQ4frFkmZsgw=="
+  "resolved" "https://registry.npmjs.org/@capacitor/share/-/share-5.0.6.tgz"
+  "version" "5.0.6"
+
 "@capacitor/status-bar@5.0.6":
   "integrity" "sha512-7od8CxsBnot1XMK3IeOkproFL4hgoKoWAc3pwUvmDOkQsXoxwQm4SR9mLwQavv1XfxtHbFV9Ukd7FwMxOPSViw=="
   "resolved" "https://registry.npmjs.org/@capacitor/status-bar/-/status-bar-5.0.6.tgz"
