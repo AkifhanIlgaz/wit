@@ -4,6 +4,7 @@ import { bookmark, bookmarkOutline, chevronBackOutline, heart, heartOutline, sha
 import { Fragment, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { getPostById } from '../api/mockUsers'
+import formatCount from '../api/numberFormat'
 import Authorized from '../layouts/Authorized'
 
 const Post = () => {
@@ -73,6 +74,18 @@ const Post = () => {
 										</IonButton>
 									</IonButtons>
 								</IonToolbar>
+								<IonButton
+									color={'transparent'}
+									style={{
+										color: '#000',
+										marginTop: '0',
+										fontWeight: '600',
+										fontFamily: ` -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;`
+									}}
+									size="small"
+								>
+									<span>{formatCount(post.likeCount)} Likes</span>
+								</IonButton>
 							</IonCol>
 						</IonRow>
 					</IonGrid>

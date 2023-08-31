@@ -10,7 +10,7 @@ const mockUsers = [
 		posts: [
 			{
 				postId: '64edcf7dfc13ae35b0ad21eb',
-				likeCount: 225,
+				likeCount: 10564,
 				isLiked: true,
 				isSaved: true,
 				createdAt: '7/18/2023',
@@ -216,7 +216,7 @@ const mockUsers = [
 		posts: [
 			{
 				postId: '64edcf7dfc13ae35b0ad21eb',
-				likeCount: 225,
+				likeCount: 9846,
 				isLiked: true,
 				isSaved: true,
 				createdAt: '7/18/2023',
