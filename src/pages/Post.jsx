@@ -1,14 +1,26 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonHeader, IonIcon, IonRow, IonTitle, IonToolbar } from '@ionic/react'
-import { bookmark, chevronBackOutline, heart, shareSocialOutline } from 'ionicons/icons'
-import { useEffect } from 'react'
+import { bookmark, bookmarkOutline, chevronBackOutline, heart, heartOutline, shareSocialOutline } from 'ionicons/icons'
+import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { getPostById } from '../api/mockUsers'
 import Authorized from '../layouts/Authorized'
 
 const Post = () => {
+	const history = useHistory()
 	const { postId } = useParams()
 	const post = getPostById(postId)
-	const history = useHistory()
+	const [isLiked, setIsLiked] = useState(post.isLiked)
+	const [isSaved, setIsSaved] = useState(post.isSaved)
+
+	const changeLikeStatus = () => {
+		setIsLiked(!isLiked)
+		post.isLiked = !post.isLiked
+	}
+
+	const changeSaveStatus = () => {
+		setIsSaved(!isSaved)
+		post.isLiked = !post.isLiked
+	}
 
 	useEffect(() => {
 		const getPost = async postId => {}
@@ -38,16 +50,16 @@ const Post = () => {
 						<img src={post.photoUrl} alt="" height={'70%'} />
 						<IonToolbar color={'transparent'}>
 							<IonButtons slot="start">
-								<IonButton color={'danger'}>
-									<IonIcon icon={heart}></IonIcon>
+								<IonButton color={'danger'} onClick={changeLikeStatus}>
+									<IonIcon icon={isLiked ? heart : heartOutline}></IonIcon>
 								</IonButton>
 								<IonButton>
 									<IonIcon icon={shareSocialOutline}></IonIcon>
 								</IonButton>
 							</IonButtons>
 							<IonButtons slot="end">
-								<IonButton>
-									<IonIcon icon={bookmark}></IonIcon>
+								<IonButton onClick={changeSaveStatus}>
+									<IonIcon icon={isSaved ? bookmark : bookmarkOutline}></IonIcon>
 								</IonButton>
 							</IonButtons>
 						</IonToolbar>
