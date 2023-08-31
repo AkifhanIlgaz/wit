@@ -5,8 +5,8 @@ const mockUsers = [
 		profilePhoto: 'http://dummyimage.com/277x226.png/ff4444/ffffff',
 		isFollowed: false,
 		isSendMessageDisabled: false,
-		followerCount: 735,
-		followingCount: 817,
+		followerCount: 12567,
+		followingCount: 8861,
 		posts: [
 			{
 				postId: '64edcf7dfc13ae35b0ad21eb',
