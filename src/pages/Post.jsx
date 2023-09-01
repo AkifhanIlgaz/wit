@@ -78,7 +78,7 @@ const Post = () => {
 						<IonToolbar>
 							<IonButtons slot="start">
 								<IonButton onClick={() => history.goBack()}>
-									<IonIcon icon={chevronBackOutline}></IonIcon>
+									<IonIcon icon={chevronBackOutline} color="dark"></IonIcon>
 								</IonButton>
 							</IonButtons>
 							<IonTitle>Wear It Tomorrow</IonTitle>
