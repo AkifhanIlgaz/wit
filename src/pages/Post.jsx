@@ -19,6 +19,24 @@ const Post = () => {
 	const mock = [
 		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
 		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
 		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
 	]
 
@@ -93,17 +111,17 @@ const Post = () => {
 										color: '#000',
 										marginTop: '0',
 										fontWeight: '600',
-										fontFamily: ` -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;`
+										fontFamily: ` -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif`
 									}}
 									size="small"
 								>
 									<span>{formatCount(post.likeCount)} Likes</span>
-									<IonModal ref={modal} trigger="open-modal" initialBreakpoint={0.75} breakpoints={[0, 0.25, 0.5, 0.75]}>
+									<IonModal ref={modal} trigger="open-modal" initialBreakpoint={0.5} breakpoints={[0, 0.25, 0.5, 0.75]}>
 										<IonContent className="ion-padding">
-											<IonSearchbar onClick={() => modal.current.setCurrentBreakpoint(0.75)} placeholder="Search"></IonSearchbar>
+											<IonSearchbar animated placeholder="Search"></IonSearchbar>
 											<IonList>
-												{mock.map(user => (
-													<UserListItem user={user} />
+												{mock.map((user, i) => (
+													<UserListItem key={i} user={user} />
 												))}
 											</IonList>
 										</IonContent>
