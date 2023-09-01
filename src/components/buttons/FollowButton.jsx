@@ -8,12 +8,13 @@ const FollowButton = ({ isFollowed }) => {
 
 	return stateIsFollowed ? (
 		<IonButton
-			size="small"
 			color={'button-background'}
-			className="button-text "
+			className="button-text"
 			style={{
 				marginRight: '5px'
 			}}
+			expand="block"
+			shape="round"
 			onClick={() => setStateIsFollowed(!stateIsFollowed)}
 		>
 			Follow
@@ -21,12 +22,13 @@ const FollowButton = ({ isFollowed }) => {
 	) : (
 		<Fragment>
 			<IonButton
-				size="small"
-				color={'tertiary'}
+				color={'dark'}
 				className="button-text "
 				style={{
 					marginRight: '5px'
 				}}
+				expand="block"
+				shape="round"
 				onClick={() => setIsActionSheetOpen(true)}
 			>
 				<IonIcon icon={checkmark} slot="end"></IonIcon>

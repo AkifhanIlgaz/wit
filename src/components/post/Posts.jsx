@@ -71,6 +71,60 @@ const Posts = ({ posts }) => {
 						</IonRow>
 					)
 				})}
+				{postChunks.map((chunk, i) => {
+					return (
+						<IonRow key={i} className="ion-margin">
+							<IonCol
+								style={{
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center'
+								}}
+								pull=".2"
+							>
+								<IonCard
+									className="ion-no-margin post-card"
+									style={{
+										width: '45vw',
+										height: '21vh'
+									}}
+								>
+									<img
+										src={chunk[0].photoUrl}
+										height={'100%'}
+										onClick={() => {
+											history.push(`/posts/${chunk[1].postId}`)
+										}}
+									/>
+								</IonCard>
+							</IonCol>
+							<IonCol
+								style={{
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center'
+								}}
+								push=".2"
+							>
+								<IonCard
+									className="ion-no-margin post-card"
+									style={{
+										width: '45vw',
+										height: '21vh'
+									}}
+								>
+									<img
+										src={chunk[1].photoUrl}
+										height={'100%'}
+										onClick={() => {
+											history.push(`/posts/${chunk[1].postId}`)
+										}}
+									/>
+								</IonCard>
+							</IonCol>
+						</IonRow>
+					)
+				})}
 			</IonGrid>
 		</>
 	)
