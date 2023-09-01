@@ -5,12 +5,22 @@ import { Fragment, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { getPostById } from '../api/mockUsers'
 import formatCount from '../api/numberFormat'
+import UserList from '../components/user/UserList'
+import profilePhoto1 from '../images/defaultPostPhoto.jpg'
+import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
+import profilePhoto2 from '../images/defaultSavedPhoto.jpg'
 import Authorized from '../layouts/Authorized'
-
 const Post = () => {
 	const { postId } = useParams()
 	const [post, setPost] = useState()
 	const history = useHistory()
+	const [isOpen, setIsOpen] = useState(false)
+
+	const mock = [
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
+	]
 
 	const sharePostUrl = async () => {
 		await Share.share({
@@ -38,8 +48,9 @@ const Post = () => {
 			setPost(currentPost)
 		}
 
+		console.log(isOpen)
 		getPost()
-	}, [])
+	}, [isOpen])
 
 	return (
 		<Authorized>
@@ -83,8 +94,10 @@ const Post = () => {
 										fontFamily: ` -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;`
 									}}
 									size="small"
+									onClick={() => setIsOpen(true)}
 								>
 									<span>{formatCount(post.likeCount)} Likes</span>
+									<UserList isOpen={isOpen} setIsOpen={setIsOpen} users={mock}></UserList>
 								</IonButton>
 							</IonCol>
 						</IonRow>

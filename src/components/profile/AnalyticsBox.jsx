@@ -1,19 +1,18 @@
-import { IonButton, IonContent, IonList, IonModal } from '@ionic/react'
+import { IonButton } from '@ionic/react'
 import { Fragment, useState } from 'react'
 import formatCount from '../../api/numberFormat'
 import profilePhoto1 from '../../images/defaultPostPhoto.jpg'
 import defaultProfilePhoto from '../../images/defaultProfilePhoto.jpg'
 import profilePhoto2 from '../../images/defaultSavedPhoto.jpg'
-import ModalHeader from '../helper/ModalHeader'
-import UserListItem from '../user/UserListItem'
+import UserList from '../user/UserList'
 
 const AnalyticsBox = ({ boxInfo }) => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const mock = [
-		{ userName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-		{ userName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-		{ userName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
 	]
 
 	return (
@@ -24,16 +23,7 @@ const AnalyticsBox = ({ boxInfo }) => {
 					<span className="title">{boxInfo.title}</span>
 				</span>
 			</IonButton>
-			<IonModal isOpen={isOpen}>
-				<ModalHeader setIsOpen={setIsOpen} />
-				<IonContent>
-					<IonList className="ion-align-items" lines="full">
-						{mock.map((userInfo, i) => {
-							return <UserListItem user={userInfo} key={i} />
-						})}
-					</IonList>
-				</IonContent>
-			</IonModal>
+			<UserList isOpen={isOpen} setIsOpen={setIsOpen} users={mock}></UserList>
 		</Fragment>
 	)
 }
