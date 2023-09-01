@@ -14,7 +14,6 @@ const Post = () => {
 	const { postId } = useParams()
 	const [post, setPost] = useState()
 	const history = useHistory()
-	const [isOpen, setIsOpen] = useState(false)
 
 	const mock = [
 		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
