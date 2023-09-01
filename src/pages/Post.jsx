@@ -1,11 +1,11 @@
 import { Share } from '@capacitor/share'
-import { IonButton, IonButtons, IonCol, IonGrid, IonHeader, IonIcon, IonRow, IonTitle, IonToolbar } from '@ionic/react'
+import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonList, IonModal, IonRow, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react'
 import { bookmark, bookmarkOutline, chevronBackOutline, heart, heartOutline, shareSocialOutline } from 'ionicons/icons'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { getPostById } from '../api/mockUsers'
 import formatCount from '../api/numberFormat'
-import UserList from '../components/user/UserList'
+import UserListItem from '../components/user/UserListItem'
 import profilePhoto1 from '../images/defaultPostPhoto.jpg'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import profilePhoto2 from '../images/defaultSavedPhoto.jpg'
@@ -48,9 +48,10 @@ const Post = () => {
 			setPost(currentPost)
 		}
 
-		console.log(isOpen)
 		getPost()
-	}, [isOpen])
+	}, [])
+
+	const modal = useRef(null)
 
 	return (
 		<Authorized>
@@ -86,6 +87,7 @@ const Post = () => {
 									</IonButtons>
 								</IonToolbar>
 								<IonButton
+									id="open-modal"
 									color={'transparent'}
 									style={{
 										color: '#000',
@@ -94,10 +96,18 @@ const Post = () => {
 										fontFamily: ` -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;`
 									}}
 									size="small"
-									onClick={() => setIsOpen(true)}
 								>
 									<span>{formatCount(post.likeCount)} Likes</span>
-									<UserList isOpen={isOpen} setIsOpen={setIsOpen} users={mock}></UserList>
+									<IonModal ref={modal} trigger="open-modal" initialBreakpoint={0.75} breakpoints={[0, 0.25, 0.5, 0.75]}>
+										<IonContent className="ion-padding">
+											<IonSearchbar onClick={() => modal.current.setCurrentBreakpoint(0.75)} placeholder="Search"></IonSearchbar>
+											<IonList>
+												{mock.map(user => (
+													<UserListItem user={user} />
+												))}
+											</IonList>
+										</IonContent>
+									</IonModal>
 								</IonButton>
 							</IonCol>
 						</IonRow>
