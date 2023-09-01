@@ -16,7 +16,7 @@ const PostTabs = ({ selectedTab, setSelectedTab }) => {
 					onClick={() => setSelectedTab('posts')}
 				>
 					<IonButton color={'transparent'} className="ion-no-margin ion-no-padding">
-						<IonIcon icon={appsOutline} color={selectedTab === 'posts' ? 'tertiary' : 'medium'}></IonIcon>
+						<IonIcon icon={appsOutline} color={selectedTab === 'posts' ? 'dark' : 'medium'}></IonIcon>
 					</IonButton>
 				</IonCol>
 				<IonCol
@@ -30,7 +30,7 @@ const PostTabs = ({ selectedTab, setSelectedTab }) => {
 					onClick={() => setSelectedTab('saved')}
 				>
 					<IonButton color={'transparent'} className="ion-no-margin ion-no-padding">
-						<IonIcon icon={bookmarksOutline} color={selectedTab === 'saved' ? 'tertiary' : 'medium'}></IonIcon>
+						<IonIcon icon={bookmarksOutline} color={selectedTab === 'saved' ? 'dark' : 'medium'}></IonIcon>
 					</IonButton>
 				</IonCol>
 			</IonRow>
