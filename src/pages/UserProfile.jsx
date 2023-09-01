@@ -102,7 +102,7 @@ const UserProfile = ({ userInfo }) => {
 						{!header.isSendMessageDisabled && <DefaultButton text={'Message'} />}
 					</IonCol>
 				</IonRow>
-				{/* <ProfileHeader header={header} /> */}
+
 				<ProfileAnalytics analytics={analytics} />
 			</IonGrid>
 			<Posts posts={userInfo.posts} />

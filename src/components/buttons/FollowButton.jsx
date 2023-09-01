@@ -6,7 +6,7 @@ const FollowButton = ({ isFollowed }) => {
 	const [stateIsFollowed, setStateIsFollowed] = useState(isFollowed)
 	const [isActionSheetOpen, setIsActionSheetOpen] = useState(false)
 
-	return stateIsFollowed ? (
+	return stateIsFollowed === false ? (
 		<IonButton
 			color={'button-background'}
 			className="button-text"
@@ -15,7 +15,7 @@ const FollowButton = ({ isFollowed }) => {
 			}}
 			expand="block"
 			shape="round"
-			onClick={() => setStateIsFollowed(!stateIsFollowed)}
+			onClick={() => setStateIsFollowed(true)}
 		>
 			Follow
 		</IonButton>
@@ -41,6 +41,7 @@ const FollowButton = ({ isFollowed }) => {
 						text: 'Unfollow',
 						role: 'destructive',
 						handler: () => {
+							setIsActionSheetOpen(false)
 							setStateIsFollowed(!stateIsFollowed)
 						}
 					},
