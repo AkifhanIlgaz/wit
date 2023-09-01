@@ -1,15 +1,20 @@
-import { IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react'
-import { settingsOutline } from 'ionicons/icons'
+import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
+import { chevronBackOutline, ellipsisVertical } from 'ionicons/icons'
 import { useState } from 'react'
-import DefaultButton from '../components/buttons/DefaultButton'
 import PostTabs from '../components/post/PostTabs'
 import Posts from '../components/post/Posts'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
-import ProfilePhoto from '../components/profile/ProfilePhoto'
 import Authorized from '../layouts/Authorized'
 
 const MyProfile = ({ userInfo }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
+
+	const header = {
+		photoUrl: userInfo.profilePhoto,
+		username: userInfo.username,
+		isFollowed: userInfo.isFollowed,
+		isSendMessageDisabled: userInfo.isSendMessageDisabled
+	}
 
 	const analytics = {
 		followers: {
@@ -29,22 +34,62 @@ const MyProfile = ({ userInfo }) => {
 	return (
 		<Authorized>
 			<IonGrid className="ion-no-padding">
-				<IonRow className="ion-align-items-center ion-justify-content-center ion-margin-top">
-					<ProfilePhoto photoUrl={userInfo.profilePhoto} />
-					<IonCol pull=".4" size="7">
-						<span className="username ion-no-margin">{userInfo.username}</span>
-						<div
-							style={{
-								paddingTop: '5px'
-							}}
-						>
-							<DefaultButton text={'Edit Profile'} />
-							<DefaultButton>
-								<IonIcon icon={settingsOutline}></IonIcon>
-							</DefaultButton>
-						</div>
+				<IonToolbar
+					color={'transparent'}
+					style={{
+						marginTop: '2%'
+					}}
+				>
+					<IonButtons slot="start">
+						<IonButton>
+							<IonIcon icon={chevronBackOutline}></IonIcon>
+						</IonButton>
+					</IonButtons>
+					<IonButtons slot="end">
+						<IonButton>
+							<IonIcon icon={ellipsisVertical}></IonIcon>
+						</IonButton>
+					</IonButtons>
+				</IonToolbar>
+
+				<IonRow
+					className="ion-align-items-center ion-justify-content-center"
+					style={{
+						marginTop: '1%'
+					}}
+				>
+					<IonCol
+						style={{
+							display: 'flex',
+							justifyContent: 'center'
+						}}
+					>
+						<img src={header.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
 					</IonCol>
 				</IonRow>
+				<IonRow className="ion-align-items-center ion-justify-content-center">
+					<IonCol
+						style={{
+							display: 'flex',
+							justifyContent: 'center'
+						}}
+						className="count"
+					>
+						<h3>{userInfo.displayName}</h3>
+					</IonCol>
+				</IonRow>
+				<IonRow className="ion-align-items-center ion-justify-content-center">
+					<IonCol
+						style={{
+							display: 'flex',
+							justifyContent: 'center'
+						}}
+						className="title"
+					>
+						<span>{userInfo.username}</span>
+					</IonCol>
+				</IonRow>
+
 				<ProfileAnalytics analytics={analytics} />
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
