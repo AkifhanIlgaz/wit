@@ -1,5 +1,6 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
 import { chevronBackOutline, ellipsisVertical } from 'ionicons/icons'
+import { useHistory } from 'react-router'
 import DefaultButton from '../components/buttons/DefaultButton'
 import FollowButton from '../components/buttons/FollowButton'
 import Posts from '../components/post/Posts'
@@ -8,6 +9,8 @@ import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
 const UserProfile = ({ userInfo }) => {
+	const history = useHistory()
+
 	const header = {
 		photoUrl: userInfo.profilePhoto,
 		username: userInfo.username,
@@ -39,7 +42,7 @@ const UserProfile = ({ userInfo }) => {
 				}}
 			>
 				<IonButtons slot="start">
-					<IonButton>
+					<IonButton onClick={() => history.goBack()}>
 						<IonIcon icon={chevronBackOutline}></IonIcon>
 					</IonButton>
 				</IonButtons>

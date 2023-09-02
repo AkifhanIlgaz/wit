@@ -1,6 +1,7 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
 import { chevronBackOutline, ellipsisVertical } from 'ionicons/icons'
 import { useState } from 'react'
+import { useHistory } from 'react-router'
 import PostTabs from '../components/post/PostTabs'
 import Posts from '../components/post/Posts'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
@@ -8,6 +9,7 @@ import Authorized from '../layouts/Authorized'
 
 const MyProfile = ({ userInfo }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
+	const history = useHistory()
 
 	const header = {
 		photoUrl: userInfo.profilePhoto,
@@ -41,7 +43,7 @@ const MyProfile = ({ userInfo }) => {
 					}}
 				>
 					<IonButtons slot="start">
-						<IonButton>
+						<IonButton onClick={() => history.goBack()}>
 							<IonIcon icon={chevronBackOutline}></IonIcon>
 						</IonButton>
 					</IonButtons>
