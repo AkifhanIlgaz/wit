@@ -2,6 +2,9 @@ import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonItem, IonList, IonP
 import { chevronBackOutline, ellipsisVertical, logOutOutline, pencilOutline, settingsOutline } from 'ionicons/icons'
 import { useState } from 'react'
 import { useHistory } from 'react-router'
+import { useRecoilState } from 'recoil'
+import Firebase from '../api/firebase/firebase'
+import userState from '../atoms/user'
 import PostTabs from '../components/post/PostTabs'
 import Posts from '../components/post/Posts'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
@@ -9,6 +12,7 @@ import Authorized from '../layouts/Authorized'
 
 const MyProfile = ({ userInfo }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
+	const [user, setUser] = useRecoilState(userState)
 	const history = useHistory()
 
 	const header = {
@@ -31,6 +35,13 @@ const MyProfile = ({ userInfo }) => {
 			title: 'Posts',
 			count: userInfo.posts.length
 		}
+	}
+
+	const signOut = async () => {
+		const firebase = new Firebase()
+		const res = await firebase.signOut()
+		setUser(res)
+		history.push('/home')
 	}
 
 	return (
@@ -61,8 +72,8 @@ const MyProfile = ({ userInfo }) => {
 									Settings
 									<IonIcon size="small" icon={settingsOutline} slot="end"></IonIcon>
 								</IonItem>
-								<IonItem>
-									Logout
+								<IonItem onClick={signOut}>
+									Sign Out
 									<IonIcon color={'danger'} size="small" icon={logOutOutline} slot="end"></IonIcon>
 								</IonItem>
 							</IonList>
