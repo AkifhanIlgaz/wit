@@ -2,6 +2,7 @@ import { Share } from '@capacitor/share'
 import { IonButton, IonButtons, IonIcon, IonToolbar } from '@ionic/react'
 import { bookmark, bookmarkOutline, heart, heartOutline, shareSocial } from 'ionicons/icons'
 import { useState } from 'react'
+import formatCount from '../../api/numberFormat'
 const PostToolbar = () => {
 	// TODO: Get initial values of states by props
 	const [isLiked, setIsLiked] = useState(false)
@@ -16,15 +17,35 @@ const PostToolbar = () => {
 
 	return (
 		<IonToolbar color={'transparent'}>
-			<IonButtons slot="start">
+			<IonButtons
+				slot="start"
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center'
+				}}
+			>
 				<IonButton color={'danger'} onClick={() => setIsLiked(!isLiked)}>
 					<IonIcon icon={isLiked ? heart : heartOutline}></IonIcon>
 				</IonButton>
+				<IonButton
+					style={{
+						color: '#000',
+						marginTop: '0',
+						fontWeight: '500',
+						fontSize: '.88em',
+						fontFamily: ` -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif`
+					}}
+				>
+					<span>{formatCount(1947623)}</span>
+				</IonButton>
+			</IonButtons>
+			<IonButtons slot="start"></IonButtons>
+
+			<IonButtons slot="end">
 				<IonButton onClick={sharePost}>
 					<IonIcon icon={shareSocial}></IonIcon>
 				</IonButton>
-			</IonButtons>
-			<IonButtons slot="end">
 				<IonButton onClick={() => setIsSaved(!isSaved)}>
 					<IonIcon icon={isSaved ? bookmark : bookmarkOutline}></IonIcon>
 				</IonButton>
