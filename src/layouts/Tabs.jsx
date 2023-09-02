@@ -1,5 +1,5 @@
-import { IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react'
-import { earth, homeOutline, notifications, person } from 'ionicons/icons'
+import { IonFab, IonFabButton, IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react'
+import { add, homeOutline, person } from 'ionicons/icons'
 import { Redirect, Route } from 'react-router'
 import { useRecoilValue } from 'recoil'
 import userState from '../atoms/user'
@@ -21,17 +21,19 @@ const Tabs = () => {
 					<Route exact path={'/user/:username'} render={() => <ProfileRouter />} />
 					<Route exact path={'/posts/:postId'} render={() => <Post />} />
 				</IonRouterOutlet>
-				<IonTabBar slot="bottom">
+				<IonTabBar slot="bottom" color={'transparent'}>
 					<IonTabButton tab="home" href="/home">
 						<IonIcon icon={homeOutline}></IonIcon>
 					</IonTabButton>
-					<IonTabButton tab="search" href="/search">
-						<IonIcon icon={earth}></IonIcon>
+					<IonTabButton>
+						<IonFab>
+							<IonFabButton size="small" color={'dark'}>
+								<IonIcon icon={add}></IonIcon>
+							</IonFabButton>
+						</IonFab>
 					</IonTabButton>
-					<IonTabButton tab="notifications" href="/notifications">
-						<IonIcon icon={notifications}></IonIcon>
-					</IonTabButton>
-					<IonTabButton tab="profile" href="/me">
+					{/* TODO: user/${user.username} */}
+					<IonTabButton tab="profile" href={`/user/gayesuakyol`}>
 						<IonIcon icon={person}></IonIcon>
 					</IonTabButton>
 				</IonTabBar>
