@@ -87,7 +87,7 @@ const Post = () => {
 					<IonGrid className="ion-height ion-no-padding ion-no-margin">
 						<IonRow className="ion-height">
 							<IonCol>
-								<img src={post.photoUrl} alt="" height={'70%'} />
+								<img src={post.photoUrl} alt="" height={'70%'} onDoubleClick={changeLikeStatus} />
 								<IonToolbar color={'transparent'}>
 									<IonButtons slot="start">
 										<IonButton color={'danger'} onClick={changeLikeStatus}>
