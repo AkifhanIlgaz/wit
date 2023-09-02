@@ -1,7 +1,7 @@
-import { IonAvatar, IonButton, IonButtons, IonCard, IonCardContent, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
-import { bookmark, heart, shareSocial } from 'ionicons/icons'
+import { IonAvatar, IonCard, IonCardContent, IonCol, IonGrid, IonRow } from '@ionic/react'
 import defaultProfilePhoto from '../../images/defaultProfilePhoto.jpg'
 import FollowButton from '../buttons/FollowButton'
+import PostToolbar from './PostToolbar'
 
 const PostCard = () => {
 	const postInfo = {
@@ -146,21 +146,7 @@ const PostCard = () => {
 				>
 					<IonCol>
 						<IonCardContent className="ion-no-padding">
-							<IonToolbar color={'transparent'}>
-								<IonButtons slot="start">
-									<IonButton>
-										<IonIcon icon={heart}></IonIcon>
-									</IonButton>
-									<IonButton>
-										<IonIcon icon={shareSocial}></IonIcon>
-									</IonButton>
-								</IonButtons>
-								<IonButtons slot="end">
-									<IonButton slot="end">
-										<IonIcon icon={bookmark}></IonIcon>
-									</IonButton>
-								</IonButtons>
-							</IonToolbar>
+							<PostToolbar />
 						</IonCardContent>
 					</IonCol>
 				</IonRow>
