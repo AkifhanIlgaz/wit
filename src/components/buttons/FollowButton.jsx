@@ -13,6 +13,7 @@ const FollowButton = ({ isFollowed }) => {
 			style={{
 				marginRight: '5px'
 			}}
+			size="small"
 			expand="block"
 			shape="round"
 			onClick={() => setStateIsFollowed(true)}
@@ -29,6 +30,7 @@ const FollowButton = ({ isFollowed }) => {
 				}}
 				expand="block"
 				shape="round"
+				size="small"
 				onClick={() => setIsActionSheetOpen(true)}
 			>
 				<IonIcon icon={checkmark} slot="end"></IonIcon>
