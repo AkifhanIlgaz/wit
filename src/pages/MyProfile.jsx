@@ -1,5 +1,5 @@
-import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
-import { chevronBackOutline, ellipsisVertical } from 'ionicons/icons'
+import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonItem, IonList, IonPopover, IonRow, IonToolbar } from '@ionic/react'
+import { chevronBackOutline, ellipsisVertical, logOutOutline, pencilOutline, settingsOutline } from 'ionicons/icons'
 import { useState } from 'react'
 import { useHistory } from 'react-router'
 import PostTabs from '../components/post/PostTabs'
@@ -48,9 +48,25 @@ const MyProfile = ({ userInfo }) => {
 						</IonButton>
 					</IonButtons>
 					<IonButtons slot="end">
-						<IonButton>
+						<IonButton id="popover">
 							<IonIcon icon={ellipsisVertical}></IonIcon>
 						</IonButton>
+						<IonPopover trigger="popover" side="bottom" alignment="center">
+							<IonList lines="none">
+								<IonItem>
+									Edit Profile
+									<IonIcon size="small" icon={pencilOutline} slot="end"></IonIcon>
+								</IonItem>
+								<IonItem>
+									Settings
+									<IonIcon size="small" icon={settingsOutline} slot="end"></IonIcon>
+								</IonItem>
+								<IonItem>
+									Logout
+									<IonIcon color={'danger'} size="small" icon={logOutOutline} slot="end"></IonIcon>
+								</IonItem>
+							</IonList>
+						</IonPopover>
 					</IonButtons>
 				</IonToolbar>
 

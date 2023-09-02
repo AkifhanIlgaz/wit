@@ -1,5 +1,5 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
-import { chevronBackOutline, ellipsisVertical } from 'ionicons/icons'
+import { chevronBackOutline } from 'ionicons/icons'
 import { useHistory } from 'react-router'
 import DefaultButton from '../components/buttons/DefaultButton'
 import FollowButton from '../components/buttons/FollowButton'
@@ -44,11 +44,6 @@ const UserProfile = ({ userInfo }) => {
 				<IonButtons slot="start">
 					<IonButton onClick={() => history.goBack()}>
 						<IonIcon icon={chevronBackOutline}></IonIcon>
-					</IonButton>
-				</IonButtons>
-				<IonButtons slot="end">
-					<IonButton>
-						<IonIcon icon={ellipsisVertical}></IonIcon>
 					</IonButton>
 				</IonButtons>
 			</IonToolbar>
