@@ -19,9 +19,7 @@ const PostCard = () => {
 	return (
 		<IonGrid className="ion-no-padding ">
 			<IonCard>
-				<IonRow className="ion-align-items-center ion-padding">
-					<PostHeader postInfo={postInfo} />
-				</IonRow>
+				<PostHeader postInfo={postInfo} />
 
 				<IonRow className="ion-justify-content-center ">
 					<IonCol
@@ -48,9 +46,7 @@ const PostCard = () => {
 				</IonRow>
 			</IonCard>
 			<IonCard>
-				<IonRow className="ion-align-items-center ion-padding">
-					<PostHeader postInfo={postInfo} />
-				</IonRow>
+				<PostHeader postInfo={postInfo} />
 
 				<IonRow className="ion-justify-content-center ">
 					<IonCol
@@ -77,9 +73,7 @@ const PostCard = () => {
 				</IonRow>
 			</IonCard>
 			<IonCard>
-				<IonRow className="ion-align-items-center ion-padding">
-					<PostHeader postInfo={postInfo} />
-				</IonRow>
+				<PostHeader postInfo={postInfo} />
 
 				<IonRow className="ion-justify-content-center ">
 					<IonCol
@@ -106,9 +100,7 @@ const PostCard = () => {
 				</IonRow>
 			</IonCard>
 			<IonCard>
-				<IonRow className="ion-align-items-center ion-padding">
-					<PostHeader postInfo={postInfo} />
-				</IonRow>
+				<PostHeader postInfo={postInfo} />
 
 				<IonRow className="ion-justify-content-center ">
 					<IonCol

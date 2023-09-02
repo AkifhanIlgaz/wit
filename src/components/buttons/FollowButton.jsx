@@ -33,7 +33,6 @@ const FollowButton = ({ isFollowed }) => {
 				size="small"
 				onClick={() => setIsActionSheetOpen(true)}
 			>
-				<IonIcon icon={checkmark} slot="end"></IonIcon>
 				Following
 			</IonButton>
 			<IonActionSheet
