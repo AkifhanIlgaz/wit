@@ -25,8 +25,7 @@ import userState from './atoms/user'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 
-import ProfileRouter from './components/profile/ProfileRouter'
-import Post from './pages/Post'
+import Tabs from './layouts/Tabs'
 import './theme/style.scss'
 import './theme/variables.css'
 setupIonicReact()
@@ -38,28 +37,17 @@ const App = () => {
 		<IonApp>
 			<IonReactRouter>
 				<IonRouterOutlet>
-					{user ? (
-						<>
-							<Route path={['/', '/signin', '/signup', '/password-reset', '/forgot-password']} exact={true}>
-								<Redirect to="/home"></Redirect>
-							</Route>
-							<Route exact path={'/user/:username'} render={() => <ProfileRouter />} />
-							<Route exact path={'/posts/:postId'} render={() => <Post />} />
-						</>
-					) : (
-						<>
-							<Route path={'/'}>
-								<Redirect to={'/signin'}></Redirect>
-							</Route>
-							<Route path={'/signin'}>
-								<SignIn />
-							</Route>
-							<Route path={'/signup'}>
-								<SignUp />
-							</Route>
-						</>
-					)}
+					<Route path={'/'}>
+						<Redirect to={'/signin'}></Redirect>
+					</Route>
+					<Route path={'/signin'}>
+						<SignIn />
+					</Route>
+					<Route path={'/signup'}>
+						<SignUp />
+					</Route>
 				</IonRouterOutlet>
+				<Tabs />
 			</IonReactRouter>
 		</IonApp>
 	)
