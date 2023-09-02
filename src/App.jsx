@@ -37,15 +37,19 @@ const App = () => {
 		<IonApp>
 			<IonReactRouter>
 				<IonRouterOutlet>
-					<Route path={'/'}>
-						<Redirect to={'/signin'}></Redirect>
-					</Route>
-					<Route path={'/signin'}>
-						<SignIn />
-					</Route>
-					<Route path={'/signup'}>
-						<SignUp />
-					</Route>
+					{!user && (
+						<>
+							<Route path={'/'}>
+								<Redirect to={'/signin'}></Redirect>
+							</Route>
+							<Route path={'/signin'}>
+								<SignIn />
+							</Route>
+							<Route path={'/signup'}>
+								<SignUp />
+							</Route>
+						</>
+					)}
 				</IonRouterOutlet>
 				<Tabs />
 			</IonReactRouter>

@@ -1,5 +1,5 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonItem, IonList, IonPopover, IonRow, IonToolbar } from '@ionic/react'
-import { chevronBackOutline, ellipsisVertical, logOutOutline, pencilOutline, settingsOutline } from 'ionicons/icons'
+import { ellipsisVertical, logOutOutline, pencilOutline, settingsOutline } from 'ionicons/icons'
 import { useState } from 'react'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
@@ -53,11 +53,6 @@ const MyProfile = ({ userInfo }) => {
 						marginTop: '2%'
 					}}
 				>
-					<IonButtons slot="start">
-						<IonButton onClick={() => history.goBack()}>
-							<IonIcon icon={chevronBackOutline}></IonIcon>
-						</IonButton>
-					</IonButtons>
 					<IonButtons slot="end">
 						<IonButton id="popover">
 							<IonIcon icon={ellipsisVertical}></IonIcon>
