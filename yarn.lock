@@ -1140,6 +1140,11 @@
   "resolved" "https://registry.npmjs.org/@capacitor/app/-/app-5.0.6.tgz"
   "version" "5.0.6"
 
+"@capacitor/camera@^5.0.7":
+  "integrity" "sha512-1Wk3Dk0UhhNHdBB07UrPvUOSL7Wi5gFZRyLY1LZL2awt34iqy2cnajtfJplFmEZHk8lD0i7NAl3HbkWm4td4OQ=="
+  "resolved" "https://registry.npmjs.org/@capacitor/camera/-/camera-5.0.7.tgz"
+  "version" "5.0.7"
+
 "@capacitor/cli@5.2.3":
   "integrity" "sha512-iqjOnA9fCxm+cFv5iTvxb/vElK2Z1kDpVS+N9XyD2Msyv3l3ezuOZTSvABiDoo6w6CGkj4/AUMpdT4nrZkTHTg=="
   "resolved" "https://registry.npmjs.org/@capacitor/cli/-/cli-5.2.3.tgz"
@@ -1785,6 +1790,11 @@
     "@stencil/core" "^3.4.0"
     "ionicons" "7.1.0"
     "tslib" "^2.1.0"
+
+"@ionic/pwa-elements@^3.2.2":
+  "integrity" "sha512-gCQsHdvkaWa83T3ToKsr6FOtzSmLIYFWy+zZisXVDqU3ry4Hv581dFSxDUgokgoWSxIERe/nvYnhoN8zIIEKQQ=="
+  "resolved" "https://registry.npmjs.org/@ionic/pwa-elements/-/pwa-elements-3.2.2.tgz"
+  "version" "3.2.2"
 
 "@ionic/react-router@^7.0.0":
   "integrity" "sha512-4C3c2hZdQA93A2JJmAKwpITiPUTF6bi+QKQ5Jok6A14p/NK6CFfgq0Hi77mYNySkfnPFXgNSoM8fg3ifnkhAKA=="

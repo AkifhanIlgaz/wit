@@ -1,3 +1,4 @@
+import { Camera, CameraResultType } from '@capacitor/camera'
 import { IonFab, IonFabButton, IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react'
 import { add, homeOutline, person } from 'ionicons/icons'
 import { Route } from 'react-router'
@@ -11,6 +12,16 @@ import Post from '../pages/Post'
 const Tabs = () => {
 	const user = useRecoilValue(userState)
 
+	const takePicture = async () => {
+		const image = await Camera.getPhoto({
+			quality: 90,
+			allowEditing: true,
+			resultType: CameraResultType.DataUrl
+		})
+
+		console.log(image.format)
+	}
+
 	return (
 		user && (
 			<IonTabs>
@@ -20,13 +31,13 @@ const Tabs = () => {
 					<Route exact path={'/posts/:postId'} render={() => <Post />} />
 					<Route exact path={'/edit-profile'} render={() => <EditProfile />} />
 				</IonRouterOutlet>
-				<IonTabBar slot="bottom" color={'transparent'} >
-					<IonTabButton tab="home" href="/home" >
+				<IonTabBar slot="bottom" color={'transparent'}>
+					<IonTabButton tab="home" href="/home">
 						<IonIcon icon={homeOutline}></IonIcon>
 					</IonTabButton>
 					<IonTabButton>
 						<IonFab>
-							<IonFabButton size="small" color={'dark'}>
+							<IonFabButton size="small" color={'dark'} onClick={takePicture}>
 								<IonIcon icon={add}></IonIcon>
 							</IonFabButton>
 						</IonFab>
