@@ -5,6 +5,8 @@ const Home = () => {
 	return (
 		<Authorized>
 			<PostCard />
+			<PostCard />
+			<PostCard />
 		</Authorized>
 	)
 }
