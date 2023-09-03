@@ -37,7 +37,13 @@ const App = () => {
 		<IonApp>
 			<IonReactRouter>
 				<IonRouterOutlet>
-					{!user && (
+					{user ? (
+						<>
+							<Route path={['/', '/signin', '/signup', '/password-reset', '/forgot-password']} exact={true}>
+								<Redirect to="/home"></Redirect>
+							</Route>
+						</>
+					) : (
 						<>
 							<Route path={'/'}>
 								<Redirect to={'/signin'}></Redirect>

@@ -36,9 +36,8 @@ export const SignIn = () => {
 	const signInWithProvider = async provider => {
 		try {
 			const res = await firebase.signInWithThirdPartyProvider(provider)
-			setUser(res)
-			console.log(res)
 			history.push('/home')
+			setUser(res)
 		} catch (error) {
 			alert(error.message)
 		}

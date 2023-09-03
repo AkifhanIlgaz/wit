@@ -59,7 +59,7 @@ const MyProfile = ({ userInfo }) => {
 						</IonButton>
 						<IonPopover trigger="popover" side="bottom" alignment="center">
 							<IonList lines="none">
-								<IonItem>
+								<IonItem onClick={() => history.push('/edit-profile')}>
 									Edit Profile
 									<IonIcon size="small" icon={pencilOutline} slot="end"></IonIcon>
 								</IonItem>
