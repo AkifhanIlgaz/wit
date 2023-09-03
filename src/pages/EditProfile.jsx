@@ -1,4 +1,4 @@
-import { IonFab, IonFabButton, IonIcon } from '@ionic/react'
+import { IonButton, IonButtons, IonFab, IonFabButton, IonIcon, IonToolbar } from '@ionic/react'
 import { pencilOutline } from 'ionicons/icons'
 import { useRef } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -28,6 +28,14 @@ const EditProfile = () => {
 
 	return (
 		<Authorized>
+			<IonToolbar color={'transparent'} className='ion-margin-bottom'>
+				<IonButtons slot="start" className="ion-padding-start">
+					<IonButton>Cancel</IonButton>
+				</IonButtons>
+				<IonButtons slot="end" className="ion-padding-end">
+					<IonButton>Save</IonButton>
+				</IonButtons>
+			</IonToolbar>
 			<div
 				className="ion-text-center ion-margin-bottom"
 				style={{

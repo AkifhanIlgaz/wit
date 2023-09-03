@@ -57,7 +57,7 @@ const MyProfile = ({ userInfo }) => {
 						<IonButton id="popover">
 							<IonIcon icon={ellipsisVertical}></IonIcon>
 						</IonButton>
-						<IonPopover trigger="popover" side="bottom" alignment="center">
+						<IonPopover trigger="popover" side="bottom" alignment="center" dismissOnSelect>
 							<IonList lines="none">
 								<IonItem onClick={() => history.push('/edit-profile')}>
 									Edit Profile
