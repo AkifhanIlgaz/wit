@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonFab, IonFabButton, IonIcon, IonToolbar } from '@ionic/react'
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCol, IonFab, IonFabButton, IonGrid, IonIcon, IonInput, IonRow, IonToolbar } from '@ionic/react'
 import { pencilOutline } from 'ionicons/icons'
 import { useRef } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -28,7 +28,7 @@ const EditProfile = () => {
 
 	return (
 		<Authorized>
-			<IonToolbar color={'transparent'} className='ion-margin-bottom'>
+			<IonToolbar color={'transparent'} className="ion-margin-bottom">
 				<IonButtons slot="start" className="ion-padding-start">
 					<IonButton>Cancel</IonButton>
 				</IonButtons>
@@ -36,33 +36,69 @@ const EditProfile = () => {
 					<IonButton>Save</IonButton>
 				</IonButtons>
 			</IonToolbar>
-			<div
-				className="ion-text-center ion-margin-bottom"
-				style={{
-					position: 'relative'
-				}}
-			>
-				<img src={user.photoURL ? user.photoURL : defaultProfilePhoto} alt="" style={{ position: 'relative', borderRadius: '50%', width: '50%', height: '50%' }} />
-				<IonFab slot="fixed" horizontal="right" vertical="bottom">
-					<IonFabButton
-						size="small"
-						color={'tertiary'}
+			<IonGrid>
+				<IonCard className="ion-transparent">
+					<div
+						className="ion-text-center ion-margin-bottom"
 						style={{
-							zIndex: '2',
-							position: 'absolute',
-							right: '22%',
-							bottom: '1%',
-							margin: 'auto'
+							position: 'relative'
 						}}
-						onClick={click}
 					>
-						<IonIcon icon={pencilOutline}></IonIcon>
-						<div hidden>
-							<input type="file" onChange={handleUploadPhoto} ref={uploadPhoto} />
-						</div>
-					</IonFabButton>
-				</IonFab>
-			</div>
+						<img src={user.photoURL ? user.photoURL : defaultProfilePhoto} alt="" style={{ position: 'relative', borderRadius: '50%', width: '50%', height: '50%' }} />
+						<IonFab slot="fixed" horizontal="right" vertical="bottom">
+							<IonFabButton
+								size="small"
+								color={'tertiary'}
+								style={{
+									zIndex: '2',
+									position: 'absolute',
+									right: '22%',
+									bottom: '1%',
+									margin: 'auto'
+								}}
+								onClick={click}
+							>
+								<IonIcon icon={pencilOutline}></IonIcon>
+								<div hidden>
+									<input type="file" onChange={handleUploadPhoto} ref={uploadPhoto} />
+								</div>
+							</IonFabButton>
+						</IonFab>
+					</div>
+
+					<IonCardContent className="card-content">
+						<IonRow className="ion-align-items-center">
+							<IonCol className="ion-no-padding">
+								<IonInput
+									label="E-Mail"
+									type="email"
+									labelPlacement="floating"
+									className="ion-padding-start ion-padding-end ion-margin-top ion-input"
+									style={{
+										border: '1px solid black',
+										borderRadius: '50px'
+									}}
+									fill="block"
+								></IonInput>
+							</IonCol>
+						</IonRow>
+						<IonRow className="ion-align-items-center">
+							<IonCol className="ion-no-padding">
+								<IonInput
+									label="E-Mail"
+									type="email"
+									labelPlacement="floating"
+									className="ion-padding-start ion-padding-end ion-margin-top ion-input"
+									style={{
+										border: '1px solid black'
+									}}
+									fill="block"
+								></IonInput>
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
+			</IonGrid>
 		</Authorized>
 	)
 }
