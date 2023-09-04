@@ -1,4 +1,5 @@
 import { IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonRefresher, IonRefresherContent } from '@ionic/react'
+import { refreshOutline } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
 import PostCard from '../components/post/PostCard'
 import Authorized from '../layouts/Authorized'
@@ -54,6 +55,9 @@ const Home = () => {
 		<Authorized>
 			<IonRefresher
 				slot="fixed"
+				pullFactor={0.5}
+				pullMin={50}
+				pullMax={100}
 				onIonRefresh={ev => {
 					// TODO: Refresh posts
 					// ? Reset postChunkIndex
@@ -64,7 +68,7 @@ const Home = () => {
 					resetPosts()
 				}}
 			>
-				<IonRefresherContent></IonRefresherContent>
+				<IonRefresherContent refreshingSpinner={'bubbles'} pullingIcon={refreshOutline}></IonRefresherContent>
 			</IonRefresher>
 
 			<IonList>
