@@ -10,6 +10,21 @@ const AnalyticsBox = ({ boxInfo, isOpen, setIsOpen }) => {
 	const mock = [
 		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
 		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
+		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
+		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
+		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
 		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
 	]
 
