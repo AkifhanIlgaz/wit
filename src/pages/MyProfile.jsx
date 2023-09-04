@@ -9,6 +9,7 @@ import PostTabs from '../components/post/PostTabs'
 import Posts from '../components/post/Posts'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
 import Authorized from '../layouts/Authorized'
+import LogoTitle from '../components/LogoTitle'
 
 const MyProfile = ({ userInfo }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
@@ -53,7 +54,7 @@ const MyProfile = ({ userInfo }) => {
 						marginTop: '2%'
 					}}
 				>
-					<IonTitle>Wear It Tomorrow</IonTitle>
+					<LogoTitle />
 					<IonButtons slot="end">
 						<IonButton id="popover">
 							<IonIcon icon={ellipsisVertical}></IonIcon>

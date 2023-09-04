@@ -1,6 +1,7 @@
-import { IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonRefresher, IonRefresherContent, IonTitle, IonToolbar } from '@ionic/react'
+import { IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonRefresher, IonRefresherContent, IonToolbar } from '@ionic/react'
 import { refreshOutline } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
+import LogoTitle from '../components/LogoTitle'
 import PostCard from '../components/post/PostCard'
 import Authorized from '../layouts/Authorized'
 
@@ -55,7 +56,7 @@ const Home = () => {
 		<Authorized>
 			<IonHeader>
 				<IonToolbar>
-					<IonTitle>Wear It Tomorrow</IonTitle>
+					<LogoTitle />
 				</IonToolbar>
 			</IonHeader>
 			<IonRefresher

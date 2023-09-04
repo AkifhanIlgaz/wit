@@ -1,6 +1,7 @@
-import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonTitle, IonToolbar } from '@ionic/react'
+import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
 import { chevronBackOutline } from 'ionicons/icons'
 import { useHistory } from 'react-router'
+import LogoTitle from '../components/LogoTitle'
 import DefaultButton from '../components/buttons/DefaultButton'
 import FollowButton from '../components/buttons/FollowButton'
 import Posts from '../components/post/Posts'
@@ -41,7 +42,7 @@ const UserProfile = ({ userInfo }) => {
 					marginTop: '2%'
 				}}
 			>
-				<IonTitle>Wear It Tomorrow</IonTitle>
+				<LogoTitle />
 				<IonButtons slot="start">
 					<IonButton onClick={() => history.goBack()}>
 						<IonIcon icon={chevronBackOutline}></IonIcon>
