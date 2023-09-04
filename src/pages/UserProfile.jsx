@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
+import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonTitle, IonToolbar } from '@ionic/react'
 import { chevronBackOutline } from 'ionicons/icons'
 import { useHistory } from 'react-router'
 import DefaultButton from '../components/buttons/DefaultButton'
@@ -41,6 +41,7 @@ const UserProfile = ({ userInfo }) => {
 					marginTop: '2%'
 				}}
 			>
+				<IonTitle>Wear It Tomorrow</IonTitle>
 				<IonButtons slot="start">
 					<IonButton onClick={() => history.goBack()}>
 						<IonIcon icon={chevronBackOutline}></IonIcon>

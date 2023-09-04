@@ -1,4 +1,4 @@
-import { IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonRefresher, IonRefresherContent } from '@ionic/react'
+import { IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonRefresher, IonRefresherContent, IonTitle, IonToolbar } from '@ionic/react'
 import { refreshOutline } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
 import PostCard from '../components/post/PostCard'
@@ -53,6 +53,11 @@ const Home = () => {
 
 	return (
 		<Authorized>
+			<IonHeader>
+				<IonToolbar>
+					<IonTitle>Wear It Tomorrow</IonTitle>
+				</IonToolbar>
+			</IonHeader>
 			<IonRefresher
 				slot="fixed"
 				pullFactor={0.5}
