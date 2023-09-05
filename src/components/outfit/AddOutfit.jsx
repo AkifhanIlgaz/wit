@@ -2,8 +2,17 @@ import { IonAlert, IonButton, IonButtons, IonCard, IonCardContent, IonModal, Ion
 import { useState } from 'react'
 
 const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
-	const [point, setPoint] = useState({})
+	const [dot, setDot] = useState({})
 	const [isAlertOpen, setIsAlertOpen] = useState(false)
+
+	//    Left, right, title, url
+	const [link, setLink] = useState({})
+
+	const close = () => {
+		setDot({})
+		setLink({})
+		setIsOpen(false)
+	}
 
 	return (
 		<IonModal isOpen={isOpen}>
@@ -15,10 +24,10 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 
 			<IonToolbar color={'transparent'}>
 				<IonButtons slot="start">
-					<IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
+					<IonButton onClick={close}>Cancel</IonButton>
 				</IonButtons>
 				<IonButtons slot="end">
-					<IonButton onClick={() => setIsOpen(false)}>Save</IonButton>
+					<IonButton onClick={close}>Save</IonButton>
 				</IonButtons>
 			</IonToolbar>
 			<div
@@ -42,13 +51,13 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 							y: e.clientY - rect.y
 						}
 
-						const button = {
+						const point = {
 							left: (clicked.x / rect.width) * 100,
 							top: (clicked.y / rect.height) * 100
 						}
 
 						setIsAlertOpen(true)
-						setPoint(button)
+						setDot(point)
 					}}
 				/>
 
@@ -60,13 +69,21 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 							text: 'Cancel',
 							role: 'destructive',
 							handler: () => {
-								// TODO: Reset point ?
+								setDot({})
+								setLink({})
 							}
 						},
 						{
 							text: 'Save',
 							role: 'confirm',
-							handler: () => {
+							handler: data => {
+								console.log(data)
+								setLink({
+									left: `${dot.left}%`,
+									top: `${dot.top}%`,
+									title: data['0'],
+									url: data['1']
+								})
 								// TODO: Reset point ?
 							}
 						}
@@ -82,8 +99,28 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 							placeholder: 'Link'
 						}
 					]}
-					onDidDismiss={() => setIsAlertOpen(false)}
+					onDidDismiss={e => {
+						setIsAlertOpen(false)
+					}}
 				></IonAlert>
+
+				<IonCard
+					style={{
+						position: 'absolute',
+						left: link.left,
+						top: link.top
+					}}
+					className="ion-no-margin "
+				>
+					<IonCardContent
+						className="ion-no-padding"
+						style={{
+							padding: '.5rem'
+						}}
+					>
+						<a href={link.url}>{link.title}</a>
+					</IonCardContent>
+				</IonCard>
 			</div>
 		</IonModal>
 	)
