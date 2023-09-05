@@ -1,11 +1,9 @@
 import { Share } from '@capacitor/share'
-import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonList, IonModal, IonRow, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react'
-import { bookmark, bookmarkOutline, chevronBackOutline, heart, heartOutline, shareSocialOutline } from 'ionicons/icons'
+import { IonButton, IonButtons, IonCol, IonGrid, IonHeader, IonIcon, IonRow, IonTitle, IonToolbar } from '@ionic/react'
+import { chevronBackOutline } from 'ionicons/icons'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { getPostById } from '../api/mockUsers'
-import formatCount from '../api/numberFormat'
-import UserListItem from '../components/user/UserListItem'
 import profilePhoto1 from '../images/defaultPostPhoto.jpg'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import profilePhoto2 from '../images/defaultSavedPhoto.jpg'
@@ -87,45 +85,7 @@ const Post = () => {
 					<IonGrid className="ion-height ion-no-padding ion-no-margin">
 						<IonRow className="ion-height">
 							<IonCol>
-								<img src={post.photoUrl} alt="" height={'70%'} onDoubleClick={changeLikeStatus} />
-								<IonToolbar color={'transparent'}>
-									<IonButtons slot="start">
-										<IonButton color={'danger'} onClick={changeLikeStatus}>
-											<IonIcon icon={post.isLiked ? heart : heartOutline}></IonIcon>
-										</IonButton>
-										<IonButton onClick={sharePostUrl}>
-											<IonIcon icon={shareSocialOutline}></IonIcon>
-										</IonButton>
-									</IonButtons>
-									<IonButtons slot="end">
-										<IonButton onClick={changeSaveStatus}>
-											<IonIcon icon={post.isSaved ? bookmark : bookmarkOutline}></IonIcon>
-										</IonButton>
-									</IonButtons>
-								</IonToolbar>
-								<IonButton
-									id="open-modal"
-									color={'transparent'}
-									style={{
-										color: '#000',
-										marginTop: '0',
-										fontWeight: '600',
-										fontFamily: ` -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif`
-									}}
-									size="small"
-								>
-									<span>{formatCount(post.likeCount)} Likes</span>
-									<IonModal ref={modal} trigger="open-modal" initialBreakpoint={0.75} breakpoints={[0, 0.25, 0.5, 0.75]}>
-										<IonContent className="ion-padding">
-											<IonSearchbar animated placeholder="Search"></IonSearchbar>
-											<IonList>
-												{mock.map((user, i) => (
-													<UserListItem key={i} user={user} />
-												))}
-											</IonList>
-										</IonContent>
-									</IonModal>
-								</IonButton>
+								<img src={post.photoUrl} alt="" height={'100%'} onDoubleClick={changeLikeStatus} />
 							</IonCol>
 						</IonRow>
 					</IonGrid>
