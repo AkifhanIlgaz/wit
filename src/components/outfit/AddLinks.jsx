@@ -10,6 +10,11 @@ const AddLinks = ({ photo }) => {
 	const errorMessage = 'Please enter an valid URL'
 	const [links, setLinks] = useState([])
 
+	const reset = () => {
+		setCurrentDot({})
+		setLinks([])
+	}
+
 	return (
 		<div
 			style={{
@@ -49,15 +54,12 @@ const AddLinks = ({ photo }) => {
 						role: 'destructive',
 						handler: () => {
 							setCurrentDot({})
-							setLinks([])
 						}
 					},
 					{
 						text: 'Save',
 						role: 'confirm',
 						handler: data => {
-							// TODO: If it's not valid url alert
-
 							if (isUrlHttp(data['0'])) {
 								setLinks([
 									...links,
@@ -70,8 +72,6 @@ const AddLinks = ({ photo }) => {
 							} else {
 								setIsErrorOpen(true)
 							}
-
-							// TODO: Reset point ?
 						}
 					}
 				]}
