@@ -1,9 +1,8 @@
-import { IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonRefresher, IonRefresherContent, IonToolbar } from '@ionic/react'
+import { IonContent, IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonPage, IonRefresher, IonRefresherContent, IonToolbar } from '@ionic/react'
 import { refreshOutline } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
 import LogoTitle from '../components/LogoTitle'
 import PostCard from '../components/post/PostCard'
-import Authorized from '../layouts/Authorized'
 
 const Home = () => {
 	const [posts, setPosts] = useState([])
@@ -60,49 +59,52 @@ const Home = () => {
 	}, [])
 
 	return (
-		<Authorized>
+		<IonPage>
 			<IonHeader>
 				<IonToolbar>
 					<LogoTitle />
 				</IonToolbar>
 			</IonHeader>
-			<IonRefresher
-				slot="fixed"
-				pullFactor={0.5}
-				pullMin={50}
-				pullMax={100}
-				onIonRefresh={ev => {
-					// TODO: Refresh posts
-					// ? Reset postChunkIndex
 
-					setTimeout(() => {
-						ev.detail.complete()
-					}, 1000)
-					resetPosts()
-				}}
-			>
-				<IonRefresherContent refreshingSpinner={'bubbles'} pullingIcon={refreshOutline}></IonRefresherContent>
-			</IonRefresher>
+			<IonContent>
+				<IonRefresher
+					slot="fixed"
+					pullFactor={0.5}
+					pullMin={50}
+					pullMax={100}
+					onIonRefresh={ev => {
+						// TODO: Refresh posts
+						// ? Reset postChunkIndex
 
-			<IonList>
-				{posts.map((post, index) => {
-					return <PostCard key={index} postInfo={post} />
-				})}
-			</IonList>
+						setTimeout(() => {
+							ev.detail.complete()
+						}, 1000)
+						resetPosts()
+					}}
+				>
+					<IonRefresherContent refreshingSpinner={'bubbles'} pullingIcon={refreshOutline}></IonRefresherContent>
+				</IonRefresher>
 
-			<IonInfiniteScroll
-				onIonInfinite={ev => {
-					setPostChunkIndex(s => s + 1)
-					getPosts(postChunkIndex + 1)
-					// TODO: Get posts from backend and use .then method to call ev.target.complete()
-					setTimeout(() => {
-						ev.target.complete()
-					}, 1000)
-				}}
-			>
-				<IonInfiniteScrollContent></IonInfiniteScrollContent>
-			</IonInfiniteScroll>
-		</Authorized>
+				<IonList>
+					{posts.map((post, index) => {
+						return <PostCard key={index} postInfo={post} />
+					})}
+				</IonList>
+
+				<IonInfiniteScroll
+					onIonInfinite={ev => {
+						setPostChunkIndex(s => s + 1)
+						getPosts(postChunkIndex + 1)
+						// TODO: Get posts from backend and use .then method to call ev.target.complete()
+						setTimeout(() => {
+							ev.target.complete()
+						}, 1000)
+					}}
+				>
+					<IonInfiniteScrollContent></IonInfiniteScrollContent>
+				</IonInfiniteScroll>
+			</IonContent>
+		</IonPage>
 	)
 }
 
