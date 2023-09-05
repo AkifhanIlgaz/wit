@@ -1,4 +1,5 @@
 import { IonAlert, IonButton, IonButtons, IonCard, IonCardContent, IonModal, IonPopover, IonToolbar } from '@ionic/react'
+import isUrlHttp from 'is-url-http'
 import { useState } from 'react'
 
 const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
@@ -6,11 +7,11 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 	const [isAlertOpen, setIsAlertOpen] = useState(false)
 
 	//    Left, right, title, url
-	const [link, setLink] = useState({})
+	const [links, setLinks] = useState([])
 
 	const close = () => {
 		setDot({})
-		setLink({})
+		setLinks([])
 		setIsOpen(false)
 	}
 
@@ -37,7 +38,6 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 			>
 				<img
 					src={photo}
-					alt=""
 					style={{
 						width: '100vw',
 						height: '100vh'
@@ -70,30 +70,30 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 							role: 'destructive',
 							handler: () => {
 								setDot({})
-								setLink({})
+								setLinks([])
 							}
 						},
 						{
 							text: 'Save',
 							role: 'confirm',
 							handler: data => {
-								console.log(data)
-								setLink({
-									left: `${dot.left}%`,
-									top: `${dot.top}%`,
-									title: data['0'],
-									url: data['1']
-								})
+								// TODO: If it's not valid url alert
+								if (isUrlHttp(data['0'])) {
+									setLinks([
+										...links,
+										{
+											left: `${dot.left - 2}%`,
+											top: `${dot.top - 1}%`,
+											url: data['0']
+										}
+									])
+								}
+
 								// TODO: Reset point ?
 							}
 						}
 					]}
 					inputs={[
-						{
-							type: 'text',
-							placeholder: 'Title'
-						},
-
 						{
 							type: 'url',
 							placeholder: 'Link'
@@ -104,23 +104,33 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 					}}
 				></IonAlert>
 
-				<IonCard
-					style={{
-						position: 'absolute',
-						left: link.left,
-						top: link.top
-					}}
-					className="ion-no-margin "
-				>
-					<IonCardContent
-						className="ion-no-padding"
-						style={{
-							padding: '.5rem'
-						}}
-					>
-						<a href={link.url}>{link.title}</a>
-					</IonCardContent>
-				</IonCard>
+				{links.map(link => {
+					return (
+						<IonCard
+							style={{
+								position: 'absolute',
+								left: link.left,
+								top: link.top
+							}}
+							className="ion-no-margin "
+						>
+							<IonCardContent
+								className="ion-no-padding"
+								style={{
+									padding: '.5rem'
+								}}
+							>
+								<a
+									href={link.url}
+									style={{
+										width: '100%',
+										height: '100%'
+									}}
+								></a>
+							</IonCardContent>
+						</IonCard>
+					)
+				})}
 			</div>
 		</IonModal>
 	)
