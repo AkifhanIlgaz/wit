@@ -1,10 +1,11 @@
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
-import { IonButton, IonButtons, IonCard, IonCardContent, IonFab, IonFabButton, IonIcon, IonModal, IonPopover, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonToolbar } from '@ionic/react'
+import { IonFab, IonFabButton, IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react'
 import { add, homeOutline, person } from 'ionicons/icons'
 import { Fragment, useState } from 'react'
 import { Route } from 'react-router'
 import { useRecoilValue } from 'recoil'
 import userState from '../atoms/user'
+import AddOutfit from '../components/outfit/AddOutfit'
 import ProfileRouter from '../components/profile/ProfileRouter'
 import EditProfile from '../pages/EditProfile'
 import Home from '../pages/Home'
@@ -54,23 +55,7 @@ const Tabs = () => {
 						</IonTabButton>
 					</IonTabBar>
 				</IonTabs>
-				<IonModal isOpen={isOpen}>
-					<IonPopover isOpen dismissOnSelect>
-						<IonCard>
-							<IonCardContent>Click on the outfit to add additional info</IonCardContent>
-						</IonCard>
-					</IonPopover>
-
-					<IonToolbar color={'transparent'}>
-						<IonButtons slot="start">
-							<IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
-						</IonButtons>
-						<IonButtons slot="end">
-							<IonButton onClick={() => setIsOpen(false)}>Save</IonButton>
-						</IonButtons>
-					</IonToolbar>
-					<img src={photo} alt="" width={'100%'} height={'100%'} />
-				</IonModal>
+				<AddOutfit isOpen={isOpen} setIsOpen={setIsOpen} photo={photo} />
 			</Fragment>
 		)
 	)

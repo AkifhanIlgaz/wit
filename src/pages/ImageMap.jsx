@@ -63,7 +63,7 @@ const ImageMap = () => {
 					width: '100vw',
 					height: '100vh'
 				}}
-				useMap="#photo"
+			
 				onClick={e => {
 					const rect = e.currentTarget.getBoundingClientRect()
 					const x = (e.pageX / rect.width) * 100
