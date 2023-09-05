@@ -28,6 +28,12 @@ const Home = () => {
 		}, 1000)
 	}
 
+	const ping = async () => {
+		const res = await fetch('http://localhost:3000/ping')
+		const body = await res.text()
+		console.log(body)
+	}
+
 	const resetPosts = () => {
 		setPostChunkIndex(0)
 		const postInfo = {
@@ -49,6 +55,7 @@ const Home = () => {
 	}
 
 	useEffect(() => {
+		ping()
 		getPosts(postChunkIndex)
 	}, [])
 
