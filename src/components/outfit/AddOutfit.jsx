@@ -1,6 +1,7 @@
 import { IonAlert, IonButton, IonButtons, IonCard, IonCardContent, IonModal, IonPopover, IonToolbar } from '@ionic/react'
 import isUrlHttp from 'is-url-http'
 import { useState } from 'react'
+import OutfitLinkDot from './OutfitLinkDot'
 
 const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 	const [dot, setDot] = useState({})
@@ -104,33 +105,9 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 					}}
 				></IonAlert>
 
-				{links.map(link => {
-					return (
-						<IonCard
-							style={{
-								position: 'absolute',
-								left: link.left,
-								top: link.top
-							}}
-							className="ion-no-margin "
-						>
-							<IonCardContent
-								className="ion-no-padding"
-								style={{
-									padding: '.5rem'
-								}}
-							>
-								<a
-									href={link.url}
-									style={{
-										width: '100%',
-										height: '100%'
-									}}
-								></a>
-							</IonCardContent>
-						</IonCard>
-					)
-				})}
+				{links.map(link => (
+					<OutfitLinkDot link={link} />
+				))}
 			</div>
 		</IonModal>
 	)
