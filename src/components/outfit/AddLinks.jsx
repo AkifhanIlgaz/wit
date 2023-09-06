@@ -7,7 +7,9 @@ const AddLinks = ({ photo }) => {
 	const [currentDot, setCurrentDot] = useState({})
 	const [isAlertOpen, setIsAlertOpen] = useState(false)
 	const [isErrorOpen, setIsErrorOpen] = useState(false)
-	const errorMessage = 'Please enter an valid URL'
+	const [errorMessage, setErrorMessage] = useState('')
+	const invalidUrl = 'Please enter an valid URL'
+	const invalidTitle = 'Please enter title'
 	const [links, setLinks] = useState([])
 
 	const reset = () => {
@@ -60,22 +62,34 @@ const AddLinks = ({ photo }) => {
 						text: 'Save',
 						role: 'confirm',
 						handler: data => {
-							if (isUrlHttp(data['0'])) {
-								setLinks([
-									...links,
-									{
-										left: `${currentDot.left - 2}%`,
-										top: `${currentDot.top - 1}%`,
-										url: data['0']
-									}
-								])
-							} else {
+							if (data['0'] === '') {
 								setIsErrorOpen(true)
+								setErrorMessage(invalidTitle)
+								return
 							}
+							if (!isUrlHttp(data['1'])) {
+								setIsErrorOpen(true)
+								setErrorMessage(invalidUrl)
+								return
+							}
+
+							setLinks([
+								...links,
+								{
+									left: `${currentDot.left - 2}%`,
+									top: `${currentDot.top - 1}%`,
+									title: data['0'],
+									url: data['1']
+								}
+							])
 						}
 					}
 				]}
 				inputs={[
+					{
+						type: 'text',
+						placeholder: 'Title'
+					},
 					{
 						type: 'url',
 						placeholder: 'Link'
