@@ -86,8 +86,8 @@ const AddLinks = ({ photo }) => {
 				}}
 			></IonAlert>
 
-			{links.map(link => (
-				<OutfitLinkDot link={link} />
+			{links.map((link, index) => (
+				<OutfitLinkDot key={index} link={link} />
 			))}
 
 			<IonAlert isOpen={isErrorOpen} message={errorMessage} buttons={['OK']} onDidDismiss={() => setIsErrorOpen(false)}></IonAlert>
