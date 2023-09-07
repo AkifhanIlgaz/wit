@@ -68,8 +68,7 @@ const AddLinks = ({ photo }) => {
 							if (data.title === '') {
 								setIsErrorOpen(true)
 								setErrorMessage(invalidTitle)
-								setTitleValue('')
-								setLinkValue('')
+
 								setIsAlertOpen(false)
 								return
 							}
