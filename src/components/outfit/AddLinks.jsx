@@ -12,6 +12,9 @@ const AddLinks = ({ photo }) => {
 	const invalidTitle = 'Please enter title'
 	const [links, setLinks] = useState([])
 
+	const [titleValue, setTitleValue] = useState('')
+	const [linkValue, setLinkValue] = useState('')
+
 	const reset = () => {
 		setCurrentDot({})
 		setLinks([])
@@ -62,12 +65,15 @@ const AddLinks = ({ photo }) => {
 						text: 'Save',
 						role: 'confirm',
 						handler: data => {
-							if (data['0'] === '') {
+							if (data.title === '') {
 								setIsErrorOpen(true)
 								setErrorMessage(invalidTitle)
+								setTitleValue('')
+								setLinkValue('')
+								setIsAlertOpen(false)
 								return
 							}
-							if (!isUrlHttp(data['1'])) {
+							if (!isUrlHttp(data.link)) {
 								setIsErrorOpen(true)
 								setErrorMessage(invalidUrl)
 								return
@@ -78,8 +84,8 @@ const AddLinks = ({ photo }) => {
 								{
 									left: `${currentDot.left - 2}%`,
 									top: `${currentDot.top - 1}%`,
-									title: data['0'],
-									url: data['1']
+									title: data.title,
+									url: data.link
 								}
 							])
 						}
@@ -87,15 +93,27 @@ const AddLinks = ({ photo }) => {
 				]}
 				inputs={[
 					{
+						name: 'text',
 						type: 'text',
-						placeholder: 'Title'
+						placeholder: 'Title',
+						value: titleValue
 					},
 					{
+						name: 'link',
 						type: 'url',
-						placeholder: 'Link'
+						placeholder: 'Link',
+						value: linkValue
 					}
 				]}
 				onDidDismiss={() => {
+					setTitleValue('')
+					setLinkValue('')
+					setIsAlertOpen(false)
+				}}
+				onIonAlertWillDismiss={e => {
+					console.log(e)
+					setTitleValue('')
+					setLinkValue('')
 					setIsAlertOpen(false)
 				}}
 			></IonAlert>
