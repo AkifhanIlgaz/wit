@@ -21,10 +21,10 @@ const Tabs = () => {
 			quality: 90,
 			allowEditing: true,
 			source: CameraSource.Photos,
-			resultType: CameraResultType.Uri
+			resultType: CameraResultType.DataUrl
 		})
 
-		setPhoto(image.webPath)
+		setPhoto(image.dataUrl)
 		setIsOpen(true)
 	}
 

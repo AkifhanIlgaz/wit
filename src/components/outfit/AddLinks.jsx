@@ -1,16 +1,23 @@
 import { IonAlert, IonButton, IonButtons, IonToolbar, useIonAlert } from '@ionic/react'
 import isUrlHttp from 'is-url-http'
 import { Fragment, useState } from 'react'
+import Firebase from '../../api/firebase/firebase'
 import OutfitLinkDot from './OutfitLinkDot'
 
 const invalidUrl = 'Please enter an valid URL'
 const invalidTitle = 'Please enter title'
 
 const AddLinks = ({ photo, setIsOpen }) => {
+	const firebase = new Firebase()
 	const [isErrorOpen, setIsErrorOpen] = useState(false)
 	const [errorMessage, setErrorMessage] = useState('')
 	const [links, setLinks] = useState([])
 	const [presentAlert] = useIonAlert()
+
+	const upload = async () => {
+		const url = await firebase.uploadBase64File('outfits', photo, 'second')
+		console.log(url)
+	}
 
 	return (
 		<Fragment>
@@ -22,8 +29,10 @@ const AddLinks = ({ photo, setIsOpen }) => {
 					<IonButton
 						onClick={() => {
 							// TODO: Upload photo to Storage
+							upload()
+
 							// TODO: Insert to Firestore
-							console.log(links)
+
 							setIsOpen(false)
 						}}
 					>

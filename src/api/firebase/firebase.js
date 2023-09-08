@@ -211,6 +211,26 @@ class Firebase {
 		}
 	}
 
+	/**
+	 *
+	 * @param {*} storagePath
+	 * @param {string} base64
+	 * @param {*} fileName
+	 * @returns
+	 */
+	async uploadBase64File(storagePath, base64, fileName) {
+		try {
+			// base64 = base64.slice(base64.search('base64') + 7)
+			let storageRef = this.storage.ref(storagePath)
+			storageRef = storageRef.child(fileName)
+			const snapshot = await storageRef.putString(base64, 'data_url')
+			const downloadURL = await snapshot.ref.getDownloadURL()
+			return downloadURL
+		} catch (error) {
+			throw error
+		}
+	}
+
 	async deleteFile(storagePath) {
 		try {
 			const storageRef = this.storage.ref(storagePath)
