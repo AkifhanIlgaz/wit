@@ -16,7 +16,6 @@ const AddLinks = ({ photo, setIsOpen }) => {
 
 	const upload = async () => {
 		const url = await firebase.uploadBase64File('outfits', photo, 'second')
-		console.log(url)
 	}
 
 	return (
