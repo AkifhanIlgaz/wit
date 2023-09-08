@@ -3,30 +3,32 @@ import isUrlHttp from 'is-url-http'
 import { Fragment, useState } from 'react'
 import OutfitLinkDot from './OutfitLinkDot'
 
+const invalidUrl = 'Please enter an valid URL'
+const invalidTitle = 'Please enter title'
+
 const AddLinks = ({ photo, setIsOpen }) => {
-	const [currentPoint, setCurrentPoint] = useState({})
 	const [isErrorOpen, setIsErrorOpen] = useState(false)
 	const [errorMessage, setErrorMessage] = useState('')
-	const invalidUrl = 'Please enter an valid URL'
-	const invalidTitle = 'Please enter title'
 	const [links, setLinks] = useState([])
-
-	const reset = () => {
-		setCurrentPoint({})
-		setLinks([])
-		setIsOpen(false)
-	}
-
 	const [presentAlert] = useIonAlert()
 
 	return (
 		<Fragment>
 			<IonToolbar color={'transparent'}>
 				<IonButtons slot="start">
-					<IonButton onClick={reset}>Cancel</IonButton>
+					<IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
 				</IonButtons>
 				<IonButtons slot="end">
-					<IonButton onClick={reset}>Save</IonButton>
+					<IonButton
+						onClick={() => {
+							// TODO: Upload photo to Storage
+							// TODO: Insert to Firestore
+							console.log(links)
+							setIsOpen(false)
+						}}
+					>
+						Save
+					</IonButton>
 				</IonButtons>
 			</IonToolbar>
 			<div
@@ -54,28 +56,20 @@ const AddLinks = ({ photo, setIsOpen }) => {
 							top: (clicked.y / rect.height) * 100
 						}
 
-						setCurrentPoint(point)
-
 						presentAlert({
 							header: 'Please enter your info',
 							buttons: [
 								{
 									text: 'Cancel',
-									role: 'destructive',
-									handler: () => {
-										setCurrentPoint({})
-									}
+									role: 'destructive'
 								},
 								{
 									text: 'Save',
 									role: 'confirm',
 									handler: data => {
-										console.log(data)
 										if (data.title === '') {
 											setIsErrorOpen(true)
 											setErrorMessage(invalidTitle)
-
-											setIsAlertOpen(false)
 											return
 										}
 										if (!isUrlHttp(data.link)) {
@@ -87,8 +81,8 @@ const AddLinks = ({ photo, setIsOpen }) => {
 										setLinks([
 											...links,
 											{
-												left: `${currentPoint.left - 2}%`,
-												top: `${currentPoint.top - 1}%`,
+												left: `${point.left - 2}%`,
+												top: `${point.top - 1}%`,
 												title: data.title,
 												url: data.link
 											}
@@ -98,7 +92,7 @@ const AddLinks = ({ photo, setIsOpen }) => {
 							],
 							inputs: [
 								{
-									name: 'text',
+									name: 'title',
 									type: 'text',
 									placeholder: 'Title'
 								},
