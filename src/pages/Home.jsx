@@ -1,10 +1,12 @@
 import { IonContent, IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonPage, IonRefresher, IonRefresherContent, IonToolbar } from '@ionic/react'
 import { refreshOutline } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
+import Firebase from '../api/firebase/firebase'
 import LogoTitle from '../components/LogoTitle'
 import PostCard from '../components/post/PostCard'
 
 const Home = () => {
+	const firebase = new Firebase()
 	const [posts, setPosts] = useState([])
 	const [postChunkIndex, setPostChunkIndex] = useState(0)
 
@@ -28,9 +30,17 @@ const Home = () => {
 	}
 
 	const ping = async () => {
-		const res = await fetch('http://localhost:3000/ping')
-		const body = await res.text()
-		console.log(body)
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			const res = await fetch('http://localhost:3000/ping', {
+				headers: {
+					idToken: idToken
+				}
+			})
+
+			const body = await res.text()
+			console.log(body)
+		})
 	}
 
 	const resetPosts = () => {
