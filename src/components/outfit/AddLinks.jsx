@@ -2,6 +2,7 @@ import { IonAlert, IonButton, IonButtons, IonToolbar, useIonAlert } from '@ionic
 import isUrlHttp from 'is-url-http'
 import { Fragment, useState } from 'react'
 import Firebase from '../../api/firebase/firebase'
+import { baseUrl, generateUploadUrl } from '../../api/wit-api/endPoints'
 import OutfitLinkDot from './OutfitLinkDot'
 
 const invalidUrl = 'Please enter an valid URL'
@@ -14,8 +15,26 @@ const AddLinks = ({ photo, setIsOpen }) => {
 	const [links, setLinks] = useState([])
 	const [presentAlert] = useIonAlert()
 
+	const getUploadUrl = async () => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			console.log(idToken)
+			const res = await fetch(`${baseUrl}${generateUploadUrl}`, {
+				headers: {
+					idToken: idToken,
+					fileExtension: photo.format
+				}
+			})
+			console.log(res)
+			const body = await res.text()
+			console.log(body)
+		})
+	}
+
 	const upload = async () => {
-		const url = await firebase.uploadBase64File('outfits', photo, 'second')
+		const uploadUrl = await getUploadUrl()
+		console.log('upload url', uploadUrl)
+		// const url = await firebase.uploadBase64File('outfits', photo, 'second')
 	}
 
 	return (

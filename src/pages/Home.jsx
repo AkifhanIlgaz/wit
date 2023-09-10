@@ -32,9 +32,11 @@ const Home = () => {
 	const ping = async () => {
 		firebase.auth.onAuthStateChanged(async user => {
 			const idToken = await user.getIdToken(true)
-			const res = await fetch('http://localhost:3000/ping', {
+			console.log(idToken)
+			const res = await fetch('http://localhost:3000/generate-upload-url', {
 				headers: {
-					idToken: idToken
+					idToken: idToken,
+					fileExtension: 'jpeg'
 				}
 			})
 
@@ -64,7 +66,7 @@ const Home = () => {
 	}
 
 	useEffect(() => {
-		ping()
+		// ping()
 		getPosts(postChunkIndex)
 	}, [])
 
