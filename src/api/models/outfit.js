@@ -1,6 +1,5 @@
 export class Outfit {
-	constructor(uid, photoURL, links) {
-		this.uid = uid
+	constructor(photoURL, links) {
 		this.photoURL = photoURL
 		this.links = links
 	}

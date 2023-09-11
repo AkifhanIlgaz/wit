@@ -2,7 +2,8 @@ import { IonAlert, IonButton, IonButtons, IonToolbar, useIonAlert } from '@ionic
 import isUrlHttp from 'is-url-http'
 import { Fragment, useState } from 'react'
 import Firebase from '../../api/firebase/firebase'
-import { baseUrl, generateUploadUrl } from '../../api/wit-api/endPoints'
+import Link from '../../api/models/link'
+import { addOutfit, baseUrl, generateUploadUrl } from '../../api/wit-api/endPoints'
 import OutfitLinkDot from './OutfitLinkDot'
 
 const invalidUrl = 'Please enter an valid URL'
@@ -18,31 +19,46 @@ const AddLinks = ({ photo, setIsOpen }) => {
 	const uploadPhoto = async () => {
 		firebase.auth.onAuthStateChanged(async user => {
 			try {
-				// Generate upload url
-				const idToken = await user.getIdToken(true)
-				const res = await fetch(`${baseUrl}${generateUploadUrl}`, {
-					headers: {
-						idToken: idToken,
-						fileExtension: photo.format
-					}
-				})
-				const uploadUrl = await res.text()
-
 				// Convert base64 image to File
 				const blob = await fetch(photo.dataUrl).then(res => res.blob())
 				const file = new File([blob], '', { type: `image/${photo.format}` })
 
-				await fetch(uploadUrl, {
+				// Generate upload url
+				const idToken = await user.getIdToken(true)
+				let uploadData = await fetch(`${baseUrl}${generateUploadUrl}`, {
+					headers: {
+						Authorization: idToken,
+						fileExtension: photo.format
+					}
+				}).then(res => res.json())
+
+				const res = await fetch(uploadData.uploadUrl, {
 					method: 'PUT',
 					body: file,
 					headers: {
 						'Content-Type': file.type
 					}
 				})
+
+				if (res.ok) {
+					await fetch(`${baseUrl}${addOutfit}`, {
+						method: 'POST',
+						headers: {
+							Authorization: idToken,
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({
+							photoUrl: uploadData.filePath,
+							links: links
+						})
+					})
+				}
 			} catch (error) {
 				console.log(error)
 			}
 		})
+
+		setIsOpen(false)
 	}
 
 	return (
@@ -54,12 +70,7 @@ const AddLinks = ({ photo, setIsOpen }) => {
 				<IonButtons slot="end">
 					<IonButton
 						onClick={() => {
-							// TODO: Upload photo to Storage
 							uploadPhoto()
-
-							// TODO: Insert to Firestore
-
-							setIsOpen(false)
 						}}
 					>
 						Save
@@ -113,15 +124,7 @@ const AddLinks = ({ photo, setIsOpen }) => {
 											return
 										}
 
-										setLinks([
-											...links,
-											{
-												left: `${point.left - 2}%`,
-												top: `${point.top - 1}%`,
-												title: data.title,
-												url: data.link
-											}
-										])
+										setLinks([...links, new Link(data.title, data.link, `${point.left - 2}%`, `${point.top - 1}%`)])
 									}
 								}
 							],
