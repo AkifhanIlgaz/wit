@@ -24,7 +24,7 @@ const Tabs = () => {
 			resultType: CameraResultType.DataUrl
 		})
 
-		setPhoto(image.dataUrl)
+		setPhoto(image)
 		setIsOpen(true)
 	}
 

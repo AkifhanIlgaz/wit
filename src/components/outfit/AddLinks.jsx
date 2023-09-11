@@ -15,26 +15,34 @@ const AddLinks = ({ photo, setIsOpen }) => {
 	const [links, setLinks] = useState([])
 	const [presentAlert] = useIonAlert()
 
-	const getUploadUrl = async () => {
+	const uploadPhoto = async () => {
 		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
-			console.log(idToken)
-			const res = await fetch(`${baseUrl}${generateUploadUrl}`, {
-				headers: {
-					idToken: idToken,
-					fileExtension: photo.format
-				}
-			})
-			console.log(res)
-			const body = await res.text()
-			console.log(body)
-		})
-	}
+			try {
+				// Generate upload url
+				const idToken = await user.getIdToken(true)
+				const res = await fetch(`${baseUrl}${generateUploadUrl}`, {
+					headers: {
+						idToken: idToken,
+						fileExtension: photo.format
+					}
+				})
+				const uploadUrl = await res.text()
 
-	const upload = async () => {
-		const uploadUrl = await getUploadUrl()
-		console.log('upload url', uploadUrl)
-		// const url = await firebase.uploadBase64File('outfits', photo, 'second')
+				// Convert base64 image to File
+				const blob = await fetch(photo.dataUrl).then(res => res.blob())
+				const file = new File([blob], '', { type: `image/${photo.format}` })
+
+				await fetch(uploadUrl, {
+					method: 'PUT',
+					body: file,
+					headers: {
+						'Content-Type': file.type
+					}
+				})
+			} catch (error) {
+				console.log(error)
+			}
+		})
 	}
 
 	return (
@@ -47,7 +55,7 @@ const AddLinks = ({ photo, setIsOpen }) => {
 					<IonButton
 						onClick={() => {
 							// TODO: Upload photo to Storage
-							upload()
+							uploadPhoto()
 
 							// TODO: Insert to Firestore
 
@@ -64,7 +72,7 @@ const AddLinks = ({ photo, setIsOpen }) => {
 				}}
 			>
 				<img
-					src={photo}
+					src={photo.dataUrl}
 					style={{
 						width: '100vw',
 						height: '100vh'
