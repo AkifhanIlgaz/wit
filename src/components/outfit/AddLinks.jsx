@@ -54,6 +54,7 @@ const AddLinks = ({ photo, setIsOpen }) => {
 					})
 				}
 			} catch (error) {
+				// TODO: Open alert on error
 				console.log(error)
 			}
 		})

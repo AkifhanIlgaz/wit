@@ -24,59 +24,13 @@ class Firebase {
 		this.githubProvider = new firebase.auth.GithubAuthProvider()
 	}
 
-	async sendVerificationCode(phoneNumber) {
-		try {
-			const phoneAuthProvider = new firebase.auth.PhoneAuthProvider()
-			const appVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container')
-			const verificationId = await phoneAuthProvider.verifyPhoneNumber(phoneNumber, appVerifier)
-			return verificationId
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async signUpWithPhone(verificationId, verificationCode, userData) {
-		try {
-			const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode)
-			const user = (await this.auth.signInWithCredential(credential)).user
-			userData = await this.insertUser({ ...userData, ...user }, user.providerId)
-			return userData
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async signInWithPhone(verificationId, verificationCode) {
-		try {
-			const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode)
-			const user = (await this.auth.signInWithCredential(credential)).user
-			return await this.insertUser(user, user.providerId)
-		} catch (error) {
-			throw error
-		}
-	}
-
 	async signInWithThirdPartyProvider(provider) {
 		try {
 			const res = await this.auth.signInWithPopup(provider)
-			return await this.insertUser(res.user, res.additionalUserInfo.providerId)
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async insertUser(userData, providerId = 'firebase') {
-		try {
-			userData = userData.multiFactor.user
-			const userDoc = await this.firestore.collection(UsersCollection).doc(userData.uid).get()
-			userData = { uid: userData.uid, createdAt: userData.metadata.createdAt, creationTime: userData.metadata.creationTime, lastLoginAt: userData.metadata.lastLoginAt, lastSignInTime: userData.metadata.lastSignInTime, displayName: userData.displayName, email: userData.email, providerId: providerId }
-			if (userDoc.exists) {
-				await this.setDocument(UsersCollection, userData.uid, { ...userDoc.data(), ...userData })
-				return { ...userDoc.data(), ...userData }
-			} else {
-				await this.setDocument(UsersCollection, userData.uid, userData)
-				return userData
+			if (res.additionalUserInfo.isNewUser) {
+				return false
 			}
+			return false
 		} catch (error) {
 			throw error
 		}
@@ -138,103 +92,6 @@ class Firebase {
 	async signOut() {
 		try {
 			await this.auth.signOut()
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async addDocument(collection, data) {
-		try {
-			const docRef = await this.firestore.collection(collection).add(data)
-			return { id: docRef.id, ref: docRef }
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async getDocuments(collection) {
-		try {
-			const snapshot = await this.firestore.collection(collection).get()
-			return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async getDocument(collection, documentId) {
-		try {
-			const docRef = this.firestore.collection(collection).doc(documentId)
-			const doc = await docRef.get()
-			if (doc.exists) {
-				return { id: doc.id, ...doc.data() }
-			} else {
-				return false
-			}
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async updateDocument(collection, docId, data) {
-		try {
-			await this.firestore.collection(collection).doc(docId).update(data)
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async setDocument(collection, docId, data) {
-		try {
-			await this.firestore.collection(collection).doc(docId).set(data)
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async deleteDocument(collection, docId) {
-		try {
-			await this.firestore.collection(collection).doc(docId).delete()
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async uploadFile(storagePath, file) {
-		try {
-			let storageRef = this.storage.ref(storagePath)
-			storageRef = storageRef.child(file.name)
-			const snapshot = await storageRef.put(file)
-			const downloadURL = await snapshot.ref.getDownloadURL()
-			return downloadURL
-		} catch (error) {
-			throw error
-		}
-	}
-
-	/**
-	 *
-	 * @param {*} storagePath
-	 * @param {string} base64
-	 * @param {*} fileName
-	 * @returns
-	 */
-	async uploadBase64File(storagePath, base64, fileName) {
-		try {
-			// base64 = base64.slice(base64.search('base64') + 7)
-			let storageRef = this.storage.ref(storagePath)
-			storageRef = storageRef.child(fileName)
-			const snapshot = await storageRef.putString(base64, 'data_url')
-			const downloadURL = await snapshot.ref.getDownloadURL()
-			return downloadURL
-		} catch (error) {
-			throw error
-		}
-	}
-
-	async deleteFile(storagePath) {
-		try {
-			const storageRef = this.storage.ref(storagePath)
-			await storageRef.delete()
 		} catch (error) {
 			throw error
 		}
