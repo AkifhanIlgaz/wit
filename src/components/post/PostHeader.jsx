@@ -33,7 +33,7 @@ const PostHeader = ({ postInfo }) => {
 					</span>
 				</IonCol>
 				<IonCol push=".7">
-					<FollowButton isFollowed={postInfo.isFollowed}></FollowButton>
+					<FollowButton isFollowed={postInfo.isFollowed} uid={'xQFQncknojU5vUnsmIl2bIevBdE2'}></FollowButton>
 				</IonCol>
 			</IonRow>
 		</Fragment>

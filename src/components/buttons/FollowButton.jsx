@@ -1,10 +1,68 @@
-import { IonActionSheet, IonButton, IonIcon } from '@ionic/react'
-import { checkmark } from 'ionicons/icons'
+import { IonActionSheet, IonButton, useIonAlert } from '@ionic/react'
 import { Fragment, useState } from 'react'
+import Firebase from '../../api/firebase/firebase'
+import { baseUrl, follow, unfollow } from '../../api/wit-api/endPoints'
 
-const FollowButton = ({ isFollowed }) => {
+const FollowButton = ({ isFollowed, uid }) => {
 	const [stateIsFollowed, setStateIsFollowed] = useState(isFollowed)
 	const [isActionSheetOpen, setIsActionSheetOpen] = useState(false)
+	const [presentAlert] = useIonAlert()
+	const firebase = new Firebase()
+
+	const data = new URLSearchParams()
+	data.append('uid', uid)
+
+	let idToken
+	firebase.auth.onAuthStateChanged(async user => {
+		idToken = await user.getIdToken(true)
+	})
+
+	const followUser = () => {
+		setStateIsFollowed(true)
+		fetch(`${baseUrl}${follow}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: idToken,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: data
+		}).then(res => {
+			if (res.status === 500) {
+				setStateIsFollowed(false)
+				presentAlert({
+					header: 'Error',
+					message: 'Something went wrong!',
+					buttons: ['OK']
+				})
+				return
+			}
+		})
+	}
+
+	const unfollowUser = () => {
+		setStateIsFollowed(false)
+		fetch(`${baseUrl}${unfollow}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: idToken,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: data
+		})
+			.then(res => {
+				if (res.status === 500) {
+					setStateIsFollowed(true)
+					presentAlert({
+						header: 'Error',
+						message: 'Something went wrong!',
+						buttons: ['OK']
+					})
+				}
+			})
+			.finally(() => {
+				setIsActionSheetOpen(false)
+			})
+	}
 
 	return stateIsFollowed === false ? (
 		<IonButton
@@ -16,7 +74,7 @@ const FollowButton = ({ isFollowed }) => {
 			size="small"
 			expand="block"
 			shape="round"
-			onClick={() => setStateIsFollowed(true)}
+			onClick={followUser}
 		>
 			Follow
 		</IonButton>
@@ -41,17 +99,14 @@ const FollowButton = ({ isFollowed }) => {
 					{
 						text: 'Unfollow',
 						role: 'destructive',
-						handler: () => {
-							setIsActionSheetOpen(false)
-							setStateIsFollowed(!stateIsFollowed)
-						}
+						handler: unfollowUser
 					},
 					{
 						text: 'Cancel',
 						role: 'cancel'
 					}
 				]}
-				onDidDismiss={() => setIsActionSheetOpen(false)}
+				// onDidDismiss={() => setIsActionSheetOpen(false)}
 			></IonActionSheet>
 		</Fragment>
 	)

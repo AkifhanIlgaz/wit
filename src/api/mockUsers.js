@@ -80,7 +80,7 @@ const mockUsers = [
 		displayName: 'Ula Maty',
 		username: 'umaty0',
 		profilePhoto: 'http://dummyimage.com/191x389.png/cc0000/ffffff',
-		isFollowed: true,
+		isFollowed: false,
 		isSendMessageDisabled: false,
 		followerCount: 2686,
 		followingCount: 15033,

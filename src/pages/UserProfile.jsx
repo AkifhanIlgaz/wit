@@ -98,7 +98,7 @@ const UserProfile = ({ userInfo }) => {
 							justifyContent: 'center'
 						}}
 					>
-						<FollowButton isFollowed={header.isFollowed} />
+						<FollowButton isFollowed={header.isFollowed} uid={'xQFQncknojU5vUnsmIl2bIevBdE2'} />
 						{!header.isSendMessageDisabled && <DefaultButton text={'Message'} />}
 					</IonCol>
 				</IonRow>

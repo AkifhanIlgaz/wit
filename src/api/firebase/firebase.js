@@ -32,9 +32,9 @@ class Firebase {
 				displayName: userCredential.user.displayName,
 				uid: userCredential.user.uid,
 				photoUrl: userCredential.user.photoURL,
-				isProfileSet: userCredential.user.photoURL === null || userCredential.user.displayName === null ? false : true
+				isProfileSet: userCredential.user.photoURL === '' || userCredential.user.displayName === '' ? false : true
 			}
- 
+
 			if (userCredential.additionalUserInfo.isNewUser) {
 				await fetch(`${baseUrl}${addUser}`, {
 					method: 'POST',
