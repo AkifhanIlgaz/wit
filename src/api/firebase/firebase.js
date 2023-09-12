@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 import 'firebase/compat/storage'
+import { addUser, baseUrl } from '../wit-api/endPoints'
 import firebaseConfig from './firebaseConfig'
 
 export const UsersCollection = 'users'
@@ -26,11 +27,26 @@ class Firebase {
 
 	async signInWithThirdPartyProvider(provider) {
 		try {
-			const res = await this.auth.signInWithPopup(provider)
-			if (res.additionalUserInfo.isNewUser) {
-				return false
+			const userCredential = await this.auth.signInWithPopup(provider)
+			const user = {
+				displayName: userCredential.user.displayName,
+				uid: userCredential.user.uid,
+				photoUrl: userCredential.user.photoURL,
+				isProfileSet: userCredential.user.photoURL === null || userCredential.user.displayName === null ? false : true
 			}
-			return false
+ 
+			if (userCredential.additionalUserInfo.isNewUser) {
+				await fetch(`${baseUrl}${addUser}`, {
+					method: 'POST',
+					headers: {
+						Authorization: await userCredential.user.getIdToken(true),
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(user)
+				})
+			}
+
+			return user
 		} catch (error) {
 			throw error
 		}

@@ -35,8 +35,12 @@ export const SignIn = () => {
 	const signInWithProvider = async provider => {
 		try {
 			const res = await firebase.signInWithThirdPartyProvider(provider)
-			history.push('/home')
 			setUser(res)
+			if (res.isProfileSet === false) {
+				history.push('/edit-profile')
+			} else {
+				history.push('/home')
+			}
 		} catch (error) {
 			alert(error.message)
 		}
