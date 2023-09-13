@@ -9,15 +9,15 @@ const FollowButton = ({ isFollowed, uid }) => {
 	const [presentAlert] = useIonAlert()
 	const firebase = new Firebase()
 
-	const data = new URLSearchParams()
-	data.append('uid', uid)
-
 	let idToken
 	firebase.auth.onAuthStateChanged(async user => {
 		idToken = await user.getIdToken(true)
 	})
 
-	const followUser = () => {
+	const data = new URLSearchParams()
+	data.append('uid', uid)
+
+	const followUser = async () => {
 		setStateIsFollowed(true)
 		fetch(`${baseUrl}${follow}`, {
 			method: 'PUT',

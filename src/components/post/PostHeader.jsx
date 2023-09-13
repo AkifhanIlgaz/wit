@@ -1,7 +1,6 @@
 import { IonAvatar, IonCol, IonRow } from '@ionic/react'
 import { Fragment } from 'react'
 import defaultProfilePhoto from '../../images/defaultProfilePhoto.jpg'
-import FollowButton from '../buttons/FollowButton'
 
 const PostHeader = ({ postInfo }) => {
 	return (
@@ -31,9 +30,6 @@ const PostHeader = ({ postInfo }) => {
 					>
 						{postInfo.displayName}
 					</span>
-				</IonCol>
-				<IonCol push=".7">
-					<FollowButton isFollowed={postInfo.isFollowed} uid={'xQFQncknojU5vUnsmIl2bIevBdE2'}></FollowButton>
 				</IonCol>
 			</IonRow>
 		</Fragment>
