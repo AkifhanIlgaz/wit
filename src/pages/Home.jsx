@@ -9,37 +9,38 @@ import PostCard from '../components/post/PostCard'
 const Home = () => {
 	const firebase = new Firebase()
 	const [posts, setPosts] = useState([])
-	let postChunkIndex = 0
 
-	let idToken
-	firebase.auth.onAuthStateChanged(async user => {
-		idToken = await user.getIdToken(true)
-	})
+	const getPosts = async (last = '') => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			const res = await fetch(
+				`${baseUrl}${outfitsHome}?` +
+					new URLSearchParams({
+						last: last
+					}),
+				{
+					method: 'GET',
+					headers: {
+						Authorization: idToken
+					}
+				}
+			)
 
-	const getPosts = async () => {
-		const data = new URLSearchParams()
-		data.append('chunk-index', postChunkIndex)
+			const newPosts = await res.json()
+			newPosts.forEach(post => {
+				console.log(new Date(post.CreatedAt))
+			})
 
-		const res = await fetch(`${baseUrl}${outfitsHome}`, {
-			method: 'GET',
-			headers: {
-				Authorization: idToken,
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: data
+			setPosts([...posts, ...newPosts])
 		})
-
-		const newPosts = await res.json()
-		setPosts([...posts, ...newPosts])
 	}
 
 	const resetPosts = () => {
-		postChunkIndex = 0
 		return getPosts()
 	}
 
 	useEffect(() => {
-		getPosts(postChunkIndex)
+		getPosts()
 	}, [])
 
 	return (
@@ -73,7 +74,7 @@ const Home = () => {
 
 				<IonInfiniteScroll
 					onIonInfinite={ev => {
-						getPosts(++postChunkIndex).then(() => {
+						getPosts(posts.at(-1).createdAt).then(() => {
 							ev.target.complete()
 						})
 					}}
