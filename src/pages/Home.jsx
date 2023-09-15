@@ -27,9 +27,6 @@ const Home = () => {
 			)
 
 			const newPosts = await res.json()
-			newPosts.forEach(post => {
-				console.log(new Date(post.CreatedAt))
-			})
 
 			setPosts([...posts, ...newPosts])
 		})
