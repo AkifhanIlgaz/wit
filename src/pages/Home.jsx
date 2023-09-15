@@ -27,7 +27,7 @@ const Home = () => {
 			)
 
 			const newPosts = await res.json()
-
+			console.log(newPosts)
 			setPosts([...posts, ...newPosts])
 		})
 	}
