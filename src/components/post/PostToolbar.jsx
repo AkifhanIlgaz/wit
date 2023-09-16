@@ -3,15 +3,14 @@ import { IonButton, IonButtons, IonIcon, IonToolbar } from '@ionic/react'
 import { bookmark, bookmarkOutline, heart, heartOutline, shareSocial } from 'ionicons/icons'
 import { useState } from 'react'
 import formatCount from '../../api/numberFormat'
-const PostToolbar = () => {
+const PostToolbar = ({ postInfo }) => {
 	// TODO: Get initial values of states by props
-	const [isLiked, setIsLiked] = useState(false)
-	const [isSaved, setIsSaved] = useState(false)
+	const [isLiked, setIsLiked] = useState(postInfo.isLiked)
+	const [isSaved, setIsSaved] = useState(postInfo.isSaved)
 
 	const sharePost = async () => {
 		await Share.share({
-			// ?  `https://wearittomorrow.com/posts/${post.postId}`
-			url: `https://wearittomorrow.com/posts/`
+			url: `https://wearittomorrow.com/posts/${postInfo.id}`
 		})
 	}
 

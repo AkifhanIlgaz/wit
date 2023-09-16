@@ -25,7 +25,7 @@ const PostCard = ({ postInfo }) => {
 							height={'100%'}
 							width={'100%'}
 							onClick={() => {
-								history.push(`/posts/${postInfo.postId}`)
+								history.push(`/posts/${postInfo.id}`)
 							}}
 						/>
 					</IonCol>
@@ -38,7 +38,7 @@ const PostCard = ({ postInfo }) => {
 				>
 					<IonCol>
 						<IonCardContent className="ion-no-padding">
-							<PostToolbar />
+							<PostToolbar postInfo={postInfo} />
 						</IonCardContent>
 					</IonCol>
 				</IonRow>

@@ -28,12 +28,8 @@ const Home = () => {
 
 			const newPosts = await res.json()
 			console.log(newPosts)
-			setPosts([...posts, ...newPosts])
+			last === '' ? setPosts([...newPosts]) : setPosts([...posts, ...newPosts])
 		})
-	}
-
-	const resetPosts = () => {
-		return getPosts()
 	}
 
 	useEffect(() => {
@@ -55,7 +51,7 @@ const Home = () => {
 					pullMin={50}
 					pullMax={100}
 					onIonRefresh={ev => {
-						resetPosts().then(() => {
+						getPosts().then(() => {
 							ev.detail.complete()
 						})
 					}}
