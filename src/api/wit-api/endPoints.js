@@ -5,3 +5,5 @@ export const addUser = 'user/new'
 export const follow = 'user/follow'
 export const unfollow = 'user/unfollow'
 export const outfitsHome = 'outfit/home'
+export const like = "outfit/like"
+export const unlike = "outfit/unlike"

@@ -2,15 +2,50 @@ import { Share } from '@capacitor/share'
 import { IonButton, IonButtons, IonIcon, IonToolbar } from '@ionic/react'
 import { bookmark, bookmarkOutline, heart, heartOutline, shareSocial } from 'ionicons/icons'
 import { useState } from 'react'
+import Firebase from '../../api/firebase/firebase'
 import formatCount from '../../api/numberFormat'
+import { baseUrl, like, unlike } from '../../api/wit-api/endPoints'
 const PostToolbar = ({ postInfo }) => {
-	// TODO: Get initial values of states by props
 	const [isLiked, setIsLiked] = useState(postInfo.isLiked)
 	const [isSaved, setIsSaved] = useState(postInfo.isSaved)
+	const firebase = new Firebase()
 
 	const sharePost = async () => {
 		await Share.share({
 			url: `https://wearittomorrow.com/posts/${postInfo.id}`
+		})
+	}
+
+	const likeOutfit = async () => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+
+			await fetch(`${baseUrl}${like}`, {
+				method: 'PUT',
+				headers: {
+					Authorization: idToken,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: new URLSearchParams({
+					outfitId: postInfo.id
+				})
+			})
+		})
+	}
+	const unlikeOutfit = async () => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+
+			await fetch(`${baseUrl}${unlike}`, {
+				method: 'PUT',
+				headers: {
+					Authorization: idToken,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: new URLSearchParams({
+					outfitId: postInfo.id
+				})
+			})
 		})
 	}
 
@@ -24,7 +59,13 @@ const PostToolbar = ({ postInfo }) => {
 					alignItems: 'center'
 				}}
 			>
-				<IonButton color={'danger'} onClick={() => setIsLiked(!isLiked)}>
+				<IonButton
+					color={'danger'}
+					onClick={() => {
+						isLiked ? unlikeOutfit() : likeOutfit()
+						setIsLiked(!isLiked)
+					}}
+				>
 					<IonIcon icon={isLiked ? heart : heartOutline}></IonIcon>
 				</IonButton>
 				<IonButton
@@ -45,7 +86,13 @@ const PostToolbar = ({ postInfo }) => {
 				<IonButton onClick={sharePost}>
 					<IonIcon icon={shareSocial}></IonIcon>
 				</IonButton>
-				<IonButton onClick={() => setIsSaved(!isSaved)}>
+				<IonButton
+					onClick={() => {
+						isLiked ? unlikeOutfit() : likeOutfit()
+						setIsLiked(!isLiked)
+						setIsSaved(!isSaved)
+					}}
+				>
 					<IonIcon icon={isSaved ? bookmark : bookmarkOutline}></IonIcon>
 				</IonButton>
 			</IonButtons>
