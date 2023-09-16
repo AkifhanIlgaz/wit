@@ -4,7 +4,7 @@ import { bookmark, bookmarkOutline, heart, heartOutline, shareSocial } from 'ion
 import { useState } from 'react'
 import Firebase from '../../api/firebase/firebase'
 import formatCount from '../../api/numberFormat'
-import { baseUrl, like, unlike } from '../../api/wit-api/endPoints'
+import { baseUrl, like, saveOutfit, unlike, unsaveOutfit } from '../../api/wit-api/endPoints'
 const PostToolbar = ({ postInfo }) => {
 	const [isLiked, setIsLiked] = useState(postInfo.isLiked)
 	const [isSaved, setIsSaved] = useState(postInfo.isSaved)
@@ -37,6 +37,40 @@ const PostToolbar = ({ postInfo }) => {
 			const idToken = await user.getIdToken(true)
 
 			await fetch(`${baseUrl}${unlike}`, {
+				method: 'PUT',
+				headers: {
+					Authorization: idToken,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: new URLSearchParams({
+					outfitId: postInfo.id
+				})
+			})
+		})
+	}
+
+	const save = async () => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+
+			await fetch(`${baseUrl}${saveOutfit}`, {
+				method: 'PUT',
+				headers: {
+					Authorization: idToken,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: new URLSearchParams({
+					outfitId: postInfo.id
+				})
+			})
+		})
+	}
+
+	const unsave = async () => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+
+			await fetch(`${baseUrl}${unsaveOutfit}`, {
 				method: 'PUT',
 				headers: {
 					Authorization: idToken,
@@ -88,8 +122,7 @@ const PostToolbar = ({ postInfo }) => {
 				</IonButton>
 				<IonButton
 					onClick={() => {
-						isLiked ? unlikeOutfit() : likeOutfit()
-						setIsLiked(!isLiked)
+						isSaved ? unsave() : save()
 						setIsSaved(!isSaved)
 					}}
 				>
