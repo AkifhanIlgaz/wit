@@ -9,6 +9,7 @@ import LogoTitle from '../components/LogoTitle'
 import PostTabs from '../components/post/PostTabs'
 import Posts from '../components/post/Posts'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
+import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
 const MyProfile = ({ userInfo }) => {
@@ -104,7 +105,8 @@ const MyProfile = ({ userInfo }) => {
 				<ProfileAnalytics />
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-			<Posts posts={selectedTab === 'saved' ? userInfo.saved : userInfo.posts} />
+			{/* TODO: Delete empty arrays */}
+			<Posts posts={selectedTab === 'saved' ? userInfo.saved || [] : userInfo.posts || []} />
 		</Authorized>
 	)
 }

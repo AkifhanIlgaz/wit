@@ -34,7 +34,7 @@ const Tabs = () => {
 				<IonTabs>
 					<IonRouterOutlet>
 						<Route exact path={'/home'} render={() => <Home />} />
-						<Route exact path={'/user/:username'} render={() => <ProfileRouter />} />
+						<Route exact path={'/user/:uid'} render={() => <ProfileRouter />} />
 						<Route exact path={'/posts/:postId'} render={() => <Post />} />
 						<Route exact path={'/edit-profile'} render={() => <EditProfile />} />
 					</IonRouterOutlet>
@@ -49,8 +49,8 @@ const Tabs = () => {
 								</IonFabButton>
 							</IonFab>
 						</IonTabButton>
-						{/* TODO: user/${user.username} */}
-						<IonTabButton tab="profile" href={`/user/gayesuakyol`}>
+
+						<IonTabButton tab="profile" href={`user/${user.username}`}>
 							<IonIcon icon={person}></IonIcon>
 						</IonTabButton>
 					</IonTabBar>

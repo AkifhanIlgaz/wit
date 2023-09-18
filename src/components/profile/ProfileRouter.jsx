@@ -1,16 +1,25 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { getUserByUsername } from '../../api/mockUsers'
+import { useRecoilValue } from 'recoil'
+import userState from '../../atoms/user'
 import MyProfile from '../../pages/MyProfile'
 import UserProfile from '../../pages/UserProfile'
 
 const ProfileRouter = () => {
-	const { username } = useParams()
-	// TODO: const user = useRecoilValue(userState)
-	// TODO: Get user info by username from mock data
+	const { uid } = useParams()
+	const user = useRecoilValue(userState)
+	const [searchedUser, setSearchedUser] = useState({})
 
-	const searchedUser = getUserByUsername(username)
+	useEffect(() => {
+		const fetchData = async () => {
+			// TODO: Get user info from backend
+		}
+
+		fetchData()
+	}, [])
+
 	// TODO: Change condition to user.username == username
-	return username == 'gayesuakyol' ? <MyProfile userInfo={searchedUser} /> : <UserProfile userInfo={searchedUser} />
+	return uid == user.uid ? <MyProfile userInfo={searchedUser} /> : <UserProfile userInfo={searchedUser} />
 }
 
 export default ProfileRouter
