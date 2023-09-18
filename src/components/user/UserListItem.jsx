@@ -8,7 +8,7 @@ const UserListItem = ({ user }) => {
 				<img src={user.photoUrl} alt="" />
 			</IonAvatar>
 			<IonLabel>{user.displayName}</IonLabel>
-			<FollowButton isFollowed={user.isFollowed} />
+			<FollowButton isFollowed={user.isFollowed} uid={user.uid} />
 		</IonItem>
 	)
 }
