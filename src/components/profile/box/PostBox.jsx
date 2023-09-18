@@ -1,6 +1,6 @@
 import { IonButton } from '@ionic/react'
 import { Fragment } from 'react'
-import formatCount from '../../api/numberFormat'
+import formatCount from '../../../api/numberFormat'
 
 const PostBox = ({ count }) => {
 	return (

@@ -19,21 +19,6 @@ const UserProfile = ({ userInfo }) => {
 		isSendMessageDisabled: userInfo.isSendMessageDisabled
 	}
 
-	const analytics = {
-		followers: {
-			title: 'Followers',
-			count: userInfo.followerCount
-		},
-		followings: {
-			title: 'Following',
-			count: userInfo.followingCount
-		},
-		posts: {
-			title: 'Posts',
-			count: userInfo.posts.length
-		}
-	}
-
 	return (
 		<Authorized>
 			<IonToolbar
@@ -103,7 +88,7 @@ const UserProfile = ({ userInfo }) => {
 					</IonCol>
 				</IonRow>
 
-				<ProfileAnalytics analytics={analytics} />
+				<ProfileAnalytics />
 			</IonGrid>
 			<Posts posts={userInfo.posts} />
 		</Authorized>

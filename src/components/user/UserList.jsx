@@ -1,6 +1,8 @@
-import { IonContent, IonInfiniteScroll, IonList, IonModal } from '@ionic/react'
+import { IonContent, IonInfiniteScroll, IonList, IonModal, IonSearchbar } from '@ionic/react'
 import { useState } from 'react'
-import ModalHeader from '../helper/ModalHeader'
+import profilePhoto1 from '../../images/defaultPostPhoto.jpg'
+import defaultProfilePhoto from '../../images/defaultProfilePhoto.jpg'
+import profilePhoto2 from '../../images/defaultSavedPhoto.jpg'
 import UserListItem from './UserListItem'
 
 const UserList = ({ isOpen, setIsOpen, users }) => {
@@ -19,9 +21,9 @@ const UserList = ({ isOpen, setIsOpen, users }) => {
 	}
 
 	return (
-		<IonModal isOpen={isOpen}>
-			<ModalHeader setIsOpen={setIsOpen} />
+		<IonModal isOpen={isOpen} initialBreakpoint={0.75} breakpoints={[0, 0.25, 0.5, 0.75]} onDidDismiss={() => setIsOpen(false)}>
 			<IonContent>
+				<IonSearchbar></IonSearchbar>
 				<IonList className="ion-align-items" lines="full">
 					{users.map((userInfo, i) => {
 						return <UserListItem user={userInfo} key={i} />

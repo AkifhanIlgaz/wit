@@ -1,15 +1,15 @@
-import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonItem, IonList, IonPopover, IonRow, IonTitle, IonToolbar } from '@ionic/react'
+import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonItem, IonList, IonPopover, IonRow, IonToolbar } from '@ionic/react'
 import { ellipsisVertical, logOutOutline, pencilOutline, settingsOutline } from 'ionicons/icons'
 import { useState } from 'react'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
 import Firebase from '../api/firebase/firebase'
 import userState from '../atoms/user'
+import LogoTitle from '../components/LogoTitle'
 import PostTabs from '../components/post/PostTabs'
 import Posts from '../components/post/Posts'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
 import Authorized from '../layouts/Authorized'
-import LogoTitle from '../components/LogoTitle'
 
 const MyProfile = ({ userInfo }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
@@ -21,21 +21,6 @@ const MyProfile = ({ userInfo }) => {
 		username: userInfo.username,
 		isFollowed: userInfo.isFollowed,
 		isSendMessageDisabled: userInfo.isSendMessageDisabled
-	}
-
-	const analytics = {
-		followers: {
-			title: 'Followers',
-			count: userInfo.followerCount
-		},
-		followings: {
-			title: 'Following',
-			count: userInfo.followingCount
-		},
-		posts: {
-			title: 'Posts',
-			count: userInfo.posts.length
-		}
 	}
 
 	const signOut = async () => {
@@ -116,7 +101,7 @@ const MyProfile = ({ userInfo }) => {
 					</IonCol>
 				</IonRow>
 
-				<ProfileAnalytics analytics={analytics} />
+				<ProfileAnalytics />
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 			<Posts posts={selectedTab === 'saved' ? userInfo.saved : userInfo.posts} />
