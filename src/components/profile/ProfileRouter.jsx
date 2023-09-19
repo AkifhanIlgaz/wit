@@ -11,14 +11,11 @@ const ProfileRouter = () => {
 	const [searchedUser, setSearchedUser] = useState({})
 
 	useEffect(() => {
-		const fetchData = async () => {
-			// TODO: Get user info from backend
-		}
+		const fetchData = async () => {}
 
 		fetchData()
 	}, [])
 
-	// TODO: Change condition to user.username == username
 	return uid == user.uid ? <MyProfile userInfo={searchedUser} /> : <UserProfile userInfo={searchedUser} />
 }
 
