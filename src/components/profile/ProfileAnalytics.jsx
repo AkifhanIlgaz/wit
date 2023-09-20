@@ -7,9 +7,9 @@ import FollowersBox from './box/FollowersBox'
 import FollowingsBox from './box/FollowingsBox'
 import PostBox from './box/PostBox'
 
-const ProfileAnalytics = ({ postCount }) => {
-	const [followers, setFollowers] = useState([])
-	const [followings, setFollowings] = useState([])
+const ProfileAnalytics = ({ analytics }) => {
+	const [followers, setFollowers] = useState(analytics.followers)
+	const [followings, setFollowings] = useState(analytics.followings)
 
 	const getFollowers = async () => {
 		// TODO: Get followers
@@ -26,6 +26,8 @@ const ProfileAnalytics = ({ postCount }) => {
 		])
 	}
 
+	useEffect(() => {}, [followers, followings])
+
 	const getFollowings = async () => {
 		// TODO: Get followings
 		setFollowings([
@@ -34,15 +36,6 @@ const ProfileAnalytics = ({ postCount }) => {
 			{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
 		])
 	}
-
-	useEffect(() => {
-		const fetchData = async () => {
-			await getFollowers()
-			await getFollowings()
-		}
-
-		fetchData()
-	}, [])
 
 	return (
 		<IonRow className="ion-align-items-center ion-justify-content-space-around ion-margin-top  " style={{ borderTop: '1px solid rgb(219,219,219)', borderBottom: '1px solid rgb(219,219,219)' }}>
@@ -53,9 +46,9 @@ const ProfileAnalytics = ({ postCount }) => {
 					justifyContent: 'space-around'
 				}}
 			>
-				<PostBox count={4} />
-				<FollowersBox users={followers} />
-				<FollowingsBox users={followings} />
+				<PostBox count={analytics.outfitCount} />
+				<FollowersBox users={followers || []} />
+				<FollowingsBox users={followings || []} />
 			</IonCol>
 		</IonRow>
 	)

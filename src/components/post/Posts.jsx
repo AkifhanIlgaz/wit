@@ -13,7 +13,7 @@ const Posts = ({ posts }) => {
 	const postChunks = splitIntoChunks(posts, 2)
 	const history = useHistory()
 	const pageWidth = document.body.clientWidth
-
+	console.log(postChunks)
 	return (
 		<>
 			<IonGrid className="ion-no-padding post-grid">
@@ -39,89 +39,38 @@ const Posts = ({ posts }) => {
 										src={chunk[0].photoUrl}
 										height={'100%'}
 										onClick={() => {
-											history.push(`/posts/${chunk[1].postId}`)
+											history.push(`/posts/${chunk[0].id}`)
 										}}
 									/>
 								</IonCard>
 							</IonCol>
-							<IonCol
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center'
-								}}
-								push=".2"
-							>
-								<IonCard
-									className="ion-no-margin post-card"
+
+							{chunk[1] && (
+								<IonCol
 									style={{
-										width: '45vw',
-										height: '21vh'
+										display: 'flex',
+										justifyContent: 'center',
+										alignItems: 'center'
 									}}
+									push=".2"
 								>
-									<img
-										src={chunk[1].photoUrl}
-										height={'100%'}
-										onClick={() => {
-											history.push(`/posts/${chunk[1].postId}`)
+									<IonCard
+										className="ion-no-margin post-card"
+										style={{
+											width: '45vw',
+											height: '21vh'
 										}}
-									/>
-								</IonCard>
-							</IonCol>
-						</IonRow>
-					)
-				})}
-				{postChunks.map((chunk, i) => {
-					return (
-						<IonRow key={i} className="ion-margin">
-							<IonCol
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center'
-								}}
-								pull=".2"
-							>
-								<IonCard
-									className="ion-no-margin post-card"
-									style={{
-										width: '45vw',
-										height: '21vh'
-									}}
-								>
-									<img
-										src={chunk[0].photoUrl}
-										height={'100%'}
-										onClick={() => {
-											history.push(`/posts/${chunk[1].postId}`)
-										}}
-									/>
-								</IonCard>
-							</IonCol>
-							<IonCol
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center'
-								}}
-								push=".2"
-							>
-								<IonCard
-									className="ion-no-margin post-card"
-									style={{
-										width: '45vw',
-										height: '21vh'
-									}}
-								>
-									<img
-										src={chunk[1].photoUrl}
-										height={'100%'}
-										onClick={() => {
-											history.push(`/posts/${chunk[1].postId}`)
-										}}
-									/>
-								</IonCard>
-							</IonCol>
+									>
+										<img
+											src={chunk[1].photoUrl}
+											height={'100%'}
+											onClick={() => {
+												history.push(`/posts/${chunk[1].id}`)
+											}}
+										/>
+									</IonCard>
+								</IonCol>
+							)}
 						</IonRow>
 					)
 				})}

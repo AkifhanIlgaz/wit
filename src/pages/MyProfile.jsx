@@ -17,12 +17,7 @@ const MyProfile = ({ userInfo }) => {
 	const [user, setUser] = useRecoilState(userState)
 	const history = useHistory()
 
-	const header = {
-		photoUrl: userInfo.profilePhoto,
-		username: userInfo.username,
-		isFollowed: userInfo.isFollowed,
-		isSendMessageDisabled: userInfo.isSendMessageDisabled
-	}
+	console.log(userInfo)
 
 	const signOut = async () => {
 		const firebase = new Firebase()
@@ -76,7 +71,7 @@ const MyProfile = ({ userInfo }) => {
 							justifyContent: 'center'
 						}}
 					>
-						<img src={header.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
+						<img src={userInfo.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
 					</IonCol>
 				</IonRow>
 				<IonRow className="ion-align-items-center ion-justify-content-center">
@@ -97,16 +92,20 @@ const MyProfile = ({ userInfo }) => {
 							justifyContent: 'center'
 						}}
 						className="title"
-					>
-						<span>{userInfo.username}</span>
-					</IonCol>
+					></IonCol>
 				</IonRow>
 
-				<ProfileAnalytics />
+				<ProfileAnalytics
+					analytics={{
+						outfitCount: userInfo.outfits ? userInfo.outfits.length : 0,
+						followers: userInfo.followers,
+						followings: userInfo.followings
+					}}
+				/>
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 			{/* TODO: Delete empty arrays */}
-			<Posts posts={selectedTab === 'saved' ? userInfo.saved || [] : userInfo.posts || []} />
+			<Posts posts={selectedTab === 'saved' ? userInfo.saved || [] : userInfo.outfits || []} />
 		</Authorized>
 	)
 }

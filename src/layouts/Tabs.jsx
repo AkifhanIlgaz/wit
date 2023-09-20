@@ -50,7 +50,7 @@ const Tabs = () => {
 							</IonFab>
 						</IonTabButton>
 
-						<IonTabButton tab="profile" href={`user/${user.username}`}>
+						<IonTabButton tab="profile" href={`user/${user.uid}`}>
 							<IonIcon icon={person}></IonIcon>
 						</IonTabButton>
 					</IonTabBar>
