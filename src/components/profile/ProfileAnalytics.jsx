@@ -1,5 +1,5 @@
 import { IonCol, IonRow } from '@ionic/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import profilePhoto1 from '../../images/defaultPostPhoto.jpg'
 import defaultProfilePhoto from '../../images/defaultProfilePhoto.jpg'
 import profilePhoto2 from '../../images/defaultSavedPhoto.jpg'
@@ -8,8 +8,8 @@ import FollowingsBox from './box/FollowingsBox'
 import PostBox from './box/PostBox'
 
 const ProfileAnalytics = ({ analytics }) => {
-	const [followers, setFollowers] = useState(analytics.followers)
-	const [followings, setFollowings] = useState(analytics.followings)
+	const [followers, setFollowers] = useState([])
+	const [followings, setFollowings] = useState([])
 
 	const getFollowers = async () => {
 		// TODO: Get followers
@@ -25,8 +25,6 @@ const ProfileAnalytics = ({ analytics }) => {
 			{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
 		])
 	}
-
-	useEffect(() => {}, [followers, followings])
 
 	const getFollowings = async () => {
 		// TODO: Get followings
@@ -47,8 +45,8 @@ const ProfileAnalytics = ({ analytics }) => {
 				}}
 			>
 				<PostBox count={analytics.outfitCount} />
-				<FollowersBox users={followers || []} />
-				<FollowingsBox users={followings || []} />
+				<FollowersBox users={[...followers, ...analytics.followers]} />
+				<FollowingsBox users={[...followings, ...analytics.followings]} />
 			</IonCol>
 		</IonRow>
 	)

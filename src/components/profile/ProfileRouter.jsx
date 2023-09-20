@@ -37,7 +37,7 @@ const ProfileRouter = () => {
 		fetchData()
 	}, [])
 
-	return uid == user.uid ? <MyProfile userInfo={searchedUser} /> : <UserProfile userInfo={searchedUser} />
+	return uid == user.uid ? <MyProfile userInfo={searchedUser} uid={uid} /> : <UserProfile userInfo={searchedUser} />
 }
 
 export default ProfileRouter

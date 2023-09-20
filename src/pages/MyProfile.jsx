@@ -1,9 +1,10 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonItem, IonList, IonPopover, IonRow, IonToolbar } from '@ionic/react'
 import { ellipsisVertical, logOutOutline, pencilOutline, settingsOutline } from 'ionicons/icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
 import Firebase from '../api/firebase/firebase'
+import { allOutfits, baseUrl } from '../api/wit-api/endPoints'
 import userState from '../atoms/user'
 import LogoTitle from '../components/LogoTitle'
 import PostTabs from '../components/post/PostTabs'
@@ -12,19 +13,72 @@ import ProfileAnalytics from '../components/profile/ProfileAnalytics'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
-const MyProfile = ({ userInfo }) => {
+const MyProfile = ({ userInfo, uid }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
 	const [user, setUser] = useRecoilState(userState)
+	const [outfits, setOutfits] = useState([])
+	const [saved, setSaved] = useState([])
 	const history = useHistory()
-
-	console.log(userInfo)
+	const firebase = new Firebase()
 
 	const signOut = async () => {
-		const firebase = new Firebase()
 		const res = await firebase.signOut()
 		setUser(res)
 		history.push('/home')
 	}
+
+	const getOutfits = async () => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			const res = await fetch(
+				`${baseUrl}${allOutfits}?` +
+					new URLSearchParams({
+						uid: uid
+					}),
+				{
+					method: 'GET',
+					headers: {
+						Authorization: idToken
+					}
+				}
+			)
+
+			const newOutfits = await res.json()
+			
+			setOutfits([...outfits, ...newOutfits])
+		})
+	}
+
+	const getSaved = async () => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			const res = await fetch(
+				`${baseUrl}${allOutfits}?` +
+					new URLSearchParams({
+						uid: uid
+					}),
+				{
+					method: 'GET',
+					headers: {
+						Authorization: idToken
+					}
+				}
+			)
+
+			const newOutfits = await res.json()
+			console.log([...outfits, ...newOutfits])
+			setOutfits([...outfits, ...newOutfits])
+		})
+	}
+
+	useEffect(() => {
+		const fetchData = async () => {
+			await getOutfits()
+			// await getSaved()
+		}
+
+		fetchData()
+	}, [])
 
 	return (
 		<Authorized>
@@ -98,14 +152,14 @@ const MyProfile = ({ userInfo }) => {
 				<ProfileAnalytics
 					analytics={{
 						outfitCount: userInfo.outfits ? userInfo.outfits.length : 0,
-						followers: userInfo.followers,
-						followings: userInfo.followings
+						followers: userInfo.followers || [],
+						followings: userInfo.followings || []
 					}}
 				/>
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 			{/* TODO: Delete empty arrays */}
-			<Posts posts={selectedTab === 'saved' ? userInfo.saved || [] : userInfo.outfits || []} />
+			<Posts posts={selectedTab === 'saved' ? userInfo.saved || [] : outfits} />
 		</Authorized>
 	)
 }

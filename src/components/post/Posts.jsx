@@ -13,7 +13,6 @@ const Posts = ({ posts }) => {
 	const postChunks = splitIntoChunks(posts, 2)
 	const history = useHistory()
 	const pageWidth = document.body.clientWidth
-	console.log(postChunks)
 	return (
 		<>
 			<IonGrid className="ion-no-padding post-grid">
