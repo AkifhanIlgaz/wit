@@ -11,7 +11,7 @@ const splitIntoChunks = (arr, chunkSize) => {
 	return chunks
 }
 
-const Outfits = ({ uid, tab }) => {
+const Outfits = ({ uid }) => {
 	const [items, setItems] = useState([])
 	const firebase = new Firebase()
 
@@ -33,6 +33,7 @@ const Outfits = ({ uid, tab }) => {
 			)
 
 			const newOutfits = await res.json()
+			console.log(newOutfits)
 			last === '' ? setItems(newOutfits) : setItems([...items, ...newOutfits])
 		})
 	}

@@ -1,10 +1,9 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonItem, IonList, IonPopover, IonRow, IonToolbar } from '@ionic/react'
 import { ellipsisVertical, logOutOutline, pencilOutline, settingsOutline } from 'ionicons/icons'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
 import Firebase from '../api/firebase/firebase'
-import { baseUrl, savedOutfits } from '../api/wit-api/endPoints'
 import userState from '../atoms/user'
 import LogoTitle from '../components/LogoTitle'
 import Outfits from '../components/outfit/Outfits'
@@ -17,8 +16,6 @@ import Authorized from '../layouts/Authorized'
 const MyProfile = ({ userInfo, uid }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
 	const [user, setUser] = useRecoilState(userState)
-	const [outfits, setOutfits] = useState([])
-	const [saved, setSaved] = useState([])
 	const history = useHistory()
 	const firebase = new Firebase()
 
@@ -27,36 +24,6 @@ const MyProfile = ({ userInfo, uid }) => {
 		setUser(res)
 		history.push('/home')
 	}
-
-	const getSaved = async (last = '') => {
-		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
-			const res = await fetch(
-				`${baseUrl}${savedOutfits}?` +
-					new URLSearchParams({
-						last: 'uC8hAbvHbIfmNFUnux5c'
-					}),
-				{
-					method: 'GET',
-					headers: {
-						Authorization: idToken
-					}
-				}
-			)
-
-			const newSaved = await res.json()
-
-			setSaved([...saved, ...newSaved])
-		})
-	}
-
-	useEffect(() => {
-		const fetchData = async () => {
-			await getSaved()
-		}
-
-		fetchData()
-	}, [])
 
 	return (
 		<Authorized>
@@ -116,15 +83,6 @@ const MyProfile = ({ userInfo, uid }) => {
 					>
 						<h3>{userInfo.displayName}</h3>
 					</IonCol>
-				</IonRow>
-				<IonRow className="ion-align-items-center ion-justify-content-center">
-					<IonCol
-						style={{
-							display: 'flex',
-							justifyContent: 'center'
-						}}
-						className="title"
-					></IonCol>
 				</IonRow>
 
 				<ProfileAnalytics

@@ -13,6 +13,7 @@ const ProfileRouter = () => {
 	const [searchedUser, setSearchedUser] = useState({})
 	const firebase = new Firebase()
 
+	// TODO: Delete
 	useEffect(() => {
 		const fetchData = async () => {
 			firebase.auth.onAuthStateChanged(async user => {
@@ -37,7 +38,7 @@ const ProfileRouter = () => {
 		fetchData()
 	}, [])
 
-	return uid == user.uid ? <MyProfile userInfo={searchedUser} uid={uid} /> : <UserProfile userInfo={searchedUser} />
+	return uid == user.uid ? <MyProfile userInfo={searchedUser} uid={uid} /> : <UserProfile userInfo={searchedUser} uid={uid} />
 }
 
 export default ProfileRouter

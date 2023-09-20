@@ -2,22 +2,14 @@ import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } f
 import { chevronBackOutline } from 'ionicons/icons'
 import { useHistory } from 'react-router'
 import LogoTitle from '../components/LogoTitle'
-import DefaultButton from '../components/buttons/DefaultButton'
 import FollowButton from '../components/buttons/FollowButton'
-import Posts from '../components/post/Posts'
+import Outfits from '../components/outfit/Outfits'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
-const UserProfile = ({ userInfo }) => {
+const UserProfile = ({ userInfo, uid }) => {
 	const history = useHistory()
-
-	const header = {
-		photoUrl: userInfo.profilePhoto,
-		username: userInfo.username,
-		isFollowed: userInfo.isFollowed,
-		isSendMessageDisabled: userInfo.isSendMessageDisabled
-	}
 
 	return (
 		<Authorized>
@@ -49,7 +41,7 @@ const UserProfile = ({ userInfo }) => {
 						}}
 						size="4"
 					>
-						<img src={header.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
+						<img src={userInfo.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
 					</IonCol>
 				</IonRow>
 				<IonRow className="ion-align-items-center ion-justify-content-center">
@@ -64,18 +56,7 @@ const UserProfile = ({ userInfo }) => {
 						<h3>{userInfo.displayName}</h3>
 					</IonCol>
 				</IonRow>
-				<IonRow className="ion-align-items-center ion-justify-content-center">
-					<IonCol
-						style={{
-							display: 'flex',
-							justifyContent: 'center'
-						}}
-						className="title"
-						size="4"
-					>
-						<span>{userInfo.username}</span>
-					</IonCol>
-				</IonRow>
+
 				<IonRow className="ion-align-items-center ion-justify-content-center ion-margin-top">
 					<IonCol
 						style={{
@@ -83,14 +64,20 @@ const UserProfile = ({ userInfo }) => {
 							justifyContent: 'center'
 						}}
 					>
-						<FollowButton isFollowed={header.isFollowed} uid={'xQFQncknojU5vUnsmIl2bIevBdE2'} />
-						{!header.isSendMessageDisabled && <DefaultButton text={'Message'} />}
+						<FollowButton isFollowed={userInfo.isFollowed} uid={userInfo.uid} />
 					</IonCol>
 				</IonRow>
 
-				<ProfileAnalytics />
+				<ProfileAnalytics
+					analytics={{
+						outfitCount: userInfo.outfits ? userInfo.outfits.length : 0,
+						followers: userInfo.followers || [],
+						followings: userInfo.followings || []
+					}}
+				/>
 			</IonGrid>
-			<Posts posts={userInfo.posts} />
+
+			<Outfits uid={uid} />
 		</Authorized>
 	)
 }
