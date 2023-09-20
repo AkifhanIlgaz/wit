@@ -1,5 +1,7 @@
-import { IonCard, IonCol, IonGrid, IonRow } from '@ionic/react'
-import { useHistory } from 'react-router'
+import { IonCard, IonCol, IonGrid, IonInfiniteScroll, IonInfiniteScrollContent, IonRow } from '@ionic/react'
+import { useEffect, useState } from 'react'
+import Firebase from '../../api/firebase/firebase'
+import { allOutfits, baseUrl } from '../../api/wit-api/endPoints'
 
 const splitIntoChunks = (arr, chunkSize) => {
 	const chunks = []
@@ -9,12 +11,39 @@ const splitIntoChunks = (arr, chunkSize) => {
 	return chunks
 }
 
-const Posts = ({ posts }) => {
-	const postChunks = splitIntoChunks(posts, 2)
-	const history = useHistory()
+const Outfits = ({ uid }) => {
+	const [items, setItems] = useState([])
+	const firebase = new Firebase()
+
+	const getOutfits = async (last = '') => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			const res = await fetch(
+				`${baseUrl}${allOutfits}?` +
+					new URLSearchParams({
+						uid: uid,
+						last: last
+					}),
+				{
+					method: 'GET',
+					headers: {
+						Authorization: idToken
+					}
+				}
+			)
+
+			const newOutfits = await res.json()
+			setItems([...items, ...newOutfits])
+		})
+	}
+
+	useEffect(() => {
+		getOutfits()
+	}, [])
+
 	return (
 		<IonGrid className="ion-no-padding post-grid">
-			{postChunks.map((chunk, i) => {
+			{splitIntoChunks(items, 2).map((chunk, i) => {
 				return (
 					<IonRow key={i} className="ion-margin">
 						<IonCol
@@ -71,8 +100,15 @@ const Posts = ({ posts }) => {
 					</IonRow>
 				)
 			})}
+			<IonInfiniteScroll
+				onIonInfinite={e => {
+					getOutfits(items.at(-1).createdAt).then(() => e.target.complete())
+				}}
+			>
+				<IonInfiniteScrollContent></IonInfiniteScrollContent>
+			</IonInfiniteScroll>
 		</IonGrid>
 	)
 }
 
-export default Posts
+export default Outfits

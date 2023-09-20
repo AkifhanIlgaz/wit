@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
 import Firebase from '../api/firebase/firebase'
-import { allOutfits, baseUrl } from '../api/wit-api/endPoints'
+import { baseUrl, savedOutfits } from '../api/wit-api/endPoints'
 import userState from '../atoms/user'
 import LogoTitle from '../components/LogoTitle'
+import Outfits from '../components/outfit/Outfits'
 import PostTabs from '../components/post/PostTabs'
-import Posts from '../components/post/Posts'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
@@ -27,13 +27,13 @@ const MyProfile = ({ userInfo, uid }) => {
 		history.push('/home')
 	}
 
-	const getOutfits = async () => {
+	const getSaved = async (last = '') => {
 		firebase.auth.onAuthStateChanged(async user => {
 			const idToken = await user.getIdToken(true)
 			const res = await fetch(
-				`${baseUrl}${allOutfits}?` +
+				`${baseUrl}${savedOutfits}?` +
 					new URLSearchParams({
-						uid: uid
+						last: 'uC8hAbvHbIfmNFUnux5c'
 					}),
 				{
 					method: 'GET',
@@ -43,38 +43,15 @@ const MyProfile = ({ userInfo, uid }) => {
 				}
 			)
 
-			const newOutfits = await res.json()
-			
-			setOutfits([...outfits, ...newOutfits])
-		})
-	}
+			const newSaved = await res.json()
 
-	const getSaved = async () => {
-		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
-			const res = await fetch(
-				`${baseUrl}${allOutfits}?` +
-					new URLSearchParams({
-						uid: uid
-					}),
-				{
-					method: 'GET',
-					headers: {
-						Authorization: idToken
-					}
-				}
-			)
-
-			const newOutfits = await res.json()
-			console.log([...outfits, ...newOutfits])
-			setOutfits([...outfits, ...newOutfits])
+			setSaved([...saved, ...newSaved])
 		})
 	}
 
 	useEffect(() => {
 		const fetchData = async () => {
-			await getOutfits()
-			// await getSaved()
+			await getSaved()
 		}
 
 		fetchData()
@@ -159,7 +136,8 @@ const MyProfile = ({ userInfo, uid }) => {
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 			{/* TODO: Delete empty arrays */}
-			<Posts posts={selectedTab === 'saved' ? userInfo.saved || [] : outfits} />
+			<Outfits outfits={outfits} uid={uid} />
+			{/* <Posts posts={selectedTab === 'saved' ? saved : outfits} /> */}
 		</Authorized>
 	)
 }

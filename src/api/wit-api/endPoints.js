@@ -11,3 +11,4 @@ export const saveOutfit = 'user/save-outfit'
 export const unsaveOutfit = 'user/unsave-outfit'
 export const user = 'user'
 export const allOutfits = 'outfit/all'
+export const savedOutfits = "user/saved"
