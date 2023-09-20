@@ -8,6 +8,7 @@ import { baseUrl, savedOutfits } from '../api/wit-api/endPoints'
 import userState from '../atoms/user'
 import LogoTitle from '../components/LogoTitle'
 import Outfits from '../components/outfit/Outfits'
+import Saved from '../components/outfit/Saved'
 import PostTabs from '../components/post/PostTabs'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
@@ -135,9 +136,8 @@ const MyProfile = ({ userInfo, uid }) => {
 				/>
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-			{/* TODO: Delete empty arrays */}
-			<Outfits outfits={outfits} uid={uid} />
-			{/* <Posts posts={selectedTab === 'saved' ? saved : outfits} /> */}
+
+			{selectedTab == 'saved' ? <Saved uid={uid} /> : <Outfits uid={uid} />}
 		</Authorized>
 	)
 }
