@@ -136,8 +136,7 @@ const MyProfile = ({ userInfo, uid }) => {
 				/>
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-
-			{selectedTab == 'saved' ? <Saved uid={uid} /> : <Outfits uid={uid} />}
+			{selectedTab === 'saved' ? <Saved uid={uid} /> : <Outfits uid={uid} />}
 		</Authorized>
 	)
 }

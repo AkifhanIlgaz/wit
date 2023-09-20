@@ -33,7 +33,6 @@ const Saved = ({ uid }) => {
 			)
 
 			const newOutfits = await res.json()
-			console.log(newOutfits)
 			setItems([...items, ...newOutfits])
 		})
 	}
