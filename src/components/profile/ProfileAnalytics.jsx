@@ -1,39 +1,63 @@
 import { IonCol, IonRow } from '@ionic/react'
-import { useState } from 'react'
-import profilePhoto1 from '../../images/defaultPostPhoto.jpg'
-import defaultProfilePhoto from '../../images/defaultProfilePhoto.jpg'
-import profilePhoto2 from '../../images/defaultSavedPhoto.jpg'
+import { useEffect, useState } from 'react'
+import Firebase from '../../api/firebase/firebase'
+import { baseUrl, follower, following } from '../../api/wit-api/endPoints'
 import FollowersBox from './box/FollowersBox'
 import FollowingsBox from './box/FollowingsBox'
 import PostBox from './box/PostBox'
 
-const ProfileAnalytics = ({ analytics }) => {
+const ProfileAnalytics = ({ outfitCount, uid }) => {
 	const [followers, setFollowers] = useState([])
 	const [followings, setFollowings] = useState([])
+	const firebase = new Firebase()
+	const getFollowers = async (last = '') => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			const res = await fetch(
+				`${baseUrl}${follower}?` +
+					new URLSearchParams({
+						uid: uid,
+						last: last
+					}),
+				{
+					method: 'GET',
+					headers: {
+						Authorization: idToken
+					}
+				}
+			)
 
-	const getFollowers = async () => {
-		// TODO: Get followers
-		setFollowers([
-			{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-			{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-			{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
-			{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-			{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-			{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
-			{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-			{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-			{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
-		])
+			const newFollowers = await res.json()
+			setFollowers([...followers, ...newFollowers])
+		})
 	}
 
-	const getFollowings = async () => {
-		// TODO: Get followings
-		setFollowings([
-			{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-			{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-			{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
-		])
+	const getFollowings = async (last = '') => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			const res = await fetch(
+				`${baseUrl}${following}?` +
+					new URLSearchParams({
+						uid: uid,
+						last: last
+					}),
+				{
+					method: 'GET',
+					headers: {
+						Authorization: idToken
+					}
+				}
+			)
+
+			const newFollowings = await res.json()
+			setFollowings([...followings, ...newFollowings])
+		})
 	}
+
+	useEffect(() => {
+		getFollowers()
+		getFollowings()
+	}, [])
 
 	return (
 		<IonRow className="ion-align-items-center ion-justify-content-space-around ion-margin-top  " style={{ borderTop: '1px solid rgb(219,219,219)', borderBottom: '1px solid rgb(219,219,219)' }}>
@@ -44,9 +68,9 @@ const ProfileAnalytics = ({ analytics }) => {
 					justifyContent: 'space-around'
 				}}
 			>
-				<PostBox count={analytics.outfitCount} />
-				<FollowersBox users={[...followers, ...analytics.followers]} />
-				<FollowingsBox users={[...followings, ...analytics.followings]} />
+				<PostBox count={outfitCount} />
+				<FollowersBox users={followers} getFollowers={getFollowers} />
+				<FollowingsBox users={followings} getFollowings={getFollowings} />
 			</IonCol>
 		</IonRow>
 	)

@@ -25,6 +25,8 @@ const MyProfile = ({ userInfo, uid }) => {
 		history.push('/home')
 	}
 
+	const getUser = async () => {}
+
 	return (
 		<Authorized>
 			<IonGrid className="ion-no-padding">
@@ -70,7 +72,7 @@ const MyProfile = ({ userInfo, uid }) => {
 							justifyContent: 'center'
 						}}
 					>
-						<img src={userInfo.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
+						<img src={user.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
 					</IonCol>
 				</IonRow>
 				<IonRow className="ion-align-items-center ion-justify-content-center">
@@ -81,17 +83,11 @@ const MyProfile = ({ userInfo, uid }) => {
 						}}
 						className="count"
 					>
-						<h3>{userInfo.displayName}</h3>
+						<h3>{user.displayName}</h3>
 					</IonCol>
 				</IonRow>
 
-				<ProfileAnalytics
-					analytics={{
-						outfitCount: userInfo.outfits ? userInfo.outfits.length : 0,
-						followers: userInfo.followers || [],
-						followings: userInfo.followings || []
-					}}
-				/>
+				<ProfileAnalytics uid={uid} outfitCount={4} />
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 			{selectedTab === 'saved' ? <Saved uid={uid} /> : <Outfits uid={uid} />}

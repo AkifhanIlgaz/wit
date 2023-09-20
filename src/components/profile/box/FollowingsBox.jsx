@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react'
 import formatCount from '../../../api/numberFormat'
 import UserList from '../../user/UserList'
 
-const FollowingsBox = ({ users }) => {
+const FollowingsBox = ({ users, getFollowings }) => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	return (
@@ -15,7 +15,7 @@ const FollowingsBox = ({ users }) => {
 				</span>
 			</IonButton>
 
-			<UserList isOpen={isOpen} setIsOpen={setIsOpen} users={users} />
+			<UserList isOpen={isOpen} setIsOpen={setIsOpen} users={users} getUsers={getFollowings} />
 		</Fragment>
 	)
 }
