@@ -13,7 +13,7 @@ import ProfileAnalytics from '../components/profile/ProfileAnalytics'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
-const MyProfile = ({ userInfo, uid }) => {
+const MyProfile = ({ uid }) => {
 	const [selectedTab, setSelectedTab] = useState('posts')
 	const [user, setUser] = useRecoilState(userState)
 	const history = useHistory()
@@ -24,8 +24,6 @@ const MyProfile = ({ userInfo, uid }) => {
 		setUser(res)
 		history.push('/home')
 	}
-
-	const getUser = async () => {}
 
 	return (
 		<Authorized>

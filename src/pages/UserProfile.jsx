@@ -1,6 +1,9 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
 import { chevronBackOutline } from 'ionicons/icons'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
+import Firebase from '../api/firebase/firebase'
+import { api_user, baseUrl } from '../api/wit-api/endPoints'
 import LogoTitle from '../components/LogoTitle'
 import FollowButton from '../components/buttons/FollowButton'
 import Outfits from '../components/outfit/Outfits'
@@ -10,6 +13,32 @@ import Authorized from '../layouts/Authorized'
 
 const UserProfile = ({ userInfo, uid }) => {
 	const history = useHistory()
+	const firebase = new Firebase()
+	const [user, setUser] = useState({})
+
+	const getUser = async () => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			const res = await fetch(
+				`${baseUrl}${api_user}?` +
+					new URLSearchParams({
+						uid: uid
+					}),
+				{
+					method: 'GET',
+					headers: {
+						Authorization: idToken
+					}
+				}
+			)
+
+			setUser(await res.json())
+		})
+	}
+
+	useEffect(() => {
+		getUser()
+	}, [])
 
 	return (
 		<Authorized>
@@ -41,7 +70,7 @@ const UserProfile = ({ userInfo, uid }) => {
 						}}
 						size="4"
 					>
-						<img src={userInfo.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
+						<img src={user.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
 					</IonCol>
 				</IonRow>
 				<IonRow className="ion-align-items-center ion-justify-content-center">
@@ -53,7 +82,7 @@ const UserProfile = ({ userInfo, uid }) => {
 						size="4"
 						className="count"
 					>
-						<h3>{userInfo.displayName}</h3>
+						<h3>{user.displayName}</h3>
 					</IonCol>
 				</IonRow>
 
@@ -64,17 +93,11 @@ const UserProfile = ({ userInfo, uid }) => {
 							justifyContent: 'center'
 						}}
 					>
-						<FollowButton isFollowed={userInfo.isFollowed} uid={userInfo.uid} />
+						<FollowButton isFollowed={user.isFollowed} uid={uid} />
 					</IonCol>
 				</IonRow>
 
-				<ProfileAnalytics
-					analytics={{
-						outfitCount: userInfo.outfits ? userInfo.outfits.length : 0,
-						followers: userInfo.followers || [],
-						followings: userInfo.followings || []
-					}}
-				/>
+				<ProfileAnalytics uid={uid} />
 			</IonGrid>
 
 			<Outfits uid={uid} />
