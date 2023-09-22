@@ -4,38 +4,11 @@ import { chevronBackOutline } from 'ionicons/icons'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { getPostById } from '../api/mockUsers'
-import profilePhoto1 from '../images/defaultPostPhoto.jpg'
-import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
-import profilePhoto2 from '../images/defaultSavedPhoto.jpg'
 import Authorized from '../layouts/Authorized'
 const Post = () => {
 	const { postId } = useParams()
 	const [post, setPost] = useState()
 	const history = useHistory()
-
-	const mock = [
-		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
-		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
-		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
-		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
-		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
-		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true },
-		{ displayName: 'Gaye Su Akyol', photoUrl: profilePhoto1, isFollowed: true },
-		{ displayName: 'Farid Farjad', photoUrl: profilePhoto2, isFollowed: false },
-		{ displayName: 'Şevval Sam', photoUrl: defaultProfilePhoto, isFollowed: true }
-	]
 
 	const sharePostUrl = async () => {
 		await Share.share({
