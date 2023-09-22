@@ -9,6 +9,8 @@ import PostCard from '../components/post/PostCard'
 const Home = () => {
 	const firebase = new Firebase()
 	const [posts, setPosts] = useState([])
+	const [isOutfitOpen, setIsOutfitOpen] = useState(false)
+	const [outfit, setOutfit] = useState({})
 
 	const getPosts = async (last = '') => {
 		firebase.auth.onAuthStateChanged(async user => {
@@ -61,7 +63,7 @@ const Home = () => {
 
 				<IonList>
 					{posts.map((post, index) => {
-						return <PostCard key={index} postInfo={post} />
+						return <PostCard key={index} outfit={post} />
 					})}
 				</IonList>
 

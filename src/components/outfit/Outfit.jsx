@@ -1,13 +1,16 @@
 import { IonButton, IonButtons, IonHeader, IonIcon, IonTitle, IonToolbar } from '@ionic/react'
 import { chevronBackOutline } from 'ionicons/icons'
 import { useHistory } from 'react-router'
+import { useRecoilState } from 'recoil'
+import outfitState from '../../atoms/outfit'
 import defaultPostPhoto from '../../images/defaultPostPhoto.jpg'
 import Authorized from '../../layouts/Authorized'
 import OutfitLinkDot from './OutfitLinkDot'
 
 // TODO: Add links props
-const Outfit = ({ photoUrl }) => {
+const Outfit = () => {
 	const history = useHistory()
+	const [outfit, setOutfit] = useRecoilState(outfitState)
 	// TODO: Show links
 
 	const links = [
@@ -18,6 +21,12 @@ const Outfit = ({ photoUrl }) => {
 			title: 'Logo'
 		}
 	]
+
+	// useEffect(() => {
+	// 	return () => {
+	// 		setOutfit({})
+	// 	}
+	// }, [])
 
 	return (
 		<Authorized>
@@ -37,16 +46,14 @@ const Outfit = ({ photoUrl }) => {
 				}}
 			>
 				<img
-					src={photoUrl || defaultPostPhoto}
+					src={outfit.photoUrl || defaultPostPhoto}
 					style={{
 						width: '100vw',
 						height: '100vh'
 					}}
 				/>
 
-				{links.map((link, index) => (
-					<OutfitLinkDot key={index} link={link} />
-				))}
+				{outfit.links && outfit.links.map((link, index) => <OutfitLinkDot key={index} link={link} />)}
 			</div>
 		</Authorized>
 	)

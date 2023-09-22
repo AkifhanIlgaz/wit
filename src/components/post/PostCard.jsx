@@ -1,15 +1,18 @@
 import { IonCard, IonCardContent, IonCol, IonGrid, IonRow } from '@ionic/react'
 import { useHistory } from 'react-router'
+import { useRecoilState } from 'recoil'
+import outfitState from '../../atoms/outfit'
 import PostHeader from './PostHeader'
 import PostToolbar from './PostToolbar'
 
-const PostCard = ({ postInfo }) => {
+const PostCard = ({ outfit }) => {
 	const history = useHistory()
+	const [currentOutfit, setCurrentOutfit] = useRecoilState(outfitState)
 
 	return (
 		<IonGrid className="ion-no-padding ">
 			<IonCard>
-				<PostHeader postInfo={postInfo} />
+				<PostHeader postInfo={outfit} />
 
 				<IonRow className="ion-justify-content-center ">
 					<IonCol
@@ -20,12 +23,13 @@ const PostCard = ({ postInfo }) => {
 						}}
 					>
 						<img
-							src={postInfo.photoUrl}
+							src={outfit.photoUrl}
 							alt=""
 							height={'100%'}
 							width={'100%'}
 							onClick={() => {
-								history.push(`/posts/${postInfo.id}`)
+								setCurrentOutfit(outfit)
+								history.push(`/outfit/${outfit.id}`)
 							}}
 						/>
 					</IonCol>
@@ -38,7 +42,7 @@ const PostCard = ({ postInfo }) => {
 				>
 					<IonCol>
 						<IonCardContent className="ion-no-padding">
-							<PostToolbar postInfo={postInfo} />
+							<PostToolbar postInfo={outfit} />
 						</IonCardContent>
 					</IonCol>
 				</IonRow>
