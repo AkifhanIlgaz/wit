@@ -11,7 +11,7 @@ import ProfileAnalytics from '../components/profile/ProfileAnalytics'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
 
-const UserProfile = ({ userInfo, uid }) => {
+const UserProfile = ({ uid }) => {
 	const history = useHistory()
 	const firebase = new Firebase()
 	const [user, setUser] = useState({})
@@ -31,8 +31,9 @@ const UserProfile = ({ userInfo, uid }) => {
 					}
 				}
 			)
-
-			setUser(await res.json())
+			const u = await res.json()
+			console.log(u)
+			setUser(u)
 		})
 	}
 

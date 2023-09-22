@@ -64,7 +64,7 @@ const FollowButton = ({ isFollowed, uid }) => {
 			})
 	}
 
-	return stateIsFollowed === false ? (
+	return (stateIsFollowed === undefined ? isFollowed === false : stateIsFollowed === false) ? (
 		<IonButton
 			color={'button-background'}
 			className="button-text"
@@ -106,7 +106,7 @@ const FollowButton = ({ isFollowed, uid }) => {
 						role: 'cancel'
 					}
 				]}
-				// onDidDismiss={() => setIsActionSheetOpen(false)}
+				onDidDismiss={() => setIsActionSheetOpen(false)}
 			></IonActionSheet>
 		</Fragment>
 	)
