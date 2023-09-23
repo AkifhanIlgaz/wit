@@ -38,7 +38,7 @@ const Tabs = () => {
 						<Route exact path={'/outfit/:outfitId'} render={() => <Outfit />} />
 						<Route exact path={'/edit-profile'} render={() => <EditProfile />} />
 					</IonRouterOutlet>
-					<IonTabBar slot="bottom" color={'transparent'}>
+					<IonTabBar slot="bottom" color={'transparent'} style={{ height: '6vh' }}>
 						<IonTabButton tab="home" href="/home">
 							<IonIcon icon={homeOutline}></IonIcon>
 						</IonTabButton>

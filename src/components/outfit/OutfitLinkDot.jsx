@@ -1,22 +1,20 @@
-import { IonAlert, IonCard, IonCardContent } from '@ionic/react'
+import { IonAlert, IonButton, IonCard, IonCardContent, IonIcon, useIonPopover } from '@ionic/react'
+import { add } from 'ionicons/icons'
 import { Fragment, useState } from 'react'
-import { useHistory } from 'react-router'
 
-const OutfitLinkDot = ({ link }) => {
-	const history = useHistory()
-
-	const [isRedirectAlertOpen, setIsRedirectAlertOpen] = useState(false)
+const Popover = ({ link }) => {
 	const [redirectUrl, setRedirectUrl] = useState()
+	const [isRedirectAlertOpen, setIsRedirectAlertOpen] = useState(false)
+	const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
 	return (
 		<Fragment>
 			<IonCard
+				className="ion-no-margin"
 				style={{
-					position: 'absolute',
 					left: link.left,
 					top: link.top
 				}}
-				className="ion-no-margin "
 			>
 				<IonCardContent
 					className="ion-no-padding"
@@ -34,7 +32,6 @@ const OutfitLinkDot = ({ link }) => {
 						}}
 						onClick={e => {
 							e.preventDefault()
-							console.log(e.currentTarget.hrefq)
 							setRedirectUrl(e.currentTarget.href)
 							setIsRedirectAlertOpen(true)
 						}}
@@ -58,6 +55,30 @@ const OutfitLinkDot = ({ link }) => {
 				onDidDismiss={() => setIsRedirectAlertOpen(false)}
 			></IonAlert>
 		</Fragment>
+	)
+}
+
+const OutfitLinkDot = ({ link }) => {
+	const [present, dismiss] = useIonPopover(Popover, { link: link })
+
+	return (
+		<IonButton
+			style={{
+				position: 'absolute',
+				left: link.left,
+				top: link.top
+			}}
+			color={'tertiary'}
+			size="small"
+			onClick={() => {
+				present({
+					side: 'bottom',
+					alignment: 'center'
+				})
+			}}
+		>
+			<IonIcon icon={add}></IonIcon>
+		</IonButton>
 	)
 }
 
