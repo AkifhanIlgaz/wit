@@ -56,6 +56,7 @@ const Home = () => {
 				<IonRefresher
 					slot="fixed"
 					onIonRefresh={ev => {
+						setIsLast(false)
 						getPosts().then(() => {
 							ev.detail.complete()
 						})
