@@ -71,24 +71,39 @@ const OutfitLinkDot = ({ link }) => {
 	const [present, dismiss] = useIonPopover(Popover, { link: link })
 
 	return (
-		<div
-			className="animated-dot"
-			style={{
-				borderRadius: '50%',
-				width: '1em',
-				height: '1em',
-				position: 'absolute',
-				left: link.left,
-				top: link.top,
-				backgroundColor: 'white'
-			}}
-			onClick={e => {
-				present({
-					event: e,
-					reference: 'event'
-				})
-			}}
-		></div>
+		<>
+			<div
+				className="animated-dot"
+				style={{
+					borderRadius: '50%',
+					width: '1em',
+					height: '1em',
+					position: 'absolute',
+					left: link.left,
+					top: link.top,
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center'
+				}}
+			></div>
+			<div
+				style={{
+					borderRadius: '50%',
+					width: '1em',
+					height: '1em',
+					position: 'absolute',
+					left: link.left,
+					top: link.top,
+					backgroundColor: 'white'
+				}}
+				onClick={e => {
+					present({
+						event: e,
+						reference: 'event'
+					})
+				}}
+			></div>
+		</>
 	)
 }
 
