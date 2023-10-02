@@ -5,34 +5,6 @@ const Popover = ({ link }) => {
 	const [isRedirectAlertOpen, setIsRedirectAlertOpen] = useState(false)
 
 	return (
-		// <Fragment>
-		// 	<IonCard className="ion-no-margin">
-		// 		<IonCardContent
-		// 			className="ion-no-padding"
-		// 			style={{
-		// 				padding: '.5rem'
-		// 			}}
-		// 		>
-		// 			<a
-		// 				href={link.url}
-		// 				style={{
-		// 					width: '100%',
-		// 					height: '100%',
-		// 					textDecoration: 'none',
-		// 					color: 'black'
-		// 				}}
-		// 				onClick={e => {
-		// 					e.preventDefault()
-		// 					setRedirectUrl(e.currentTarget.href)
-		// 					setIsRedirectAlertOpen(true)
-		// 				}}
-		// 			>
-		// 				{link.title}
-		// 			</a>
-		// 		</IonCardContent>
-		// 	</IonCard>
-
-		// </Fragment>
 		<IonContent
 			scrollY={false}
 			className="ion-padding ion-text-center ion-margin-top"
@@ -51,7 +23,8 @@ const Popover = ({ link }) => {
 			</span>
 			<IonAlert
 				isOpen={isRedirectAlertOpen}
-				message={`Do you want to go to this site ${link.href}`}
+				header="Do you want to go to this site ?"
+				subHeader={link.href}
 				buttons={[
 					{
 						text: 'OK',
@@ -61,7 +34,9 @@ const Popover = ({ link }) => {
 						}
 					}
 				]}
-				onDidDismiss={() => setIsRedirectAlertOpen(false)}
+				onDidDismiss={() => {
+					setIsRedirectAlertOpen(false)
+				}}
 			></IonAlert>
 		</IonContent>
 	)
@@ -98,8 +73,7 @@ const OutfitLinkDot = ({ link }) => {
 				}}
 				onClick={e => {
 					present({
-						event: e,
-						reference: 'event'
+						event: e
 					})
 				}}
 			></div>
