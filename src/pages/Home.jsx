@@ -51,6 +51,7 @@ const Home = () => {
 
 			<IonContent>
 				<IonRefresher
+					slot="fixed"
 					onIonRefresh={ev => {
 						setIsLast(false)
 						getPosts().then(() => {
