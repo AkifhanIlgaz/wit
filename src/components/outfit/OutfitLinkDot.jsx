@@ -72,6 +72,7 @@ const OutfitLinkDot = ({ link }) => {
 
 	return (
 		<div
+			className="animated-dot"
 			style={{
 				borderRadius: '50%',
 				width: '1em',
