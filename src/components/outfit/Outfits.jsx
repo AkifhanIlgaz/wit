@@ -37,6 +37,7 @@ const Outfits = ({ uid }) => {
 			last === '' ? setItems(newOutfits) : setItems([...items, ...newOutfits])
 		})
 	}
+	
 
 	useEffect(() => {
 		getOutfits()
@@ -44,6 +45,7 @@ const Outfits = ({ uid }) => {
 
 	return (
 		<IonGrid className="ion-no-padding post-grid">
+
 			{splitIntoChunks(items, 2).map((chunk, i) => {
 				return (
 					<IonRow key={i} className="ion-margin">
