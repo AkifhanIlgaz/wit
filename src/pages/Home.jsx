@@ -10,8 +10,6 @@ import PostCard from '../components/post/PostCard'
 const Home = () => {
 	const firebase = new Firebase()
 	const [posts, setPosts] = useState([])
-	const [isOutfitOpen, setIsOutfitOpen] = useState(false)
-	const [outfit, setOutfit] = useState({})
 	const [isLast, setIsLast] = useState(false)
 
 	const getPosts = async (last = '') => {
@@ -34,7 +32,6 @@ const Home = () => {
 			if (newPosts === null) {
 				setIsLast(true)
 			}
-			console.log(newPosts)
 
 			last === '' ? setPosts([...newPosts]) : setPosts([...posts, ...newPosts])
 		})
@@ -54,7 +51,6 @@ const Home = () => {
 
 			<IonContent>
 				<IonRefresher
-					slot="fixed"
 					onIonRefresh={ev => {
 						setIsLast(false)
 						getPosts().then(() => {
@@ -78,7 +74,7 @@ const Home = () => {
 						})
 					}}
 				>
-					<IonInfiniteScrollContent loadingText={'Please wait...'} loadingSpinner={'bubbles'}>
+					<IonInfiniteScrollContent loadingText={'Please wait...'} loadingSpinner={'bubbles'} className="ion-margin">
 						{isLast && <Finished />}
 					</IonInfiniteScrollContent>
 				</IonInfiniteScroll>
