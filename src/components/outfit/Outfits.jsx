@@ -1,7 +1,10 @@
 import { IonCard, IonCol, IonGrid, IonInfiniteScroll, IonInfiniteScrollContent, IonRow } from '@ionic/react'
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router'
+import { useRecoilState } from 'recoil'
 import Firebase from '../../api/firebase/firebase'
 import { allOutfits, baseUrl } from '../../api/wit-api/endPoints'
+import outfitState from '../../atoms/outfit'
 
 const splitIntoChunks = (arr, chunkSize) => {
 	const chunks = []
@@ -12,7 +15,9 @@ const splitIntoChunks = (arr, chunkSize) => {
 }
 
 const Outfits = ({ uid }) => {
+	const history = useHistory()
 	const [items, setItems] = useState([])
+	const [currentOutfit, setCurrentOutfit] = useRecoilState(outfitState)
 	const firebase = new Firebase()
 
 	const getOutfits = async (last = '') => {
@@ -37,7 +42,6 @@ const Outfits = ({ uid }) => {
 			last === '' ? setItems(newOutfits) : setItems([...items, ...newOutfits])
 		})
 	}
-	
 
 	useEffect(() => {
 		getOutfits()
@@ -45,7 +49,6 @@ const Outfits = ({ uid }) => {
 
 	return (
 		<IonGrid className="ion-no-padding post-grid">
-
 			{splitIntoChunks(items, 2).map((chunk, i) => {
 				return (
 					<IonRow key={i} className="ion-margin">
@@ -68,7 +71,8 @@ const Outfits = ({ uid }) => {
 									src={chunk[0].photoUrl}
 									height={'100%'}
 									onClick={() => {
-										history.push(`/posts/${chunk[0].id}`)
+										setCurrentOutfit(chunk[0])
+										history.push(`/outfit/${chunk[0].id}`)
 									}}
 								/>
 							</IonCard>
@@ -94,7 +98,8 @@ const Outfits = ({ uid }) => {
 										src={chunk[1].photoUrl}
 										height={'100%'}
 										onClick={() => {
-											history.push(`/posts/${chunk[1].id}`)
+											setCurrentOutfit(chunk[1])
+											history.push(`/outfit/${chunk[1].id}`)
 										}}
 									/>
 								</IonCard>
