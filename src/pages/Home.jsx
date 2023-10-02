@@ -1,5 +1,5 @@
 import { IonContent, IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonPage, IonRefresher, IonRefresherContent, IonToolbar } from '@ionic/react'
-import { refreshOutline } from 'ionicons/icons'
+import { refreshSharp } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
 import Firebase from '../api/firebase/firebase'
 import { baseUrl, outfitsHome } from '../api/wit-api/endPoints'
@@ -49,16 +49,15 @@ const Home = () => {
 			<IonContent>
 				<IonRefresher
 					slot="fixed"
-					pullFactor={0.5}
-					pullMin={50}
-					pullMax={100}
 					onIonRefresh={ev => {
-						getPosts().then(() => {
-							ev.detail.complete()
-						})
+						setTimeout(() => {
+							getPosts().then(() => {
+								ev.detail.complete()
+							})
+						}, 2000)
 					}}
 				>
-					<IonRefresherContent refreshingSpinner={'bubbles'} pullingIcon={refreshOutline}></IonRefresherContent>
+					<IonRefresherContent refreshingSpinner={'bubbles'} pullingIcon={refreshSharp} refreshingText={'Loading'}></IonRefresherContent>
 				</IonRefresher>
 
 				<IonList>
