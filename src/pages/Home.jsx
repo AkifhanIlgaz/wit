@@ -3,6 +3,7 @@ import { refreshSharp } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
 import Firebase from '../api/firebase/firebase'
 import { baseUrl, outfitsHome } from '../api/wit-api/endPoints'
+import Finished from '../components/Finished'
 import LogoTitle from '../components/LogoTitle'
 import PostCard from '../components/post/PostCard'
 
@@ -11,6 +12,7 @@ const Home = () => {
 	const [posts, setPosts] = useState([])
 	const [isOutfitOpen, setIsOutfitOpen] = useState(false)
 	const [outfit, setOutfit] = useState({})
+	const [isLast, setIsLast] = useState(false)
 
 	const getPosts = async (last = '') => {
 		firebase.auth.onAuthStateChanged(async user => {
@@ -29,7 +31,11 @@ const Home = () => {
 			)
 
 			const newPosts = await res.json()
+			if (newPosts === null) {
+				setIsLast(true)
+			}
 			console.log(newPosts)
+
 			last === '' ? setPosts([...newPosts]) : setPosts([...posts, ...newPosts])
 		})
 	}
@@ -50,11 +56,9 @@ const Home = () => {
 				<IonRefresher
 					slot="fixed"
 					onIonRefresh={ev => {
-						setTimeout(() => {
-							getPosts().then(() => {
-								ev.detail.complete()
-							})
-						}, 2000)
+						getPosts().then(() => {
+							ev.detail.complete()
+						})
 					}}
 				>
 					<IonRefresherContent refreshingSpinner={'bubbles'} pullingIcon={refreshSharp} refreshingText={'Loading'}></IonRefresherContent>
@@ -73,7 +77,9 @@ const Home = () => {
 						})
 					}}
 				>
-					<IonInfiniteScrollContent></IonInfiniteScrollContent>
+					<IonInfiniteScrollContent loadingText={'Please wait...'} loadingSpinner={'bubbles'}>
+						{isLast && <Finished />}
+					</IonInfiniteScrollContent>
 				</IonInfiniteScroll>
 			</IonContent>
 		</IonPage>
