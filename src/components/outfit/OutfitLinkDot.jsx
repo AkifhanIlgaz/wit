@@ -1,7 +1,7 @@
 import { IonAlert, IonContent, useIonPopover } from '@ionic/react'
 import { useState } from 'react'
 
-const Popover = ({ link }) => {
+const Popover = ({ link, onDismiss }) => {
 	const [isRedirectAlertOpen, setIsRedirectAlertOpen] = useState(false)
 
 	return (
@@ -27,6 +27,10 @@ const Popover = ({ link }) => {
 				subHeader={link.href}
 				buttons={[
 					{
+						text: 'Cancel',
+						role: 'destructive'
+					},
+					{
 						text: 'OK',
 						role: 'confirm',
 						handler: () => {
@@ -35,6 +39,7 @@ const Popover = ({ link }) => {
 					}
 				]}
 				onDidDismiss={() => {
+					onDismiss()
 					setIsRedirectAlertOpen(false)
 				}}
 			></IonAlert>
@@ -43,7 +48,7 @@ const Popover = ({ link }) => {
 }
 
 const OutfitLinkDot = ({ link }) => {
-	const [present, dismiss] = useIonPopover(Popover, { link: link })
+	const [present, dismiss] = useIonPopover(Popover, { link: link, onDismiss: (data, role) => dismiss(data, role) })
 
 	return (
 		<>
@@ -73,7 +78,8 @@ const OutfitLinkDot = ({ link }) => {
 				}}
 				onClick={e => {
 					present({
-						event: e
+						event: e,
+						onDidDismiss: e => console.log(e)
 					})
 				}}
 			></div>
