@@ -1,6 +1,7 @@
 import { IonAlert, IonButton, IonButtons, IonToolbar, useIonAlert } from '@ionic/react'
 import isUrlHttp from 'is-url-http'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import Firebase from '../../api/firebase/firebase'
 import Link from '../../api/models/link'
 import { addOutfit, baseUrl, generateUploadUrl } from '../../api/wit-api/endPoints'
@@ -15,52 +16,56 @@ const AddLinks = ({ photo, setIsOpen }) => {
 	const [errorMessage, setErrorMessage] = useState('')
 	const [links, setLinks] = useState([])
 	const [presentAlert] = useIonAlert()
+	const [currentUser, loading] = useAuthState(firebase.auth)
 
 	const uploadPhoto = async () => {
-		firebase.auth.onAuthStateChanged(async user => {
-			try {
-				// Convert base64 image to File
-				const blob = await fetch(photo.dataUrl).then(res => res.blob())
-				const file = new File([blob], '', { type: `image/${photo.format}` })
+		const idToken = await currentUser.getIdToken(true)
 
-				// Generate upload url
-				const idToken = await user.getIdToken(true)
-				let uploadData = await fetch(`${baseUrl}${generateUploadUrl}`, {
+		try {
+			// Convert base64 image to File
+			const blob = await fetch(photo.dataUrl).then(res => res.blob())
+			const file = new File([blob], '', { type: `image/${photo.format}` })
+
+			// Generate upload url
+			let uploadData = await fetch(`${baseUrl}${generateUploadUrl}`, {
+				headers: {
+					Authorization: idToken,
+					fileExtension: photo.format
+				}
+			}).then(res => res.json())
+
+			const res = await fetch(uploadData.uploadUrl, {
+				method: 'PUT',
+				body: file,
+				headers: {
+					'Content-Type': file.type
+				}
+			})
+
+			if (res.ok) {
+				await fetch(`${baseUrl}${addOutfit}`, {
+					method: 'POST',
 					headers: {
 						Authorization: idToken,
-						fileExtension: photo.format
-					}
-				}).then(res => res.json())
-
-				const res = await fetch(uploadData.uploadUrl, {
-					method: 'PUT',
-					body: file,
-					headers: {
-						'Content-Type': file.type
-					}
-				})
-
-				if (res.ok) {
-					await fetch(`${baseUrl}${addOutfit}`, {
-						method: 'POST',
-						headers: {
-							Authorization: idToken,
-							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify({
-							photoUrl: uploadData.filePath,
-							links: links
-						})
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						photoUrl: uploadData.filePath,
+						links: links
 					})
-				}
-			} catch (error) {
-				// TODO: Open alert on error
-				console.log(error)
+				})
 			}
-		})
+		} catch (error) {
+			// TODO: Open alert on error
+			console.log(error)
+		}
 
 		setIsOpen(false)
 	}
+
+	useEffect(() => {
+		if (loading) return
+	}, [loading])
 
 	return (
 		<Fragment>

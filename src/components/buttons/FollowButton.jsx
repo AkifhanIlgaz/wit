@@ -1,5 +1,6 @@
 import { IonActionSheet, IonButton, useIonAlert } from '@ionic/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import Firebase from '../../api/firebase/firebase'
 import { baseUrl, follow, unfollow } from '../../api/wit-api/endPoints'
 
@@ -8,16 +9,13 @@ const FollowButton = ({ isFollowed, uid }) => {
 	const [isActionSheetOpen, setIsActionSheetOpen] = useState(false)
 	const [presentAlert] = useIonAlert()
 	const firebase = new Firebase()
-
-	let idToken
-	firebase.auth.onAuthStateChanged(async user => {
-		idToken = await user.getIdToken(true)
-	})
+	const [currentUser, loading] = useAuthState(firebase.auth)
 
 	const data = new URLSearchParams()
 	data.append('uid', uid)
 
 	const followUser = async () => {
+		const idToken = await currentUser.getIdToken(true)
 		setStateIsFollowed(true)
 		fetch(`${baseUrl}${follow}`, {
 			method: 'PUT',
@@ -39,7 +37,8 @@ const FollowButton = ({ isFollowed, uid }) => {
 		})
 	}
 
-	const unfollowUser = () => {
+	const unfollowUser = async () => {
+		const idToken = await currentUser.getIdToken(true)
 		setStateIsFollowed(false)
 		fetch(`${baseUrl}${unfollow}`, {
 			method: 'PUT',
@@ -63,6 +62,10 @@ const FollowButton = ({ isFollowed, uid }) => {
 				setIsActionSheetOpen(false)
 			})
 	}
+
+	useEffect(() => {
+		if (loading) return
+	}, [loading])
 
 	return (stateIsFollowed === undefined ? isFollowed === false : stateIsFollowed === false) ? (
 		<IonButton

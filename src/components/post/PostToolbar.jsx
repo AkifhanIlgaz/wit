@@ -1,7 +1,8 @@
 import { Share } from '@capacitor/share'
 import { IonButton, IonButtons, IonIcon, IonToolbar } from '@ionic/react'
 import { bookmark, bookmarkOutline, heart, heartOutline, shareSocial } from 'ionicons/icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import Firebase from '../../api/firebase/firebase'
 import formatCount from '../../api/numberFormat'
 import { baseUrl, like, saveOutfit, unlike, unsaveOutfit } from '../../api/wit-api/endPoints'
@@ -9,6 +10,7 @@ const PostToolbar = ({ postInfo }) => {
 	const [isLiked, setIsLiked] = useState(postInfo.isLiked)
 	const [isSaved, setIsSaved] = useState(postInfo.isSaved)
 	const firebase = new Firebase()
+	const [currentUser, loading] = useAuthState(firebase.auth)
 
 	const sharePost = async () => {
 		await Share.share({
@@ -17,71 +19,67 @@ const PostToolbar = ({ postInfo }) => {
 	}
 
 	const likeOutfit = async () => {
-		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
+		const idToken = await currentUser.getIdToken(true)
 
-			await fetch(`${baseUrl}${like}`, {
-				method: 'PUT',
-				headers: {
-					Authorization: idToken,
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				body: new URLSearchParams({
-					outfitId: postInfo.id
-				})
+		await fetch(`${baseUrl}${like}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: idToken,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				outfitId: postInfo.id
 			})
 		})
 	}
 	const unlikeOutfit = async () => {
-		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
+		const idToken = await currentUser.getIdToken(true)
 
-			await fetch(`${baseUrl}${unlike}`, {
-				method: 'PUT',
-				headers: {
-					Authorization: idToken,
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				body: new URLSearchParams({
-					outfitId: postInfo.id
-				})
+		await fetch(`${baseUrl}${unlike}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: idToken,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				outfitId: postInfo.id
 			})
 		})
 	}
 
 	const save = async () => {
-		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
+		const idToken = await currentUser.getIdToken(true)
 
-			await fetch(`${baseUrl}${saveOutfit}`, {
-				method: 'PUT',
-				headers: {
-					Authorization: idToken,
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				body: new URLSearchParams({
-					outfitId: postInfo.id
-				})
+		await fetch(`${baseUrl}${saveOutfit}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: idToken,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				outfitId: postInfo.id
 			})
 		})
 	}
 
 	const unsave = async () => {
-		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
+		const idToken = await currentUser.getIdToken(true)
 
-			await fetch(`${baseUrl}${unsaveOutfit}`, {
-				method: 'PUT',
-				headers: {
-					Authorization: idToken,
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				body: new URLSearchParams({
-					outfitId: postInfo.id
-				})
+		await fetch(`${baseUrl}${unsaveOutfit}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: idToken,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				outfitId: postInfo.id
 			})
 		})
 	}
+
+	useEffect(() => {
+		if (loading) return
+	}, [loading])
 
 	return (
 		<IonToolbar color={'transparent'}>

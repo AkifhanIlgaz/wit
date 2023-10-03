@@ -10,22 +10,6 @@ import OutfitLinkDot from './OutfitLinkDot'
 const Outfit = () => {
 	const history = useHistory()
 	const [outfit, setOutfit] = useRecoilState(outfitState)
-	// TODO: Show links
-
-	const links = [
-		{
-			href: 'https://www.topcoder.com/thrive/articles/fetch-api-javascript-how-to-make-get-and-post-requests',
-			left: '51.84615384615385%',
-			top: '10.78672985781991%',
-			title: 'Logo'
-		},
-		{
-			href: 'https://www.topcoder.com/thrive/articles/fetch-api-javascript-how-to-make-get-and-post-requests',
-			left: '51.84615384615385%',
-			top: '91.78672985781991%',
-			title: 'Logo'
-		}
-	]
 
 	return (
 		<IonPage>

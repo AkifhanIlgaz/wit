@@ -1,6 +1,7 @@
 import { IonContent, IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonPage, IonRefresher, IonRefresherContent, IonToolbar } from '@ionic/react'
 import { refreshSharp } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import Firebase from '../api/firebase/firebase'
 import { baseUrl, outfitsHome } from '../api/wit-api/endPoints'
 import Finished from '../components/Finished'
@@ -11,35 +12,35 @@ const Home = () => {
 	const firebase = new Firebase()
 	const [posts, setPosts] = useState([])
 	const [isLast, setIsLast] = useState(false)
+	const [currentUser, loading] = useAuthState(firebase.auth)
 
 	const getPosts = async (last = '') => {
-		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
-			const res = await fetch(
-				`${baseUrl}${outfitsHome}?` +
-					new URLSearchParams({
-						last: last
-					}),
-				{
-					method: 'GET',
-					headers: {
-						Authorization: idToken
-					}
+		const idToken = await currentUser.getIdToken(true)
+		const res = await fetch(
+			`${baseUrl}${outfitsHome}?` +
+				new URLSearchParams({
+					last: last
+				}),
+			{
+				method: 'GET',
+				headers: {
+					Authorization: idToken
 				}
-			)
-
-			const newPosts = await res.json()
-			if (newPosts === null) {
-				setIsLast(true)
 			}
+		)
 
-			last === '' ? setPosts([...newPosts]) : setPosts([...posts, ...newPosts])
-		})
+		const newPosts = await res.json()
+		if (newPosts === null) {
+			setIsLast(true)
+		}
+
+		last === '' ? setPosts([...newPosts]) : setPosts([...posts, ...newPosts])
 	}
 
 	useEffect(() => {
+		if (loading) return
 		getPosts()
-	}, [])
+	}, [loading])
 
 	return (
 		<IonPage>

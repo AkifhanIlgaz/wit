@@ -1,5 +1,6 @@
 import { IonCard, IonCol, IonGrid, IonInfiniteScroll, IonInfiniteScrollContent, IonRow } from '@ionic/react'
 import { useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
 import Firebase from '../../api/firebase/firebase'
@@ -19,32 +20,32 @@ const Saved = ({ uid }) => {
 	const [items, setItems] = useState([])
 	const [currentOutfit, setCurrentOutfit] = useRecoilState(outfitState)
 	const firebase = new Firebase()
-
+	const [currentUser, loading] = useAuthState(firebase.auth)
 	const getOutfits = async (last = '') => {
-		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
-			const res = await fetch(
-				`${baseUrl}${savedOutfits}?` +
-					new URLSearchParams({
-						uid: uid,
-						last: last
-					}),
-				{
-					method: 'GET',
-					headers: {
-						Authorization: idToken
-					}
-				}
-			)
+		const idToken = await currentUser.getIdToken(true)
 
-			const newOutfits = await res.json()
-			setItems([...items, ...newOutfits])
-		})
+		const res = await fetch(
+			`${baseUrl}${savedOutfits}?` +
+				new URLSearchParams({
+					uid: uid,
+					last: last
+				}),
+			{
+				method: 'GET',
+				headers: {
+					Authorization: idToken
+				}
+			}
+		)
+
+		const newOutfits = await res.json()
+		setItems([...items, ...newOutfits])
 	}
 
 	useEffect(() => {
+		if (loading) return
 		getOutfits()
-	}, [])
+	}, [loading])
 
 	return (
 		<IonGrid className="ion-no-padding post-grid">
