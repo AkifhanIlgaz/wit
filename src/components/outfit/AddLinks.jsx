@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import Firebase from '../../api/firebase/firebase'
 import Link from '../../api/models/link'
 import { addOutfit, baseUrl, generateUploadUrl } from '../../api/wit-api/endPoints'
-import OutfitLinkDot from './OutfitLinkDot'
+import EditableOutfitLinkDot from './EditableOutfitLinkDot'
 
 const invalidUrl = 'Please enter an valid URL'
 const invalidTitle = 'Please enter title'
@@ -149,11 +149,14 @@ const AddLinks = ({ photo, setIsOpen }) => {
 						})
 					}}
 				/>
-
+				{/* 
 				{links.map((link, index) => (
 					<OutfitLinkDot key={index} link={link} />
-				))}
+				))} */}
 
+				{links.map((link, index) => (
+					<EditableOutfitLinkDot key={index} link={link} />
+				))}
 				<IonAlert isOpen={isErrorOpen} message={errorMessage} buttons={['OK']} onDidDismiss={() => setIsErrorOpen(false)}></IonAlert>
 			</div>
 		</Fragment>

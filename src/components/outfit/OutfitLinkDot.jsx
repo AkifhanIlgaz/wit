@@ -78,8 +78,7 @@ const OutfitLinkDot = ({ link }) => {
 				}}
 				onClick={e => {
 					present({
-						event: e,
-						onDidDismiss: e => console.log(e)
+						event: e
 					})
 				}}
 			></div>
