@@ -71,7 +71,10 @@ const Home = () => {
 				<IonInfiniteScroll
 					onIonInfinite={ev => {
 						getPosts(posts.at(-1).createdAt).then(() => {
-							ev.target.complete()
+							// TODO: Delete timeout
+							setTimeout(() => {
+								ev.target.complete()
+							}, 1000)
 						})
 					}}
 				>
