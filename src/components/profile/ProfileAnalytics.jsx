@@ -79,9 +79,7 @@ const ProfileAnalytics = ({ uid }) => {
 	}
 
 	useEffect(() => {
-		getFollowers()
-		getFollowings()
-		getOutfitCount()
+		Promise.all([getFollowers(), getFollowings(), getOutfitCount()])
 	}, [])
 
 	return (

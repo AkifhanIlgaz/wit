@@ -3,7 +3,6 @@
 <!-- TODO -->
 
 Search
-Use Promise.all for profile analytics or outfits
 
 # Add outfit
 
