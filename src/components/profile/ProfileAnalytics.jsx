@@ -15,7 +15,7 @@ const ProfileAnalytics = ({ uid }) => {
 	const [user, loading, err] = useAuthState(firebase.auth)
 
 	const getFollowers = async (last = '') => {
-		const idToken = user.getIdToken(true)
+		const idToken = await user.getIdToken(true)
 		const res = await fetch(
 			`${baseUrl}${follower}?` +
 				new URLSearchParams({
@@ -84,21 +84,19 @@ const ProfileAnalytics = ({ uid }) => {
 	}, [loading])
 
 	return (
-		!loading && (
-			<IonRow className="ion-align-items-center ion-justify-content-space-around ion-margin-top  " style={{ borderTop: '1px solid rgb(219,219,219)', borderBottom: '1px solid rgb(219,219,219)' }}>
-				<IonCol
-					className="ion-no-padding"
-					style={{
-						display: 'flex',
-						justifyContent: 'space-around'
-					}}
-				>
-					<PostBox count={count} />
-					<FollowersBox users={followers} getFollowers={getFollowers} />
-					<FollowingsBox users={followings} getFollowings={getFollowings} />
-				</IonCol>
-			</IonRow>
-		)
+		<IonRow className="ion-align-items-center ion-justify-content-space-around ion-margin-top  " style={{ borderTop: '1px solid rgb(219,219,219)', borderBottom: '1px solid rgb(219,219,219)' }}>
+			<IonCol
+				className="ion-no-padding"
+				style={{
+					display: 'flex',
+					justifyContent: 'space-around'
+				}}
+			>
+				<PostBox count={count} />
+				<FollowersBox users={followers} getFollowers={getFollowers} />
+				<FollowingsBox users={followings} getFollowings={getFollowings} />
+			</IonCol>
+		</IonRow>
 	)
 }
 export default ProfileAnalytics

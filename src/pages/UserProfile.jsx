@@ -1,6 +1,7 @@
 import { IonButton, IonButtons, IonCol, IonGrid, IonIcon, IonRow, IonToolbar } from '@ionic/react'
 import { chevronBackOutline } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { useHistory } from 'react-router'
 import Firebase from '../api/firebase/firebase'
 import { api_user, baseUrl } from '../api/wit-api/endPoints'
@@ -15,31 +16,30 @@ const UserProfile = ({ uid }) => {
 	const history = useHistory()
 	const firebase = new Firebase()
 	const [user, setUser] = useState({})
+	const [currentUser, loading] = useAuthState(firebase.auth)
 
 	const getUser = async () => {
-		firebase.auth.onAuthStateChanged(async user => {
-			const idToken = await user.getIdToken(true)
-			const res = await fetch(
-				`${baseUrl}${api_user}?` +
-					new URLSearchParams({
-						uid: uid
-					}),
-				{
-					method: 'GET',
-					headers: {
-						Authorization: idToken
-					}
+		const idToken = await currentUser.getIdToken(true)
+		const res = await fetch(
+			`${baseUrl}${api_user}?` +
+				new URLSearchParams({
+					uid: uid
+				}),
+			{
+				method: 'GET',
+				headers: {
+					Authorization: idToken
 				}
-			)
-			const u = await res.json()
-			console.log(u)
-			setUser(u)
-		})
+			}
+		)
+		const u = await res.json()
+		setUser(u)
 	}
 
 	useEffect(() => {
+		if (loading) return
 		getUser()
-	}, [])
+	}, [loading])
 
 	return (
 		<Authorized>
