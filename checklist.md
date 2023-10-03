@@ -2,7 +2,6 @@
 
  <!-- TODO -->
 
-Fix refresher
 When the username or profilePhoto is clicked go to the user's page
 Show animation in infinite scroll
 
