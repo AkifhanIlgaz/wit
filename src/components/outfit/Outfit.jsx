@@ -38,9 +38,6 @@ const Outfit = () => {
 					/>
 
 					{outfit.links && outfit.links.map((link, index) => <OutfitLinkDot key={index} link={link} />)}
-					{links.map((link, index) => (
-						<OutfitLinkDot key={index} link={link} />
-					))}
 				</div>
 			</IonContent>
 		</IonPage>
