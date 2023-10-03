@@ -1,14 +1,16 @@
 import { IonCol, IonRow } from '@ionic/react'
 import { useEffect, useState } from 'react'
 import Firebase from '../../api/firebase/firebase'
-import { baseUrl, follower, following } from '../../api/wit-api/endPoints'
+import { baseUrl, follower, following, outfitCount } from '../../api/wit-api/endPoints'
 import FollowersBox from './box/FollowersBox'
 import FollowingsBox from './box/FollowingsBox'
 import PostBox from './box/PostBox'
 
-const ProfileAnalytics = ({ outfitCount, uid }) => {
+const ProfileAnalytics = ({ uid }) => {
 	const [followers, setFollowers] = useState([])
 	const [followings, setFollowings] = useState([])
+	const [count, setCount] = useState(0)
+
 	const firebase = new Firebase()
 	const getFollowers = async (last = '') => {
 		firebase.auth.onAuthStateChanged(async user => {
@@ -54,9 +56,32 @@ const ProfileAnalytics = ({ outfitCount, uid }) => {
 		})
 	}
 
+	const getOutfitCount = async () => {
+		firebase.auth.onAuthStateChanged(async user => {
+			const idToken = await user.getIdToken(true)
+			const res = await fetch(
+				`${baseUrl}${outfitCount}?` +
+					new URLSearchParams({
+						uid: uid
+					}),
+				{
+					method: 'GET',
+					headers: {
+						Authorization: idToken
+					}
+				}
+			)
+
+			const body = await res.json()
+
+			setCount(body.outfitCount)
+		})
+	}
+
 	useEffect(() => {
 		getFollowers()
 		getFollowings()
+		getOutfitCount()
 	}, [])
 
 	return (
@@ -68,7 +93,7 @@ const ProfileAnalytics = ({ outfitCount, uid }) => {
 					justifyContent: 'space-around'
 				}}
 			>
-				<PostBox count={outfitCount} />
+				<PostBox count={count} />
 				<FollowersBox users={followers} getFollowers={getFollowers} />
 				<FollowingsBox users={followings} getFollowings={getFollowings} />
 			</IonCol>

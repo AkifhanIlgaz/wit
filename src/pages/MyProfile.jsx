@@ -85,7 +85,7 @@ const MyProfile = ({ uid }) => {
 					</IonCol>
 				</IonRow>
 
-				<ProfileAnalytics uid={uid} outfitCount={4} />
+				<ProfileAnalytics uid={uid} />
 			</IonGrid>
 			<PostTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 			{selectedTab === 'saved' ? <Saved uid={uid} /> : <Outfits uid={uid} />}
