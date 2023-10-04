@@ -1,12 +1,6 @@
 import { IonButton, IonCard, IonCardContent, IonCol, IonGrid, IonInput, IonLabel, IonRow, useIonPopover } from '@ionic/react'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 
-const Popover = ({ link, removeLink, updateLink, i }) => {
-	const { register, handleSubmit } = useForm()
-
-	const [val, setVal] = useState(link)
-
+const Popover = ({ link, removeLink, updateLink, i, dismiss }) => {
 	return (
 		<IonGrid className="ion-align-items-center ion-justify-content-center  ">
 			<IonRow className="ion-align-items-center ion-justify-content-center ">
@@ -53,12 +47,14 @@ const Popover = ({ link, removeLink, updateLink, i }) => {
 										color={'danger'}
 										onClick={() => {
 											removeLink(i)
+											dismiss()
 										}}
 									>
 										Remove
 									</IonButton>
 									<IonButton
 										onClick={() => {
+											dismiss()
 											updateLink(link, i)
 										}}
 									>
@@ -74,7 +70,7 @@ const Popover = ({ link, removeLink, updateLink, i }) => {
 	)
 }
 const EditableOutfitLinkDot = ({ link, removeLink, updateLink, i }) => {
-	const [present, dismiss] = useIonPopover(Popover, { link: link, removeLink: removeLink, updateLink: updateLink, i: i })
+	const [present, dismiss] = useIonPopover(Popover, { link: link, removeLink: removeLink, updateLink: updateLink, i: i, dismiss: () => dismiss() })
 
 	return (
 		<>

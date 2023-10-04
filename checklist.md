@@ -11,4 +11,3 @@ Search user page || modal
 Change naming posts to outfits
 Edit Profile
 Settings
-If the user is on the tab he is clicked scroll to top
