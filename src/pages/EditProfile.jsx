@@ -1,7 +1,8 @@
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCol, IonFab, IonFabButton, IonGrid, IonIcon, IonInput, IonRow, IonToolbar } from '@ionic/react'
 import { pencilOutline } from 'ionicons/icons'
 import { useRef } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useHistory } from 'react-router'
+import { useRecoilState } from 'recoil'
 import Firebase from '../api/firebase/firebase'
 import userState from '../atoms/user'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
@@ -9,13 +10,15 @@ import Authorized from '../layouts/Authorized'
 
 const EditProfile = () => {
 	const uploadPhoto = useRef()
-	const user = useRecoilValue(userState)
+	const [user, setUser] = useRecoilState(userState)
 	const firebase = new Firebase()
+	const history = useHistory()
 
 	const handleUploadPhoto = async event => {
 		const file = event.target.files[0]
 		try {
 			const url = firebase.uploadFile(user.uid, file)
+			setUser({ ...user, photoUrl: url })
 			console.log(url)
 		} catch (error) {
 			console.log(error)
@@ -26,14 +29,29 @@ const EditProfile = () => {
 		uploadPhoto.current.click()
 	}
 
+	const goUsersProfile = () => {
+		history.push(`/user/${user.uid}`)
+	}
+
+	const updateProfile = () => {
+		goUsersProfile()
+		console.log(user)
+	}
+
 	return (
 		<Authorized>
 			<IonToolbar color={'transparent'} className="ion-margin-bottom">
 				<IonButtons slot="start" className="ion-padding-start">
-					<IonButton>Cancel</IonButton>
+					<IonButton onClick={goUsersProfile}>Cancel</IonButton>
 				</IonButtons>
 				<IonButtons slot="end" className="ion-padding-end">
-					<IonButton>Save</IonButton>
+					<IonButton
+						onClick={() => {
+							updateProfile()
+						}}
+					>
+						Save
+					</IonButton>
 				</IonButtons>
 			</IonToolbar>
 			<IonGrid>
@@ -44,7 +62,7 @@ const EditProfile = () => {
 							position: 'relative'
 						}}
 					>
-						<img src={user.photoURL ? user.photoURL : defaultProfilePhoto} alt="" style={{ position: 'relative', borderRadius: '50%', width: '50%', height: '50%' }} />
+						<img src={user.photoUrl ? user.photoUrl : defaultProfilePhoto} alt="" style={{ position: 'relative', borderRadius: '50%', width: '50%', height: '50%' }} />
 						<IonFab slot="fixed" horizontal="right" vertical="bottom">
 							<IonFabButton
 								size="small"
@@ -52,7 +70,7 @@ const EditProfile = () => {
 								style={{
 									zIndex: '2',
 									position: 'absolute',
-									right: '22%',
+									right: '2ı2%',
 									bottom: '1%',
 									margin: 'auto'
 								}}
@@ -67,32 +85,21 @@ const EditProfile = () => {
 					</div>
 
 					<IonCardContent className="card-content">
-						<IonRow className="ion-align-items-center">
+						<IonRow className="ion-align-items-center ion-justify-content-center">
 							<IonCol className="ion-no-padding">
 								<IonInput
-									label="E-Mail"
-									type="email"
-									labelPlacement="floating"
-									className="ion-padding-start ion-padding-end ion-margin-top ion-input"
+									label="Username"
+									type="text"
+									placeholder={user.displayName}
+									clearOnEdit
+									labelPlacement="stacked"
 									style={{
-										border: '1px solid black',
-										borderRadius: '50px'
+										borderBottom: '1px solid black'
 									}}
-									fill="block"
-								></IonInput>
-							</IonCol>
-						</IonRow>
-						<IonRow className="ion-align-items-center">
-							<IonCol className="ion-no-padding">
-								<IonInput
-									label="E-Mail"
-									type="email"
-									labelPlacement="floating"
-									className="ion-padding-start ion-padding-end ion-margin-top ion-input"
-									style={{
-										border: '1px solid black'
+									onIonInput={e => {
+										setUser({ ...user, displayName: e.detail.value })
+										console.log(e.detail.value)
 									}}
-									fill="block"
 								></IonInput>
 							</IonCol>
 						</IonRow>
