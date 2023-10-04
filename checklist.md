@@ -1,14 +1,8 @@
-# My Profile
-
-<!-- TODO -->
-
-Search
-
 # Add outfit
 
 <!-- TODO -->
 
-Edit dot, remove dot
+Edit dot, remove dot || On remove, on edit dismis popover
 Change dot color || Make transparent
 
 <!-- TODO -->

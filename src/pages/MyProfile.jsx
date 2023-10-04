@@ -70,7 +70,7 @@ const MyProfile = ({ uid }) => {
 							justifyContent: 'center'
 						}}
 					>
-						<img src={user.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
+						<img src={user.photoUrl || defaultProfilePhoto} alt="" className="profile-photo" />
 					</IonCol>
 				</IonRow>
 				<IonRow className="ion-align-items-center ion-justify-content-center">

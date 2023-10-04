@@ -1,67 +1,80 @@
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCol, IonGrid, IonIcon, IonInput, IonLabel, IonRow, useIonPopover } from '@ionic/react'
-import { trash } from 'ionicons/icons'
+import { IonButton, IonCard, IonCardContent, IonCol, IonGrid, IonInput, IonLabel, IonRow, useIonPopover } from '@ionic/react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-const Popover = ({ link }) => {
+const Popover = ({ link, removeLink, updateLink, i }) => {
 	const { register, handleSubmit } = useForm()
 
-	const updateLink = async data => {
-		console.log(data)
-	}
+	const [val, setVal] = useState(link)
 
 	return (
-		<form onSubmit={handleSubmit(updateLink)}>
-			<IonGrid className="ion-align-items-center ion-justify-content-center  ">
-				<IonRow className="ion-align-items-center ion-justify-content-center ">
-					<IonCol>
-						<IonCard className="ion-no-margin">
-							<IonCardContent
-								className="ion-no-padding ion-padding-top ion-padding-bottom"
-								style={{
-									paddingLeft: '.5em',
-									paddingRight: '.5em'
-								}}
-							>
-								<IonRow className="ion-align-items-center">
-									<IonCol className="ion-no-padding ion-padding-bottom">
-										<IonLabel>Title</IonLabel>
-										<IonInput aria-label="title" value={link.title} className="ion-input"></IonInput>
-									</IonCol>
-								</IonRow>
-								<IonRow className="ion-align-items-center">
-									<IonCol className="ion-no-padding ion-padding-bottom">
-										<IonLabel>Link</IonLabel>
-										<IonInput aria-label="link" value={link.href} className="ion-input"></IonInput>
-									</IonCol>
-								</IonRow>
+		<IonGrid className="ion-align-items-center ion-justify-content-center  ">
+			<IonRow className="ion-align-items-center ion-justify-content-center ">
+				<IonCol>
+					<IonCard className="ion-no-margin">
+						<IonCardContent
+							className="ion-no-padding ion-padding-top ion-padding-bottom"
+							style={{
+								paddingLeft: '.5em',
+								paddingRight: '.5em'
+							}}
+						>
+							<IonRow className="ion-align-items-center">
+								<IonCol className="ion-no-padding ion-padding-bottom">
+									<IonLabel>Title</IonLabel>
+									<IonInput
+										onIonChange={e => {
+											link = { ...link, title: e.detail.value }
+										}}
+										aria-label="title"
+										placeholder={link.title}
+										clearOnEdit={true}
+										className="ion-input ion-padding-start ion-padding-end"
+									></IonInput>
+								</IonCol>
+							</IonRow>
+							<IonRow className="ion-align-items-center">
+								<IonCol className="ion-no-padding ion-padding-bottom">
+									<IonLabel>Link</IonLabel>
+									<IonInput
+										onIonInput={e => {
+											link = { ...link, href: e.detail.value }
+										}}
+										aria-label="link"
+										placeholder={link.href}
+										className="ion-input ion-padding-start ion-padding-end"
+									></IonInput>
+								</IonCol>
+							</IonRow>
 
-								<IonRow className="ion-align-items-center">
-									<IonCol className="ion-no-padding">
-										<IonButton color={'danger'}>
-											<IonIcon icon={trash} slot="start"></IonIcon>
-											Remove
-										</IonButton>
-									</IonCol>
-								</IonRow>
-
-								<IonRow className="ion-align-items-center">
-									<IonCol className="ion-no-padding">
-										<IonButtons>
-											<IonButton>Cancel</IonButton>
-											<IonButton>Edit</IonButton>
-										</IonButtons>
-									</IonCol>
-								</IonRow>
-							</IonCardContent>
-						</IonCard>
-					</IonCol>
-				</IonRow>
-			</IonGrid>
-		</form>
+							<IonRow className="ion-align-items-center">
+								<IonCol className="ion-no-padding">
+									<IonButton
+										color={'danger'}
+										onClick={() => {
+											removeLink(i)
+										}}
+									>
+										Remove
+									</IonButton>
+									<IonButton
+										onClick={() => {
+											updateLink(link, i)
+										}}
+									>
+										Edit
+									</IonButton>
+								</IonCol>
+							</IonRow>
+						</IonCardContent>
+					</IonCard>
+				</IonCol>
+			</IonRow>
+		</IonGrid>
 	)
 }
-const EditableOutfitLinkDot = ({ link }) => {
-	const [present, dismiss] = useIonPopover(Popover, { link: link })
+const EditableOutfitLinkDot = ({ link, removeLink, updateLink, i }) => {
+	const [present, dismiss] = useIonPopover(Popover, { link: link, removeLink: removeLink, updateLink: updateLink, i: i })
 
 	return (
 		<>

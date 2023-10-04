@@ -63,6 +63,18 @@ const AddLinks = ({ photo, setIsOpen }) => {
 		setIsOpen(false)
 	}
 
+	const removeLink = index => {
+		const copyLinks = [...links]
+		copyLinks.splice(index, 1)
+		setLinks(copyLinks)
+	}
+
+	const updateLink = (link, index) => {
+		const copyLinks = [...links]
+		copyLinks[index] = link
+		setLinks(copyLinks)
+	}
+
 	useEffect(() => {
 		if (loading) return
 	}, [loading])
@@ -149,13 +161,9 @@ const AddLinks = ({ photo, setIsOpen }) => {
 						})
 					}}
 				/>
-				{/* 
-				{links.map((link, index) => (
-					<OutfitLinkDot key={index} link={link} />
-				))} */}
 
 				{links.map((link, index) => (
-					<EditableOutfitLinkDot key={index} link={link} />
+					<EditableOutfitLinkDot key={index} link={link} removeLink={removeLink} updateLink={updateLink} i={index} />
 				))}
 				<IonAlert isOpen={isErrorOpen} message={errorMessage} buttons={['OK']} onDidDismiss={() => setIsErrorOpen(false)}></IonAlert>
 			</div>
