@@ -1,9 +1,11 @@
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCol, IonFab, IonFabButton, IonGrid, IonIcon, IonInput, IonRow, IonToolbar } from '@ionic/react'
 import { pencilOutline } from 'ionicons/icons'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
 import Firebase from '../api/firebase/firebase'
+import { baseUrl, generateUploadUrl, updateProfilePhoto } from '../api/wit-api/endPoints'
 import userState from '../atoms/user'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
@@ -13,15 +15,43 @@ const EditProfile = () => {
 	const [user, setUser] = useRecoilState(userState)
 	const firebase = new Firebase()
 	const history = useHistory()
+	const [currentUser, loading] = useAuthState(firebase.auth)
 
 	const handleUploadPhoto = async event => {
 		const file = event.target.files[0]
-		try {
-			const url = firebase.uploadFile(user.uid, file)
-			setUser({ ...user, photoUrl: url })
-			console.log(url)
-		} catch (error) {
-			console.log(error)
+
+		const idToken = await currentUser.getIdToken(true)
+
+		let uploadData = await fetch(`${baseUrl}${generateUploadUrl}`, {
+			headers: {
+				Authorization: idToken,
+				fileType: file.type,
+				type: 'profilePhoto'
+			}
+		}).then(res => res.json())
+
+		console.log(uploadData)
+
+		const res = await fetch(uploadData.uploadUrl, {
+			method: 'PUT',
+			body: file,
+			headers: {
+				'Content-Type': file.type
+			}
+		})
+
+		// TODO: Update user on auth and firestore
+		if (res.ok) {
+			await fetch(`${baseUrl}${updateProfilePhoto}`, {
+				method: 'PUT',
+				headers: {
+					Authorization: idToken,
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					photoUrl: uploadData.filePath
+				})
+			})
 		}
 	}
 
@@ -37,6 +67,10 @@ const EditProfile = () => {
 		goUsersProfile()
 		console.log(user)
 	}
+
+	useEffect(() => {
+		if (loading) return
+	}, [loading])
 
 	return (
 		<Authorized>

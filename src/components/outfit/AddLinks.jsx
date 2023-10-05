@@ -30,7 +30,8 @@ const AddLinks = ({ photo, setIsOpen }) => {
 			let uploadData = await fetch(`${baseUrl}${generateUploadUrl}`, {
 				headers: {
 					Authorization: idToken,
-					fileExtension: photo.format
+					fileType: file.type,
+					type: 'outfit'
 				}
 			}).then(res => res.json())
 

@@ -3,10 +3,10 @@
 Update AddOutfit:
 
 - Add type field to request body || "outfit" "profilePhoto"
-- Update GenerateUploadUrl controller
 
 Edit Profile:
 
+- Don't update recoil state unless user clicked save
 - Make a request generate-upload-url endpoint to get SignedUrl
 
 <!-- TODO -->
