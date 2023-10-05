@@ -11,6 +11,7 @@ import Outfits from '../components/outfit/Outfits'
 import ProfileAnalytics from '../components/profile/ProfileAnalytics'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
+import ProfileHeaderSkeleton from '../skeletons/ProfileHeaderSkeleton'
 
 const UserProfile = ({ uid }) => {
 	const history = useHistory()
@@ -58,45 +59,50 @@ const UserProfile = ({ uid }) => {
 			</IonToolbar>
 
 			<IonGrid className="ion-no-padding">
-				<IonRow
-					className="ion-align-items-center ion-justify-content-center"
-					style={{
-						marginTop: '1%'
-					}}
-				>
-					<IonCol
-						style={{
-							display: 'flex',
-							justifyContent: 'center'
-						}}
-						size="4"
-					>
-						<img src={user.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
-					</IonCol>
-				</IonRow>
-				<IonRow className="ion-align-items-center ion-justify-content-center">
-					<IonCol
-						style={{
-							display: 'flex',
-							justifyContent: 'center'
-						}}
-						size="4"
-						className="count"
-					>
-						<h3>{user.displayName}</h3>
-					</IonCol>
-				</IonRow>
-
-				<IonRow className="ion-align-items-center ion-justify-content-center ion-margin-top">
-					<IonCol
-						style={{
-							display: 'flex',
-							justifyContent: 'center'
-						}}
-					>
-						<FollowButton isFollowed={user.isFollowed} uid={uid} />
-					</IonCol>
-				</IonRow>
+				{Object.keys(user).length != 0 ? (
+					<>
+						<IonRow
+							className="ion-align-items-center ion-justify-content-center"
+							style={{
+								marginTop: '1%'
+							}}
+						>
+							<IonCol
+								style={{
+									display: 'flex',
+									justifyContent: 'center'
+								}}
+								size="4"
+							>
+								<img src={user.photoUrl || defaultProfilePhoto} alt="User Profile Photo" className="profile-photo" />
+							</IonCol>
+						</IonRow>
+						<IonRow className="ion-align-items-center ion-justify-content-center">
+							<IonCol
+								style={{
+									display: 'flex',
+									justifyContent: 'center'
+								}}
+								size="4"
+								className="count"
+							>
+								<h3>{user.displayName}</h3>
+							</IonCol>
+						</IonRow>
+						<IonRow className="ion-align-items-center ion-justify-content-center ion-margin-top">
+							<IonCol
+								style={{
+									display: 'flex',
+									justifyContent: 'center'
+								}}
+							>
+								<FollowButton isFollowed={user.isFollowed} uid={uid} />
+							</IonCol>
+						</IonRow>
+					</>
+				) : (
+					<ProfileHeaderSkeleton />
+				)}
 
 				<ProfileAnalytics uid={uid} />
 			</IonGrid>
