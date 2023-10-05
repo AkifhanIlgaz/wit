@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonList, IonPage, IonRefresher, IonRefresherContent, IonToolbar } from '@ionic/react'
 import { refreshSharp } from 'ionicons/icons'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import Firebase from '../api/firebase/firebase'
 import { baseUrl, outfitsHome } from '../api/wit-api/endPoints'
@@ -64,28 +64,31 @@ const Home = () => {
 					<IonRefresherContent refreshingSpinner={'bubbles'} pullingIcon={refreshSharp} refreshingText={'Loading'}></IonRefresherContent>
 				</IonRefresher>
 
-				{posts.length === 0 && new Array(2).fill(0).map(() => <PostCardSkeleton />)}
-
-				<IonList>
-					{posts.map((post, index) => {
-						return <PostCard key={index} outfit={post} />
-					})}
-				</IonList>
-
-				<IonInfiniteScroll
-					onIonInfinite={ev => {
-						getPosts(posts.at(-1).createdAt).then(() => {
-							// TODO: Delete timeout
-							setTimeout(() => {
-								ev.target.complete()
-							}, 1000)
-						})
-					}}
-				>
-					<IonInfiniteScrollContent loadingText={'Please wait...'} loadingSpinner={'bubbles'} className="ion-margin">
-						{isLast && <Finished />}
-					</IonInfiniteScrollContent>
-				</IonInfiniteScroll>
+				{posts.length === 0 ? (
+					new Array(2).fill(0).map(() => <PostCardSkeleton />)
+				) : (
+					<Fragment>
+						<IonList>
+							{posts.map((post, index) => {
+								return <PostCard key={index} outfit={post} />
+							})}
+						</IonList>
+						<IonInfiniteScroll
+							onIonInfinite={ev => {
+								getPosts(posts.at(-1).createdAt).then(() => {
+									// TODO: Delete timeout
+									setTimeout(() => {
+										ev.target.complete()
+									}, 1000)
+								})
+							}}
+						>
+							<IonInfiniteScrollContent loadingText={'Please wait...'} loadingSpinner={'bubbles'} className="ion-margin">
+								{isLast && <Finished />}
+							</IonInfiniteScrollContent>
+						</IonInfiniteScroll>
+					</Fragment>
+				)}
 			</IonContent>
 		</IonPage>
 	)
