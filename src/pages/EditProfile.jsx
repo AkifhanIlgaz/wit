@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
 import Firebase, { StorageBase } from '../api/firebase/firebase'
-import { baseUrl, generateUploadUrl, updateProfilePhoto } from '../api/wit-api/endPoints'
+import { baseUrl, generateUploadUrl, updateUser } from '../api/wit-api/endPoints'
 import userState from '../atoms/user'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
 import Authorized from '../layouts/Authorized'
@@ -16,8 +16,8 @@ const EditProfile = () => {
 	const firebase = new Firebase()
 	const history = useHistory()
 	const [currentUser, loading] = useAuthState(firebase.auth)
-	const [profilePhoto, setProfilePhoto] = useState()
 	const [displayName, setDisplayName] = useState('')
+	const [profilePhoto, setProfilePhoto] = useState('')
 
 	const handleUploadPhoto = async event => {
 		const file = event.target.files[0]
@@ -41,7 +41,7 @@ const EditProfile = () => {
 		})
 
 		if (res.ok) {
-			await fetch(`${baseUrl}${updateProfilePhoto}`, {
+			await fetch(`${baseUrl}${updateUser}`, {
 				method: 'PUT',
 				headers: {
 					Authorization: idToken,
@@ -64,8 +64,19 @@ const EditProfile = () => {
 		history.push(`/user/${user.uid}`)
 	}
 
-	const updateProfile = () => {
-		// TODO: API call
+	const updateProfile = async () => {
+		const idToken = await currentUser.getIdToken(true)
+
+		await fetch(`${baseUrl}${updateUser}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: idToken,
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				displayName: displayName
+			})
+		})
 
 		setUser({ ...user, displayName: displayName })
 		goUsersProfile()
