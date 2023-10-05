@@ -7,6 +7,7 @@ import { baseUrl, outfitsHome } from '../api/wit-api/endPoints'
 import Finished from '../components/Finished'
 import LogoTitle from '../components/LogoTitle'
 import PostCard from '../components/post/PostCard'
+import PostCardSkeleton from '../skeletons/PostCardSkeleton'
 
 const Home = () => {
 	const firebase = new Firebase()
@@ -62,6 +63,8 @@ const Home = () => {
 				>
 					<IonRefresherContent refreshingSpinner={'bubbles'} pullingIcon={refreshSharp} refreshingText={'Loading'}></IonRefresherContent>
 				</IonRefresher>
+
+				{posts.length === 0 && new Array(2).fill(0).map(() => <PostCardSkeleton />)}
 
 				<IonList>
 					{posts.map((post, index) => {

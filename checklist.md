@@ -1,9 +1,3 @@
-# Add outfit
-
-Edit Profile:
-
-- Don't update recoil state unless user clicked save
-
 <!-- TODO -->
 
 Edit dot and remove dot after outfit is shared
