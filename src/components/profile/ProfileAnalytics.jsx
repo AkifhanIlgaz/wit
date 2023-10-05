@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import Firebase from '../../api/firebase/firebase'
 import { baseUrl, follower, following, outfitCount } from '../../api/wit-api/endPoints'
+import BoxSkeleton from '../../skeletons/BoxSkeleton'
 import FollowersBox from './box/FollowersBox'
 import FollowingsBox from './box/FollowingsBox'
 import PostBox from './box/PostBox'
@@ -92,9 +93,9 @@ const ProfileAnalytics = ({ uid }) => {
 					justifyContent: 'space-around'
 				}}
 			>
-				<PostBox count={count} />
-				<FollowersBox users={followers} getFollowers={getFollowers} />
-				<FollowingsBox users={followings} getFollowings={getFollowings} />
+				{count === 0 ? <BoxSkeleton title={'Posts'} /> : <PostBox count={count} />}
+				{followers.length === 0 ? <BoxSkeleton title={'Followers'} /> : <FollowersBox users={followers} getFollowers={getFollowers} />}
+				{followings.length === 0 ? <BoxSkeleton title={'Followings'} /> : <FollowingsBox users={followings} getFollowings={getFollowings} />}
 			</IonCol>
 		</IonRow>
 	)
