@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil'
 import Firebase from '../../api/firebase/firebase'
 import { baseUrl, savedOutfits } from '../../api/wit-api/endPoints'
 import outfitState from '../../atoms/outfit'
+import OutfitCardSkeleton from '../../skeletons/OutfitCardSkeleton'
 
 const splitIntoChunks = (arr, chunkSize) => {
 	const chunks = []
@@ -49,6 +50,8 @@ const Saved = ({ uid }) => {
 
 	return (
 		<IonGrid className="ion-no-padding post-grid">
+			{items.length === 0 && splitIntoChunks(new Array(4).fill(null), 2).map(() => <OutfitCardSkeleton />)}
+
 			{splitIntoChunks(items, 2).map((chunk, i) => {
 				return (
 					<IonRow key={i} className="ion-margin">
