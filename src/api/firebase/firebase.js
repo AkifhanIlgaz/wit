@@ -7,6 +7,7 @@ import firebaseConfig from './firebaseConfig'
 
 export const UsersCollection = 'users'
 export const OutfitsCollection = 'outfits'
+export const StorageBase = 'https://storage.cloud.google.com/wearittomorrow-ab06f.appspot.com'
 
 export function addIdToken(url, token) {
 	return `${url}?token=${encodeURIComponent(token)}`

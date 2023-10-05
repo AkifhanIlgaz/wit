@@ -1,10 +1,10 @@
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCol, IonFab, IonFabButton, IonGrid, IonIcon, IonInput, IonRow, IonToolbar } from '@ionic/react'
 import { pencilOutline } from 'ionicons/icons'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useHistory } from 'react-router'
 import { useRecoilState } from 'recoil'
-import Firebase from '../api/firebase/firebase'
+import Firebase, { StorageBase } from '../api/firebase/firebase'
 import { baseUrl, generateUploadUrl, updateProfilePhoto } from '../api/wit-api/endPoints'
 import userState from '../atoms/user'
 import defaultProfilePhoto from '../images/defaultProfilePhoto.jpg'
@@ -16,6 +16,8 @@ const EditProfile = () => {
 	const firebase = new Firebase()
 	const history = useHistory()
 	const [currentUser, loading] = useAuthState(firebase.auth)
+	const [profilePhoto, setProfilePhoto] = useState()
+	const [displayName, setDisplayName] = useState('')
 
 	const handleUploadPhoto = async event => {
 		const file = event.target.files[0]
@@ -30,8 +32,6 @@ const EditProfile = () => {
 			}
 		}).then(res => res.json())
 
-		console.log(uploadData)
-
 		const res = await fetch(uploadData.uploadUrl, {
 			method: 'PUT',
 			body: file,
@@ -40,7 +40,6 @@ const EditProfile = () => {
 			}
 		})
 
-		// TODO: Update user on auth and firestore
 		if (res.ok) {
 			await fetch(`${baseUrl}${updateProfilePhoto}`, {
 				method: 'PUT',
@@ -53,6 +52,8 @@ const EditProfile = () => {
 				})
 			})
 		}
+
+		setUser({ ...user, photoUrl: `${StorageBase}/${uploadData.filePath}` })
 	}
 
 	const click = () => {
@@ -64,8 +65,10 @@ const EditProfile = () => {
 	}
 
 	const updateProfile = () => {
+		// TODO: API call
+
+		setUser({ ...user, displayName: displayName })
 		goUsersProfile()
-		console.log(user)
 	}
 
 	useEffect(() => {
@@ -76,7 +79,14 @@ const EditProfile = () => {
 		<Authorized>
 			<IonToolbar color={'transparent'} className="ion-margin-bottom">
 				<IonButtons slot="start" className="ion-padding-start">
-					<IonButton onClick={goUsersProfile}>Cancel</IonButton>
+					<IonButton
+						onClick={() => {
+							setDisplayName(null)
+							goUsersProfile()
+						}}
+					>
+						Cancel
+					</IonButton>
 				</IonButtons>
 				<IonButtons slot="end" className="ion-padding-end">
 					<IonButton
@@ -124,15 +134,14 @@ const EditProfile = () => {
 								<IonInput
 									label="Username"
 									type="text"
-									placeholder={user.displayName}
-									clearOnEdit
+									value={displayName || user.displayName}
+									clearInput
 									labelPlacement="stacked"
 									style={{
 										borderBottom: '1px solid black'
 									}}
 									onIonInput={e => {
-										setUser({ ...user, displayName: e.detail.value })
-										console.log(e.detail.value)
+										setDisplayName(e.detail.value)
 									}}
 								></IonInput>
 							</IonCol>
