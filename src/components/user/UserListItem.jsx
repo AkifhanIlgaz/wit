@@ -2,6 +2,8 @@ import { IonAvatar, IonItem, IonLabel } from '@ionic/react'
 import FollowButton from '../buttons/FollowButton'
 
 const UserListItem = ({ user }) => {
+
+
 	return (
 		<IonItem>
 			<IonAvatar slot="start">

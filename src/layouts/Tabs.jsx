@@ -10,6 +10,7 @@ import Outfit from '../components/outfit/Outfit'
 import ProfileRouter from '../components/profile/ProfileRouter'
 import EditProfile from '../pages/EditProfile'
 import Home from '../pages/Home'
+import Search from '../pages/Search'
 
 const Tabs = () => {
 	const user = useRecoilValue(userState)
@@ -37,6 +38,7 @@ const Tabs = () => {
 						<Route exact path={'/user/:uid'} render={() => <ProfileRouter />} />
 						<Route exact path={'/outfit/:outfitId'} render={() => <Outfit />} />
 						<Route exact path={'/edit-profile'} render={() => <EditProfile />} />
+						<Route exact path={'/search'} render={() => <Search />} />
 					</IonRouterOutlet>
 					<IonTabBar slot="bottom" color={'transparent'} style={{ height: '6vh' }}>
 						<IonTabButton tab="home" href="/home">
