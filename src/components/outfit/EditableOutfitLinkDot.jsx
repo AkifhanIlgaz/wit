@@ -1,6 +1,7 @@
-import { IonButton, IonCard, IonCardContent, IonCol, IonGrid, IonInput, IonLabel, IonRow, useIonPopover } from '@ionic/react'
+import { IonButton, IonCard, IonCardContent, IonCol, IonGrid, IonIcon, IonInput, IonLabel, IonRow, useIonPopover } from '@ionic/react'
+import { trash } from 'ionicons/icons'
 
-const Popover = ({ link, removeLink, updateLink, i, dismiss }) => {
+const Popover = ({ link, removeLink, i, dismiss }) => {
 	return (
 		<IonGrid className="ion-align-items-center ion-justify-content-center  ">
 			<IonRow className="ion-align-items-center ion-justify-content-center ">
@@ -41,27 +42,20 @@ const Popover = ({ link, removeLink, updateLink, i, dismiss }) => {
 								</IonCol>
 							</IonRow>
 
-								<IonRow className="ion-align-items-center">
-									<IonCol className="ion-no-padding">
-										<IonButton
-											color={'danger'}
-											onClick={() => {
-												removeLink(i)
-												dismiss()
-											}}
-										>
-											Remove
-										</IonButton>
-										<IonButton
-											onClick={() => {
-												dismiss()
-												updateLink(link, i)
-											}}
-										>
-											Edit
-										</IonButton>
-									</IonCol>
-								</IonRow>
+							<IonRow className="ion-align-items-center">
+								<IonCol className="ion-no-padding">
+									<IonButton
+										color={'danger'}
+										onClick={() => {
+											removeLink(i)
+											dismiss()
+										}}
+									>
+										<IonIcon icon={trash} slot="start"></IonIcon>
+										Remove
+									</IonButton>
+								</IonCol>
+							</IonRow>
 						</IonCardContent>
 					</IonCard>
 				</IonCol>
@@ -69,8 +63,8 @@ const Popover = ({ link, removeLink, updateLink, i, dismiss }) => {
 		</IonGrid>
 	)
 }
-const EditableOutfitLinkDot = ({ link, removeLink, updateLink, i }) => {
-	const [present, dismiss] = useIonPopover(Popover, { link: link, removeLink: removeLink, updateLink: updateLink, i: i, dismiss: () => dismiss() })
+const EditableOutfitLinkDot = ({ link, removeLink, i }) => {
+	const [present, dismiss] = useIonPopover(Popover, { link: link, removeLink: removeLink, i: i, dismiss: () => dismiss() })
 
 	return (
 		<>

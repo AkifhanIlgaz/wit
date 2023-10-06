@@ -31,7 +31,6 @@ const Outfit = () => {
 
 		const link = outfit.links[index]
 
-		console.log(link)
 		const res = await fetch(`${baseUrl}${updateLink}?` + new URLSearchParams({ outfitId: outfit.id }), {
 			method: 'DELETE',
 			headers: {
@@ -46,12 +45,6 @@ const Outfit = () => {
 			copyLinks.splice(index, 1)
 			setOutfit({ ...outfit, links: copyLinks })
 		}
-
-		console.log(res)
-	}
-
-	const updateOutfitLink = async () => {
-		const idToken = await currentUser.getIdToken(true)
 	}
 
 	useEffect(() => {
@@ -84,7 +77,7 @@ const Outfit = () => {
 						}}
 					/>
 
-					{outfit.uid === user.uid ? outfit.links && outfit.links.map((link, index) => <EditableOutfitLinkDot key={index} link={link} removeLink={() => removeOutfitLink(index)} updateLink={updateOutfitLink} />) : outfit.links && outfit.links.map((link, index) => <OutfitLinkDot key={index} link={link} />)}
+					{outfit.uid === user.uid ? outfit.links && outfit.links.map((link, index) => <EditableOutfitLinkDot key={index} link={link} removeLink={() => removeOutfitLink(index)} />) : outfit.links && outfit.links.map((link, index) => <OutfitLinkDot key={index} link={link} />)}
 				</div>
 			</IonContent>
 		</IonPage>
