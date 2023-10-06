@@ -6,7 +6,7 @@ const AddOutfit = ({ isOpen, setIsOpen, photo }) => {
 		<IonModal isOpen={isOpen}>
 			<IonPopover isOpen dismissOnSelect>
 				<IonCard>
-					<IonCardContent>Click on the outfit to add additional info</IonCardContent>
+					<IonCardContent>Click to add links</IonCardContent>
 				</IonCard>
 			</IonPopover>
 

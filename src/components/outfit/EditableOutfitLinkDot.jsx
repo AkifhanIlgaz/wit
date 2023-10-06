@@ -41,27 +41,27 @@ const Popover = ({ link, removeLink, updateLink, i, dismiss }) => {
 								</IonCol>
 							</IonRow>
 
-							<IonRow className="ion-align-items-center">
-								<IonCol className="ion-no-padding">
-									<IonButton
-										color={'danger'}
-										onClick={() => {
-											removeLink(i)
-											dismiss()
-										}}
-									>
-										Remove
-									</IonButton>
-									<IonButton
-										onClick={() => {
-											dismiss()
-											updateLink(link, i)
-										}}
-									>
-										Edit
-									</IonButton>
-								</IonCol>
-							</IonRow>
+								<IonRow className="ion-align-items-center">
+									<IonCol className="ion-no-padding">
+										<IonButton
+											color={'danger'}
+											onClick={() => {
+												removeLink(i)
+												dismiss()
+											}}
+										>
+											Remove
+										</IonButton>
+										<IonButton
+											onClick={() => {
+												dismiss()
+												updateLink(link, i)
+											}}
+										>
+											Edit
+										</IonButton>
+									</IonCol>
+								</IonRow>
 						</IonCardContent>
 					</IonCard>
 				</IonCol>
