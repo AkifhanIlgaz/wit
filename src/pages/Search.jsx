@@ -4,8 +4,6 @@ import LogoTitle from '../components/LogoTitle'
 import UserListItem from '../components/user/UserListItem'
 
 const Search = () => {
-	const [items, setItems] = useState([])
-
 	const users = [
 		{
 			uid: 1,
@@ -38,6 +36,7 @@ const Search = () => {
 			displayName: 'Colleen Glasheen'
 		}
 	]
+	const [items, setItems] = useState(() => users)
 
 	useEffect(() => {
 		setItems(users)
@@ -56,18 +55,32 @@ const Search = () => {
 						showClearButton="focus"
 						onIonChange={e => {
 							if (!e.detail.value) {
-								setItems(users)
+								setItems([])
 								return
 							}
 
+							console.log(e.detail.value)
+
+							console.log(
+								items.filter(user => {
+									console.log(user)
+									user.displayName.startsWith(e.detail.value)
+								})
+							)
 							setItems(items.filter(user => user.displayName.startsWith(e.detail.value)))
 						}}
+						onIonBlur={() => setItems(users)}
 					></IonSearchbar>
 				</IonToolbar>
 			</IonHeader>
 
 			<IonContent>
-				<IonList>
+				<IonList
+					lines="full"
+					style={{
+						marginTop: '.2em'
+					}}
+				>
 					{items.map((user, i) => (
 						<UserListItem key={i} user={user} />
 					))}
