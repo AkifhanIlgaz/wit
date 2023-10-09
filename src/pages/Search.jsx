@@ -74,7 +74,8 @@ const Search = () => {
 			}
 		)
 
-		setItems(await res.json())
+		const users = await res.json()
+		setItems(users)
 	}
 
 	useEffect(() => {
@@ -101,7 +102,7 @@ const Search = () => {
 
 							console.log(e.detail.value)
 
-							setItems(items.filter(user => checkDisplayName(user.displayName, e.detail.value)))
+							filter(e.detail.value)
 						}}
 						onIonBlur={() => setItems(users)}
 					></IonSearchbar>
